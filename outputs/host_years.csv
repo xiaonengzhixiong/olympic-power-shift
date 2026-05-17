@@ -1,0 +1,32 @@
+﻿year,city,host_country,host_noc,host_noc_compatible,host_continent,is_home_games,source_note,needs_manual_review
+1896,Athina,Greece,GRE,GRE,Europe,1,city extracted from olympics_dataset; host country/noc/continent from curated HOST_CITY_MAP,0
+1900,Paris,France,FRA,FRA,Europe,1,city extracted from olympics_dataset; host country/noc/continent from curated HOST_CITY_MAP,0
+1904,St. Louis,United States,USA,USA,North America,1,city extracted from olympics_dataset; host country/noc/continent from curated HOST_CITY_MAP,0
+1906,Athina,Greece,GRE,GRE,Europe,1,city extracted from olympics_dataset; host country/noc/continent from curated HOST_CITY_MAP,0
+1908,London,United Kingdom,GBR,GBR,Europe,1,city extracted from olympics_dataset; host country/noc/continent from curated HOST_CITY_MAP,0
+1912,Stockholm,Sweden,SWE,SWE,Europe,1,city extracted from olympics_dataset; host country/noc/continent from curated HOST_CITY_MAP,0
+1920,Antwerpen,Belgium,BEL,BEL,Europe,1,city extracted from olympics_dataset; host country/noc/continent from curated HOST_CITY_MAP,0
+1924,Paris,France,FRA,FRA,Europe,1,city extracted from olympics_dataset; host country/noc/continent from curated HOST_CITY_MAP,0
+1928,Amsterdam,Netherlands,NED,NED,Europe,1,city extracted from olympics_dataset; host country/noc/continent from curated HOST_CITY_MAP,0
+1932,Los Angeles,United States,USA,USA,North America,1,city extracted from olympics_dataset; host country/noc/continent from curated HOST_CITY_MAP,0
+1936,Berlin,Germany,GER,GER,Europe,1,city extracted from olympics_dataset; host country/noc/continent from curated HOST_CITY_MAP,0
+1948,London,United Kingdom,GBR,GBR,Europe,1,city extracted from olympics_dataset; host country/noc/continent from curated HOST_CITY_MAP,0
+1952,Helsinki,Finland,FIN,FIN,Europe,1,city extracted from olympics_dataset; host country/noc/continent from curated HOST_CITY_MAP,0
+1956,Melbourne,Australia,AUS,AUS,Oceania,1,city extracted from olympics_dataset; host country/noc/continent from curated HOST_CITY_MAP,0
+1960,Roma,Italy,ITA,ITA,Europe,1,city extracted from olympics_dataset; host country/noc/continent from curated HOST_CITY_MAP,0
+1964,Tokyo,Japan,JPN,JPN,Asia,1,city extracted from olympics_dataset; host country/noc/continent from curated HOST_CITY_MAP,0
+1968,Mexico City,Mexico,MEX,MEX,North America,1,city extracted from olympics_dataset; host country/noc/continent from curated HOST_CITY_MAP,0
+1972,Munich,Germany,GER,FRG,Europe,1,city extracted from olympics_dataset; host country/noc/continent from curated HOST_CITY_MAP,0
+1976,Montreal,Canada,CAN,CAN,North America,1,city extracted from olympics_dataset; host country/noc/continent from curated HOST_CITY_MAP,0
+1980,Moskva,Soviet Union,URS,URS,Europe,1,city extracted from olympics_dataset; host country/noc/continent from curated HOST_CITY_MAP,0
+1984,Los Angeles,United States,USA,USA,North America,1,city extracted from olympics_dataset; host country/noc/continent from curated HOST_CITY_MAP,0
+1988,Seoul,South Korea,KOR,KOR,Asia,1,city extracted from olympics_dataset; host country/noc/continent from curated HOST_CITY_MAP,0
+1992,Barcelona,Spain,ESP,ESP,Europe,1,city extracted from olympics_dataset; host country/noc/continent from curated HOST_CITY_MAP,0
+1996,Atlanta,United States,USA,USA,North America,1,city extracted from olympics_dataset; host country/noc/continent from curated HOST_CITY_MAP,0
+2000,Sydney,Australia,AUS,AUS,Oceania,1,city extracted from olympics_dataset; host country/noc/continent from curated HOST_CITY_MAP,0
+2004,Athina,Greece,GRE,GRE,Europe,1,city extracted from olympics_dataset; host country/noc/continent from curated HOST_CITY_MAP,0
+2008,Beijing,China,CHN,CHN,Asia,1,city extracted from olympics_dataset; host country/noc/continent from curated HOST_CITY_MAP,0
+2012,London,United Kingdom,GBR,GBR,Europe,1,city extracted from olympics_dataset; host country/noc/continent from curated HOST_CITY_MAP,0
+2016,Rio de Janeiro,Brazil,BRA,BRA,South America,1,city extracted from olympics_dataset; host country/noc/continent from curated HOST_CITY_MAP,0
+2020,Tokyo,Japan,JPN,JPN,Asia,1,city extracted from olympics_dataset; host country/noc/continent from curated HOST_CITY_MAP,0
+2024,Paris,France,FRA,FRA,Europe,1,city extracted from olympics_dataset; host country/noc/continent from curated HOST_CITY_MAP,0

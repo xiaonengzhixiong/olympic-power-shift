@@ -1,0 +1,3 @@
+﻿country_name,sport,start_year,end_year,coach_name,event_type,evidence_level,source_note
+Example Country,Example Sport,2000,2008,Example Coach Name,appointment,secondary_source,Example only. Replace with a verifiable citation; do not use as data.
+Example Country,Example Sport,2012,,Example Coach Name,departure,official_source,"Example only. Record source title, publisher, URL and access date."

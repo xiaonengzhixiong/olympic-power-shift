@@ -1,0 +1,1231 @@
+﻿year,sport,sex_category,event_count,medal_opportunities,countries_winning_medals
+1896,Athletics,men,12,35,7
+1896,Cycling,men,6,16,5
+1896,Fencing,men,3,8,3
+1896,Gymnastics,men,8,18,3
+1896,Shooting,men,5,15,3
+1896,Swimming,men,4,10,3
+1896,Tennis,men,2,9,5
+1896,Weightlifting,men,2,6,3
+1896,Wrestling,men,1,3,2
+1900,Archery,men,8,20,2
+1900,Athletics,men,23,69,12
+1900,Basque Pelota,men,1,1,1
+1900,Cricket,men,1,3,2
+1900,Croquet,mixed,3,7,1
+1900,Cycling,men,3,9,5
+1900,Equestrianism,mixed,5,15,3
+1900,Fencing,men,7,21,4
+1900,Football,men,1,5,4
+1900,Golf,men,1,3,2
+1900,Golf,women,1,3,1
+1900,Gymnastics,men,1,3,1
+1900,Polo,men,1,9,4
+1900,Rowing,men,4,14,6
+1900,Rugby,men,1,5,5
+1900,Sailing,mixed,8,31,6
+1900,Shooting,men,8,25,6
+1900,Swimming,men,7,21,8
+1900,Tennis,men,2,8,3
+1900,Tennis,mixed,1,6,4
+1900,Tennis,women,1,4,4
+1900,Tug-Of-War,men,1,4,4
+1900,Water Polo,men,1,5,4
+1904,Archery,men,3,9,1
+1904,Archery,women,3,7,1
+1904,Athletics,men,24,72,6
+1904,Boxing,men,7,18,1
+1904,Cycling,men,7,21,1
+1904,Diving,men,1,3,2
+1904,Fencing,men,5,15,2
+1904,Football,men,1,3,2
+1904,Golf,men,2,6,2
+1904,Gymnastics,men,12,35,4
+1904,Lacrosse,men,1,3,2
+1904,Roque,men,1,3,1
+1904,Rowing,men,5,14,2
+1904,Swimming,men,10,30,5
+1904,Tennis,men,2,6,1
+1904,Tug-Of-War,men,1,4,2
+1904,Water Polo,men,1,3,1
+1904,Weightlifting,men,2,6,3
+1904,Wrestling,men,7,21,4
+1906,Athletics,men,21,64,11
+1906,Cycling,men,6,18,5
+1906,Diving,men,1,3,2
+1906,Fencing,men,8,23,8
+1906,Football,men,1,4,4
+1906,Gymnastics,men,4,12,6
+1906,Rowing,men,6,18,4
+1906,Shooting,men,12,36,7
+1906,Swimming,men,4,12,6
+1906,Tennis,men,2,6,3
+1906,Tennis,mixed,1,3,2
+1906,Tennis,women,1,3,1
+1906,Tug-Of-War,men,1,3,3
+1906,Weightlifting,men,2,7,5
+1906,Wrestling,men,4,12,5
+1908,Archery,men,2,6,3
+1908,Archery,women,1,3,1
+1908,Athletics,men,26,78,13
+1908,Boxing,men,5,15,2
+1908,Cycling,men,6,18,5
+1908,Diving,men,2,7,3
+1908,Fencing,men,4,12,6
+1908,Figure Skating,men,2,6,3
+1908,Figure Skating,mixed,1,3,2
+1908,Figure Skating,women,1,3,2
+1908,Football,men,1,3,3
+1908,Gymnastics,men,2,6,6
+1908,Hockey,men,1,3,1
+1908,Jeu De Paume,men,1,3,2
+1908,Lacrosse,men,1,2,2
+1908,Motorboating,mixed,3,3,2
+1908,Polo,men,1,2,1
+1908,Racquets,men,2,6,1
+1908,Rowing,men,4,16,6
+1908,Rugby,men,1,2,2
+1908,Sailing,mixed,4,9,4
+1908,Shooting,men,15,45,8
+1908,Swimming,men,6,18,8
+1908,Tennis,men,4,12,3
+1908,Tennis,women,2,6,2
+1908,Tug-Of-War,men,1,3,1
+1908,Water Polo,men,1,3,3
+1908,Wrestling,men,9,27,10
+1912,Art Competitions,mixed,5,6,5
+1912,Athletics,men,30,93,12
+1912,Cycling,men,2,6,4
+1912,Diving,men,3,9,2
+1912,Diving,women,1,3,2
+1912,Equestrianism,men,5,15,5
+1912,Fencing,men,5,15,7
+1912,Football,men,1,3,3
+1912,Gymnastics,men,4,12,8
+1912,Modern Pentathlon,men,1,3,1
+1912,Rowing,men,4,14,8
+1912,Sailing,mixed,4,12,6
+1912,Shooting,men,18,54,10
+1912,Swimming,men,7,21,6
+1912,Swimming,women,2,6,4
+1912,Tennis,men,4,12,7
+1912,Tennis,mixed,2,6,4
+1912,Tennis,women,2,6,5
+1912,Tug-Of-War,men,1,2,2
+1912,Water Polo,men,1,3,3
+1912,Wrestling,men,5,15,6
+1920,Archery,men,10,21,3
+1920,Art Competitions,mixed,5,11,5
+1920,Athletics,men,29,87,12
+1920,Boxing,men,8,24,8
+1920,Cycling,men,6,18,7
+1920,Diving,men,3,9,2
+1920,Diving,women,2,6,4
+1920,Equestrianism,men,7,21,4
+1920,Fencing,men,6,18,5
+1920,Figure Skating,men,1,3,2
+1920,Figure Skating,mixed,1,3,3
+1920,Figure Skating,women,1,3,2
+1920,Football,men,1,3,3
+1920,Gymnastics,men,4,11,6
+1920,Hockey,men,1,3,3
+1920,Ice Hockey,men,1,3,3
+1920,Modern Pentathlon,men,1,3,1
+1920,Polo,men,1,3,3
+1920,Rowing,men,5,15,7
+1920,Rugby,men,1,2,2
+1920,Sailing,mixed,10,19,6
+1920,Shooting,men,22,63,11
+1920,Swimming,men,7,21,7
+1920,Swimming,women,3,9,3
+1920,Tennis,men,2,6,4
+1920,Tennis,mixed,1,3,3
+1920,Tennis,women,2,6,2
+1920,Tug-Of-War,men,1,3,3
+1920,Water Polo,men,1,3,3
+1920,Weightlifting,men,5,15,7
+1920,Wrestling,men,10,31,7
+1924,Art Competitions,mixed,5,14,9
+1924,Athletics,men,27,81,15
+1924,Boxing,men,8,24,9
+1924,Cycling,men,6,18,8
+1924,Diving,men,3,9,4
+1924,Diving,women,2,6,2
+1924,Equestrianism,men,5,15,9
+1924,Fencing,men,6,18,6
+1924,Fencing,women,1,3,2
+1924,Football,men,1,3,3
+1924,Gymnastics,men,9,27,6
+1924,Modern Pentathlon,men,1,3,1
+1924,Polo,men,1,3,3
+1924,Rowing,men,7,20,7
+1924,Rugby,men,1,3,3
+1924,Sailing,mixed,3,9,7
+1924,Shooting,men,10,30,11
+1924,Swimming,men,6,18,5
+1924,Swimming,women,5,15,3
+1924,Tennis,men,2,6,3
+1924,Tennis,mixed,1,3,2
+1924,Tennis,women,2,6,3
+1924,Water Polo,men,1,3,3
+1924,Weightlifting,men,5,15,6
+1924,Wrestling,men,13,39,10
+1928,Art Competitions,mixed,13,29,11
+1928,Athletics,men,22,66,14
+1928,Athletics,women,5,15,7
+1928,Boxing,men,8,24,14
+1928,Cycling,men,6,18,8
+1928,Diving,men,2,6,2
+1928,Diving,women,2,6,2
+1928,Equestrianism,men,6,18,9
+1928,Fencing,men,6,18,8
+1928,Fencing,women,1,3,2
+1928,Football,men,1,3,3
+1928,Gymnastics,men,7,21,5
+1928,Gymnastics,women,1,3,3
+1928,Hockey,men,1,3,3
+1928,Modern Pentathlon,men,1,3,2
+1928,Rowing,men,7,21,11
+1928,Sailing,mixed,3,9,7
+1928,Swimming,men,6,18,9
+1928,Swimming,women,5,15,5
+1928,Water Polo,men,1,3,3
+1928,Weightlifting,men,5,15,8
+1928,Wrestling,men,13,39,14
+1932,Alpinism,mixed,1,1,1
+1932,Art Competitions,mixed,13,23,12
+1932,Athletics,men,23,69,15
+1932,Athletics,women,6,18,6
+1932,Boxing,men,8,24,12
+1932,Cycling,men,6,18,7
+1932,Diving,men,2,6,1
+1932,Diving,women,2,6,1
+1932,Equestrianism,men,6,14,5
+1932,Fencing,men,6,18,5
+1932,Fencing,women,1,3,3
+1932,Gymnastics,men,11,33,5
+1932,Hockey,men,1,3,3
+1932,Modern Pentathlon,men,1,3,2
+1932,Rowing,men,7,21,10
+1932,Sailing,mixed,4,11,7
+1932,Shooting,men,2,6,5
+1932,Swimming,men,6,18,5
+1932,Swimming,women,5,15,7
+1932,Water Polo,men,1,3,3
+1932,Weightlifting,men,5,15,7
+1932,Wrestling,men,14,42,12
+1936,Aeronautics,mixed,1,1,1
+1936,Alpinism,mixed,1,1,1
+1936,Art Competitions,mixed,19,32,11
+1936,Athletics,men,23,69,14
+1936,Athletics,women,6,18,7
+1936,Basketball,men,1,3,3
+1936,Boxing,men,8,24,13
+1936,Canoeing,men,9,27,8
+1936,Cycling,men,6,18,7
+1936,Diving,men,2,6,2
+1936,Diving,women,2,6,2
+1936,Equestrianism,men,6,18,12
+1936,Fencing,men,6,18,5
+1936,Fencing,women,1,3,3
+1936,Football,men,1,3,3
+1936,Gymnastics,men,8,25,5
+1936,Gymnastics,women,1,3,3
+1936,Handball,men,1,3,3
+1936,Hockey,men,1,3,3
+1936,Modern Pentathlon,men,1,3,3
+1936,Polo,men,1,3,3
+1936,Rowing,men,7,21,10
+1936,Sailing,mixed,4,12,6
+1936,Shooting,men,3,9,6
+1936,Swimming,men,6,18,4
+1936,Swimming,women,5,15,6
+1936,Water Polo,men,1,3,3
+1936,Weightlifting,men,5,15,7
+1936,Wrestling,men,14,42,11
+1948,Art Competitions,mixed,18,32,13
+1948,Athletics,men,24,72,19
+1948,Athletics,women,9,27,13
+1948,Basketball,men,1,3,3
+1948,Boxing,men,8,24,13
+1948,Canoeing,men,8,24,8
+1948,Canoeing,women,1,3,3
+1948,Cycling,men,6,18,6
+1948,Diving,men,2,6,2
+1948,Diving,women,2,6,2
+1948,Equestrianism,men,6,18,8
+1948,Fencing,men,6,18,7
+1948,Fencing,women,1,3,3
+1948,Football,men,1,3,3
+1948,Gymnastics,men,8,23,4
+1948,Gymnastics,women,1,3,3
+1948,Hockey,men,1,3,3
+1948,Modern Pentathlon,men,1,3,2
+1948,Rowing,men,7,21,9
+1948,Sailing,mixed,4,15,9
+1948,Shooting,men,4,12,8
+1948,Swimming,men,6,18,4
+1948,Swimming,women,5,15,6
+1948,Water Polo,men,1,3,3
+1948,Weightlifting,men,6,18,8
+1948,Wrestling,men,16,48,12
+1952,Athletics,men,24,72,17
+1952,Athletics,women,9,27,9
+1952,Basketball,men,1,3,3
+1952,Boxing,men,10,40,17
+1952,Canoeing,men,8,24,10
+1952,Canoeing,women,1,3,3
+1952,Cycling,men,6,18,7
+1952,Diving,men,2,6,3
+1952,Diving,women,2,6,2
+1952,Equestrianism,men,4,12,6
+1952,Equestrianism,mixed,2,6,5
+1952,Fencing,men,6,18,5
+1952,Fencing,women,1,3,3
+1952,Football,men,1,3,3
+1952,Gymnastics,men,8,24,7
+1952,Gymnastics,women,7,21,4
+1952,Hockey,men,1,3,3
+1952,Modern Pentathlon,men,2,6,3
+1952,Rowing,men,7,21,14
+1952,Sailing,mixed,5,15,9
+1952,Shooting,men,7,21,10
+1952,Swimming,men,6,18,7
+1952,Swimming,women,5,15,6
+1952,Water Polo,men,1,3,3
+1952,Weightlifting,men,7,21,8
+1952,Wrestling,men,16,48,14
+1956,Athletics,men,24,73,18
+1956,Athletics,women,9,27,8
+1956,Basketball,men,1,3,3
+1956,Boxing,men,10,40,16
+1956,Canoeing,men,8,24,8
+1956,Canoeing,women,1,3,3
+1956,Cycling,men,6,18,7
+1956,Diving,men,2,6,2
+1956,Diving,women,2,6,2
+1956,Equestrianism,men,2,6,4
+1956,Equestrianism,mixed,4,12,6
+1956,Fencing,men,6,18,5
+1956,Fencing,women,1,3,3
+1956,Football,men,1,3,3
+1956,Gymnastics,men,8,25,5
+1956,Gymnastics,women,7,23,6
+1956,Hockey,men,1,3,3
+1956,Modern Pentathlon,men,2,6,4
+1956,Rowing,men,7,21,10
+1956,Sailing,mixed,5,15,9
+1956,Shooting,men,7,21,9
+1956,Swimming,men,7,21,5
+1956,Swimming,women,6,18,6
+1956,Water Polo,men,1,3,3
+1956,Weightlifting,men,7,21,8
+1956,Wrestling,men,16,48,13
+1960,Athletics,men,24,72,18
+1960,Athletics,women,10,30,9
+1960,Basketball,men,1,3,3
+1960,Boxing,men,10,40,16
+1960,Canoeing,men,5,15,8
+1960,Canoeing,women,2,6,4
+1960,Cycling,men,6,18,4
+1960,Diving,men,2,6,3
+1960,Diving,women,2,6,4
+1960,Equestrianism,men,2,6,3
+1960,Equestrianism,mixed,3,9,6
+1960,Fencing,men,6,18,7
+1960,Fencing,women,2,6,5
+1960,Football,men,1,3,3
+1960,Gymnastics,men,8,25,5
+1960,Gymnastics,women,6,18,3
+1960,Hockey,men,1,3,3
+1960,Modern Pentathlon,men,2,6,3
+1960,Rowing,men,7,21,11
+1960,Sailing,mixed,5,15,11
+1960,Shooting,men,6,18,10
+1960,Swimming,men,8,24,5
+1960,Swimming,women,7,21,7
+1960,Water Polo,men,1,3,3
+1960,Weightlifting,men,7,21,10
+1960,Wrestling,men,16,48,16
+1964,Athletics,men,24,72,21
+1964,Athletics,women,12,36,10
+1964,Basketball,men,1,3,3
+1964,Boxing,men,10,40,17
+1964,Canoeing,men,5,15,8
+1964,Canoeing,women,2,6,4
+1964,Cycling,men,7,21,9
+1964,Diving,men,2,6,2
+1964,Diving,women,2,6,3
+1964,Equestrianism,mixed,6,18,8
+1964,Fencing,men,6,18,6
+1964,Fencing,women,2,6,4
+1964,Football,men,1,3,3
+1964,Gymnastics,men,8,24,6
+1964,Gymnastics,women,6,18,5
+1964,Hockey,men,1,3,3
+1964,Judo,men,3,10,7
+1964,Judo,open_unknown,1,4,4
+1964,Modern Pentathlon,men,2,6,3
+1964,Rowing,men,7,21,11
+1964,Sailing,mixed,5,15,8
+1964,Shooting,men,6,18,9
+1964,Swimming,men,10,30,6
+1964,Swimming,women,8,24,5
+1964,Volleyball,men,1,3,3
+1964,Volleyball,women,1,3,3
+1964,Water Polo,men,1,3,3
+1964,Weightlifting,men,7,21,7
+1964,Wrestling,men,16,48,13
+1968,Athletics,men,24,72,19
+1968,Athletics,women,12,36,14
+1968,Basketball,men,1,3,3
+1968,Boxing,men,11,44,20
+1968,Canoeing,men,5,15,7
+1968,Canoeing,women,2,6,4
+1968,Cycling,men,7,21,9
+1968,Diving,men,2,6,3
+1968,Diving,women,2,6,3
+1968,Equestrianism,mixed,6,18,8
+1968,Fencing,men,6,18,6
+1968,Fencing,women,2,6,4
+1968,Football,men,1,3,3
+1968,Gymnastics,men,8,24,5
+1968,Gymnastics,women,6,18,3
+1968,Hockey,men,1,3,3
+1968,Modern Pentathlon,men,2,6,4
+1968,Rowing,men,7,21,11
+1968,Sailing,mixed,5,15,11
+1968,Shooting,mixed,7,21,11
+1968,Swimming,men,15,45,8
+1968,Swimming,women,14,42,8
+1968,Volleyball,men,1,3,3
+1968,Volleyball,women,1,3,3
+1968,Water Polo,men,1,3,3
+1968,Weightlifting,men,7,21,8
+1968,Wrestling,men,16,48,14
+1972,Archery,men,1,3,3
+1972,Archery,women,1,3,3
+1972,Athletics,men,24,72,18
+1972,Athletics,women,14,42,12
+1972,Basketball,men,1,3,3
+1972,Boxing,men,11,44,21
+1972,Canoeing,men,8,24,11
+1972,Canoeing,women,3,9,5
+1972,Cycling,men,7,19,10
+1972,Diving,men,2,6,3
+1972,Diving,women,2,6,4
+1972,Equestrianism,mixed,6,18,6
+1972,Fencing,men,6,18,6
+1972,Fencing,women,2,6,4
+1972,Football,men,1,4,4
+1972,Gymnastics,men,8,24,3
+1972,Gymnastics,women,6,18,3
+1972,Handball,men,1,3,3
+1972,Hockey,men,1,3,3
+1972,Judo,men,5,19,10
+1972,Judo,open_unknown,1,4,4
+1972,Modern Pentathlon,men,2,6,3
+1972,Rowing,men,7,21,10
+1972,Sailing,mixed,4,18,9
+1972,Shooting,mixed,8,24,14
+1972,Swimming,men,15,45,9
+1972,Swimming,women,14,42,8
+1972,Volleyball,men,1,3,3
+1972,Volleyball,women,1,3,3
+1972,Water Polo,men,1,3,3
+1972,Weightlifting,men,9,27,10
+1972,Wrestling,men,20,60,18
+1976,Archery,men,1,3,3
+1976,Archery,women,1,3,2
+1976,Athletics,men,23,69,19
+1976,Athletics,women,14,42,7
+1976,Basketball,men,1,3,3
+1976,Basketball,women,1,3,3
+1976,Boxing,men,11,44,15
+1976,Canoeing,men,9,27,8
+1976,Canoeing,women,2,6,3
+1976,Cycling,men,6,18,11
+1976,Diving,men,2,6,3
+1976,Diving,women,2,6,4
+1976,Equestrianism,mixed,6,18,7
+1976,Fencing,men,6,18,8
+1976,Fencing,women,2,6,4
+1976,Football,men,1,3,3
+1976,Gymnastics,men,8,26,7
+1976,Gymnastics,women,6,18,4
+1976,Handball,men,1,3,3
+1976,Handball,women,1,3,3
+1976,Hockey,men,1,3,3
+1976,Judo,men,5,20,13
+1976,Judo,open_unknown,1,4,4
+1976,Modern Pentathlon,men,2,6,5
+1976,Rowing,men,8,24,8
+1976,Rowing,women,6,18,5
+1976,Sailing,mixed,6,18,9
+1976,Shooting,mixed,7,21,9
+1976,Swimming,men,13,39,6
+1976,Swimming,women,13,39,5
+1976,Volleyball,men,1,3,3
+1976,Volleyball,women,1,3,3
+1976,Water Polo,men,1,3,3
+1976,Weightlifting,men,9,27,9
+1976,Wrestling,men,20,60,14
+1980,Archery,men,1,3,3
+1980,Archery,women,1,3,2
+1980,Athletics,men,24,72,17
+1980,Athletics,women,14,42,9
+1980,Basketball,men,1,3,3
+1980,Basketball,women,1,3,3
+1980,Boxing,men,11,44,16
+1980,Canoeing,men,9,27,8
+1980,Canoeing,women,2,6,4
+1980,Cycling,men,6,18,8
+1980,Diving,men,2,6,4
+1980,Diving,women,2,6,2
+1980,Equestrianism,mixed,6,18,7
+1980,Fencing,men,6,18,6
+1980,Fencing,women,2,6,4
+1980,Football,men,1,3,3
+1980,Gymnastics,men,8,24,5
+1980,Gymnastics,women,6,21,3
+1980,Handball,men,1,3,3
+1980,Handball,women,1,3,3
+1980,Hockey,men,1,3,3
+1980,Hockey,women,1,3,3
+1980,Judo,men,7,28,15
+1980,Judo,open_unknown,1,4,4
+1980,Modern Pentathlon,men,2,6,3
+1980,Rowing,men,8,24,8
+1980,Rowing,women,6,18,5
+1980,Sailing,mixed,6,18,12
+1980,Shooting,mixed,7,21,10
+1980,Swimming,men,13,39,8
+1980,Swimming,women,13,39,8
+1980,Volleyball,men,1,3,3
+1980,Volleyball,women,1,3,3
+1980,Water Polo,men,1,3,3
+1980,Weightlifting,men,10,30,8
+1980,Wrestling,men,20,60,15
+1984,Archery,men,1,3,2
+1984,Archery,women,1,3,2
+1984,Athletics,men,24,73,21
+1984,Athletics,women,17,52,14
+1984,Basketball,men,1,3,3
+1984,Basketball,women,1,3,3
+1984,Boxing,men,12,48,23
+1984,Canoeing,men,9,27,11
+1984,Canoeing,women,3,9,5
+1984,Cycling,men,7,21,11
+1984,Cycling,women,1,3,2
+1984,Diving,men,2,6,2
+1984,Diving,women,2,6,3
+1984,Equestrianism,mixed,6,18,7
+1984,Fencing,men,6,18,6
+1984,Fencing,women,2,6,5
+1984,Football,men,1,3,3
+1984,Gymnastics,men,8,26,4
+1984,Gymnastics,women,6,17,3
+1984,Handball,men,1,3,3
+1984,Handball,women,1,3,3
+1984,Hockey,men,1,3,3
+1984,Hockey,women,1,3,3
+1984,Judo,men,7,28,12
+1984,Judo,open_unknown,1,4,4
+1984,Modern Pentathlon,men,2,6,4
+1984,Rhythmic Gymnastics,women,1,3,3
+1984,Rowing,men,8,24,14
+1984,Rowing,women,6,18,8
+1984,Sailing,men,1,3,3
+1984,Sailing,mixed,6,18,10
+1984,Shooting,men,6,18,11
+1984,Shooting,mixed,2,6,4
+1984,Shooting,women,3,9,6
+1984,Swimming,men,15,45,10
+1984,Swimming,women,14,41,9
+1984,Synchronized Swimming,women,2,6,3
+1984,Volleyball,men,1,3,3
+1984,Volleyball,women,1,3,3
+1984,Water Polo,men,1,3,3
+1984,Weightlifting,men,10,30,11
+1984,Wrestling,men,20,60,16
+1988,Archery,men,2,6,4
+1988,Archery,women,2,6,3
+1988,Athletics,men,24,73,18
+1988,Athletics,women,18,54,10
+1988,Basketball,men,1,3,3
+1988,Basketball,women,1,3,3
+1988,Boxing,men,12,48,24
+1988,Canoeing,men,9,27,9
+1988,Canoeing,women,3,9,5
+1988,Cycling,men,7,21,7
+1988,Cycling,women,2,6,4
+1988,Diving,men,2,6,3
+1988,Diving,women,2,6,2
+1988,Equestrianism,mixed,6,18,7
+1988,Fencing,men,6,18,6
+1988,Fencing,women,2,6,3
+1988,Football,men,1,3,3
+1988,Gymnastics,men,8,25,8
+1988,Gymnastics,women,6,19,5
+1988,Handball,men,1,3,3
+1988,Handball,women,1,3,3
+1988,Hockey,men,1,3,3
+1988,Hockey,women,1,3,3
+1988,Judo,men,7,28,12
+1988,Modern Pentathlon,men,2,6,4
+1988,Rhythmic Gymnastics,women,1,3,2
+1988,Rowing,men,8,24,11
+1988,Rowing,women,6,18,7
+1988,Sailing,men,1,3,3
+1988,Sailing,mixed,6,18,12
+1988,Sailing,women,1,3,3
+1988,Shooting,men,7,21,14
+1988,Shooting,mixed,2,6,6
+1988,Shooting,women,4,12,5
+1988,Swimming,men,16,48,16
+1988,Swimming,women,15,46,12
+1988,Synchronized Swimming,women,2,6,3
+1988,Table Tennis,men,2,6,4
+1988,Table Tennis,women,2,6,3
+1988,Tennis,men,2,8,4
+1988,Tennis,women,2,8,6
+1988,Volleyball,men,1,3,3
+1988,Volleyball,women,1,3,3
+1988,Water Polo,men,1,3,3
+1988,Weightlifting,men,10,30,9
+1988,Wrestling,men,20,60,18
+1992,Archery,men,2,6,5
+1992,Archery,women,2,6,3
+1992,Athletics,men,24,74,25
+1992,Athletics,women,19,57,21
+1992,Badminton,men,2,8,5
+1992,Badminton,women,2,7,3
+1992,Baseball,men,1,3,3
+1992,Basketball,men,1,3,3
+1992,Basketball,women,1,3,3
+1992,Boxing,men,12,48,25
+1992,Canoeing,men,12,36,16
+1992,Canoeing,women,4,12,6
+1992,Cycling,men,7,21,13
+1992,Cycling,women,3,9,6
+1992,Diving,men,2,6,3
+1992,Diving,women,2,6,4
+1992,Equestrianism,mixed,6,18,7
+1992,Fencing,men,6,18,7
+1992,Fencing,women,2,6,5
+1992,Football,men,1,3,3
+1992,Gymnastics,men,8,27,7
+1992,Gymnastics,women,6,20,5
+1992,Handball,men,1,3,3
+1992,Handball,women,1,3,3
+1992,Hockey,men,1,3,3
+1992,Hockey,women,1,3,3
+1992,Judo,men,7,28,14
+1992,Judo,women,7,28,13
+1992,Modern Pentathlon,men,2,6,4
+1992,Rhythmic Gymnastics,women,1,3,2
+1992,Rowing,men,8,24,13
+1992,Rowing,women,6,18,7
+1992,Sailing,men,3,9,6
+1992,Sailing,mixed,4,12,8
+1992,Sailing,women,3,9,6
+1992,Shooting,men,7,21,13
+1992,Shooting,mixed,2,6,5
+1992,Shooting,women,4,12,8
+1992,Swimming,men,16,48,16
+1992,Swimming,women,15,45,8
+1992,Synchronized Swimming,women,2,6,3
+1992,Table Tennis,men,2,7,5
+1992,Table Tennis,women,2,8,3
+1992,Tennis,men,2,8,7
+1992,Tennis,women,2,8,5
+1992,Volleyball,men,1,3,3
+1992,Volleyball,women,1,3,3
+1992,Water Polo,men,1,3,3
+1992,Weightlifting,men,10,29,11
+1992,Wrestling,men,20,60,18
+1996,Archery,men,2,6,4
+1996,Archery,women,2,6,5
+1996,Athletics,men,24,72,31
+1996,Athletics,women,20,60,29
+1996,Badminton,men,2,6,4
+1996,Badminton,mixed,1,3,2
+1996,Badminton,women,2,6,3
+1996,Baseball,men,1,3,3
+1996,Basketball,men,1,3,3
+1996,Basketball,women,1,3,3
+1996,Beach Volleyball,men,1,3,2
+1996,Beach Volleyball,women,1,3,2
+1996,Boxing,men,12,48,22
+1996,Canoeing,men,12,36,15
+1996,Canoeing,women,4,12,10
+1996,Cycling,men,8,24,13
+1996,Cycling,women,6,18,8
+1996,Diving,men,2,6,4
+1996,Diving,women,2,6,5
+1996,Equestrianism,mixed,6,18,8
+1996,Fencing,men,6,18,6
+1996,Fencing,women,4,12,6
+1996,Football,men,1,3,3
+1996,Football,women,1,3,3
+1996,Gymnastics,men,8,26,13
+1996,Gymnastics,women,6,18,5
+1996,Handball,men,1,3,3
+1996,Handball,women,1,3,3
+1996,Hockey,men,1,3,3
+1996,Hockey,women,1,3,3
+1996,Judo,men,7,28,15
+1996,Judo,women,7,28,12
+1996,Modern Pentathlon,men,1,3,3
+1996,Rhythmic Gymnastics,women,2,6,4
+1996,Rowing,men,8,24,12
+1996,Rowing,women,6,18,11
+1996,Sailing,men,3,9,9
+1996,Sailing,mixed,4,12,9
+1996,Sailing,women,3,9,9
+1996,Shooting,men,10,30,14
+1996,Shooting,women,5,15,8
+1996,Softball,women,1,3,3
+1996,Swimming,men,16,48,14
+1996,Swimming,women,16,48,10
+1996,Synchronized Swimming,women,1,3,3
+1996,Table Tennis,men,2,6,3
+1996,Table Tennis,women,2,6,3
+1996,Tennis,men,2,6,6
+1996,Tennis,women,2,6,3
+1996,Volleyball,men,1,3,3
+1996,Volleyball,women,1,3,3
+1996,Water Polo,men,1,3,3
+1996,Weightlifting,men,10,30,14
+1996,Wrestling,men,20,60,23
+2000,Archery,men,2,6,5
+2000,Archery,women,2,6,3
+2000,Athletics,men,24,72,30
+2000,Athletics,women,22,67,33
+2000,Badminton,men,2,6,3
+2000,Badminton,mixed,1,3,3
+2000,Badminton,women,2,6,2
+2000,Baseball,men,1,3,3
+2000,Basketball,men,1,3,3
+2000,Basketball,women,1,3,3
+2000,Beach Volleyball,men,1,3,3
+2000,Beach Volleyball,women,1,3,2
+2000,Boxing,men,12,48,22
+2000,Canoeing,men,12,36,17
+2000,Canoeing,women,4,12,9
+2000,Cycling,men,11,32,13
+2000,Cycling,women,7,21,13
+2000,Diving,men,4,12,5
+2000,Diving,women,4,12,7
+2000,Equestrianism,mixed,6,18,9
+2000,Fencing,men,6,18,8
+2000,Fencing,women,4,12,8
+2000,Football,men,1,3,3
+2000,Football,women,1,3,3
+2000,Gymnastics,men,8,24,12
+2000,Gymnastics,women,6,18,4
+2000,Handball,men,1,3,3
+2000,Handball,women,1,3,3
+2000,Hockey,men,1,3,3
+2000,Hockey,women,1,3,3
+2000,Judo,men,7,28,17
+2000,Judo,women,7,28,14
+2000,Modern Pentathlon,men,1,3,3
+2000,Modern Pentathlon,women,1,3,2
+2000,Rhythmic Gymnastics,women,2,6,3
+2000,Rowing,men,8,24,14
+2000,Rowing,women,6,18,11
+2000,Sailing,men,3,9,8
+2000,Sailing,mixed,5,15,9
+2000,Sailing,women,3,9,9
+2000,Shooting,men,10,30,20
+2000,Shooting,women,7,21,15
+2000,Softball,women,1,3,3
+2000,Swimming,men,16,47,11
+2000,Swimming,women,16,48,14
+2000,Synchronized Swimming,women,2,6,4
+2000,Table Tennis,men,2,6,3
+2000,Table Tennis,women,2,6,3
+2000,Taekwondo,men,4,12,11
+2000,Taekwondo,women,4,12,11
+2000,Tennis,men,2,6,6
+2000,Tennis,women,2,6,4
+2000,Trampolining,men,1,3,3
+2000,Trampolining,women,1,3,3
+2000,Triathlon,men,1,3,3
+2000,Triathlon,women,1,3,2
+2000,Volleyball,men,1,3,3
+2000,Volleyball,women,1,3,3
+2000,Water Polo,men,1,3,3
+2000,Water Polo,women,1,3,3
+2000,Weightlifting,men,8,24,13
+2000,Weightlifting,women,7,21,14
+2000,Wrestling,men,16,48,22
+2004,Archery,men,2,6,6
+2004,Archery,women,2,6,4
+2004,Athletics,men,24,71,32
+2004,Athletics,women,22,65,26
+2004,Badminton,men,2,6,2
+2004,Badminton,mixed,1,3,3
+2004,Badminton,women,2,6,3
+2004,Baseball,men,1,3,3
+2004,Basketball,men,1,3,3
+2004,Basketball,women,1,3,3
+2004,Beach Volleyball,men,1,3,3
+2004,Beach Volleyball,women,1,3,2
+2004,Boxing,men,11,44,20
+2004,Canoeing,men,12,36,17
+2004,Canoeing,women,4,12,9
+2004,Cycling,men,11,33,13
+2004,Cycling,women,7,21,13
+2004,Diving,men,4,12,7
+2004,Diving,women,4,12,4
+2004,Equestrianism,mixed,6,18,8
+2004,Fencing,men,6,18,8
+2004,Fencing,women,4,12,8
+2004,Football,men,1,3,3
+2004,Football,women,1,3,3
+2004,Gymnastics,men,8,24,12
+2004,Gymnastics,women,6,18,6
+2004,Handball,men,1,3,3
+2004,Handball,women,1,3,3
+2004,Hockey,men,1,3,3
+2004,Hockey,women,1,3,3
+2004,Judo,men,7,28,17
+2004,Judo,women,7,28,12
+2004,Modern Pentathlon,men,1,3,3
+2004,Modern Pentathlon,women,1,3,3
+2004,Rhythmic Gymnastics,women,2,6,4
+2004,Rowing,men,8,24,19
+2004,Rowing,women,6,18,9
+2004,Sailing,men,4,12,10
+2004,Sailing,mixed,3,9,8
+2004,Sailing,women,4,12,11
+2004,Shooting,men,10,30,15
+2004,Shooting,women,7,21,13
+2004,Softball,women,1,3,3
+2004,Swimming,men,16,48,15
+2004,Swimming,women,16,49,14
+2004,Synchronized Swimming,women,2,6,3
+2004,Table Tennis,men,2,6,4
+2004,Table Tennis,women,2,6,3
+2004,Taekwondo,men,4,12,9
+2004,Taekwondo,women,4,12,10
+2004,Tennis,men,2,6,4
+2004,Tennis,women,2,6,6
+2004,Trampolining,men,1,3,3
+2004,Trampolining,women,1,3,3
+2004,Triathlon,men,1,3,2
+2004,Triathlon,women,1,3,3
+2004,Volleyball,men,1,3,3
+2004,Volleyball,women,1,3,3
+2004,Water Polo,men,1,3,3
+2004,Water Polo,women,1,3,3
+2004,Weightlifting,men,8,24,14
+2004,Weightlifting,women,7,21,12
+2004,Wrestling,men,14,42,19
+2004,Wrestling,women,4,12,7
+2008,Archery,men,2,6,5
+2008,Archery,women,2,6,3
+2008,Athletics,men,24,72,31
+2008,Athletics,women,23,68,26
+2008,Badminton,men,2,6,4
+2008,Badminton,mixed,1,3,3
+2008,Badminton,women,2,6,3
+2008,Baseball,men,1,3,3
+2008,Basketball,men,1,3,3
+2008,Basketball,women,1,3,3
+2008,Beach Volleyball,men,1,3,2
+2008,Beach Volleyball,women,1,3,2
+2008,Boxing,men,11,44,20
+2008,Canoeing,men,12,36,17
+2008,Canoeing,women,4,12,9
+2008,Cycling,men,11,33,13
+2008,Cycling,women,7,21,15
+2008,Diving,men,4,12,6
+2008,Diving,women,4,12,6
+2008,Equestrianism,mixed,6,18,9
+2008,Fencing,men,5,15,9
+2008,Fencing,women,5,15,9
+2008,Football,men,1,3,3
+2008,Football,women,1,3,3
+2008,Gymnastics,men,8,24,13
+2008,Gymnastics,women,6,18,5
+2008,Handball,men,1,3,3
+2008,Handball,women,1,3,3
+2008,Hockey,men,1,3,3
+2008,Hockey,women,1,3,3
+2008,Judo,men,7,28,19
+2008,Judo,women,7,28,14
+2008,Modern Pentathlon,men,1,3,2
+2008,Modern Pentathlon,women,1,3,3
+2008,Rhythmic Gymnastics,women,2,6,4
+2008,Rowing,men,8,24,13
+2008,Rowing,women,6,18,11
+2008,Sailing,men,4,12,9
+2008,Sailing,mixed,3,9,8
+2008,Sailing,women,4,12,9
+2008,Shooting,men,9,27,14
+2008,Shooting,women,6,18,12
+2008,Softball,women,1,3,3
+2008,Swimming,men,16,50,13
+2008,Swimming,open_unknown,2,6,4
+2008,Swimming,women,16,48,13
+2008,Synchronized Swimming,women,2,6,4
+2008,Table Tennis,men,2,6,3
+2008,Table Tennis,women,2,6,3
+2008,Taekwondo,men,4,16,13
+2008,Taekwondo,women,4,16,14
+2008,Tennis,men,2,6,6
+2008,Tennis,women,2,6,4
+2008,Trampolining,men,1,3,2
+2008,Trampolining,women,1,3,3
+2008,Triathlon,men,1,3,3
+2008,Triathlon,women,1,3,2
+2008,Volleyball,men,1,3,3
+2008,Volleyball,women,1,3,3
+2008,Water Polo,men,1,3,3
+2008,Water Polo,women,1,3,3
+2008,Weightlifting,men,8,24,13
+2008,Weightlifting,women,7,21,10
+2008,Wrestling,men,14,55,25
+2008,Wrestling,women,4,16,11
+2012,Archery,men,2,6,5
+2012,Archery,women,2,6,4
+2012,Athletics,men,24,74,32
+2012,Athletics,women,23,69,21
+2012,Badminton,men,2,6,4
+2012,Badminton,mixed,1,3,2
+2012,Badminton,women,2,6,4
+2012,Basketball,men,1,3,3
+2012,Basketball,women,1,3,3
+2012,Beach Volleyball,men,1,3,3
+2012,Beach Volleyball,women,1,3,2
+2012,Boxing,men,10,40,17
+2012,Boxing,women,3,12,9
+2012,Canoeing,men,11,33,16
+2012,Canoeing,women,5,15,10
+2012,Cycling,men,9,28,14
+2012,Cycling,women,9,27,12
+2012,Diving,men,4,12,5
+2012,Diving,women,4,12,6
+2012,Equestrianism,mixed,6,18,8
+2012,Fencing,men,5,15,11
+2012,Fencing,women,5,15,7
+2012,Football,men,1,3,3
+2012,Football,women,1,3,3
+2012,Gymnastics,men,8,24,13
+2012,Gymnastics,women,6,18,5
+2012,Handball,men,1,3,3
+2012,Handball,women,1,3,3
+2012,Hockey,men,1,3,3
+2012,Hockey,women,1,3,3
+2012,Judo,men,7,28,14
+2012,Judo,women,7,28,16
+2012,Modern Pentathlon,men,1,3,3
+2012,Modern Pentathlon,women,1,3,3
+2012,Rhythmic Gymnastics,women,2,6,3
+2012,Rowing,men,8,24,13
+2012,Rowing,women,6,18,13
+2012,Sailing,men,6,18,11
+2012,Sailing,women,4,12,9
+2012,Shooting,men,9,27,18
+2012,Shooting,women,6,18,10
+2012,Swimming,men,16,48,13
+2012,Swimming,open_unknown,2,6,6
+2012,Swimming,women,16,48,11
+2012,Synchronized Swimming,women,2,6,3
+2012,Table Tennis,men,2,6,3
+2012,Table Tennis,women,2,6,3
+2012,Taekwondo,men,4,16,14
+2012,Taekwondo,women,4,16,14
+2012,Tennis,men,2,6,5
+2012,Tennis,mixed,1,3,3
+2012,Tennis,women,2,6,4
+2012,Trampolining,men,1,3,2
+2012,Trampolining,women,1,3,2
+2012,Triathlon,men,1,3,2
+2012,Triathlon,women,1,3,3
+2012,Volleyball,men,1,3,3
+2012,Volleyball,women,1,3,3
+2012,Water Polo,men,1,3,3
+2012,Water Polo,women,1,3,3
+2012,Weightlifting,men,8,24,13
+2012,Weightlifting,women,7,21,13
+2012,Wrestling,men,14,56,23
+2012,Wrestling,women,4,16,11
+2016,Archery,men,2,6,4
+2016,Archery,women,2,6,4
+2016,Athletics,men,24,72,26
+2016,Athletics,women,23,69,29
+2016,Badminton,men,2,6,4
+2016,Badminton,mixed,1,3,3
+2016,Badminton,women,2,6,5
+2016,Basketball,men,1,3,3
+2016,Basketball,women,1,3,3
+2016,Beach Volleyball,men,1,3,3
+2016,Beach Volleyball,women,1,3,3
+2016,Boxing,men,10,39,17
+2016,Boxing,women,3,12,9
+2016,Canoeing,men,11,34,15
+2016,Canoeing,women,5,15,9
+2016,Cycling,men,9,27,16
+2016,Cycling,women,9,27,14
+2016,Diving,men,4,12,5
+2016,Diving,women,4,12,5
+2016,Equestrianism,mixed,6,18,7
+2016,Fencing,men,5,15,6
+2016,Fencing,women,5,15,8
+2016,Football,men,1,3,3
+2016,Football,women,1,3,3
+2016,Golf,men,1,3,3
+2016,Golf,women,1,3,3
+2016,Gymnastics,men,8,24,10
+2016,Gymnastics,women,6,18,7
+2016,Handball,men,1,3,3
+2016,Handball,women,1,3,3
+2016,Hockey,men,1,3,3
+2016,Hockey,women,1,3,3
+2016,Judo,men,7,28,16
+2016,Judo,women,7,28,20
+2016,Modern Pentathlon,men,1,3,3
+2016,Modern Pentathlon,women,1,3,3
+2016,Rhythmic Gymnastics,women,2,6,4
+2016,Rowing,men,8,24,16
+2016,Rowing,women,6,18,12
+2016,Rugby Sevens,men,1,3,3
+2016,Rugby Sevens,women,1,3,3
+2016,Sailing,men,5,15,10
+2016,Sailing,mixed,1,3,3
+2016,Sailing,women,4,12,9
+2016,Shooting,men,9,27,14
+2016,Shooting,women,6,18,9
+2016,Swimming,men,16,49,13
+2016,Swimming,open_unknown,2,6,5
+2016,Swimming,women,16,49,12
+2016,Synchronized Swimming,women,2,6,3
+2016,Table Tennis,men,2,6,3
+2016,Table Tennis,women,2,6,4
+2016,Taekwondo,men,4,16,13
+2016,Taekwondo,women,4,16,14
+2016,Tennis,men,2,6,6
+2016,Tennis,mixed,1,3,2
+2016,Tennis,women,2,6,5
+2016,Trampolining,men,1,3,2
+2016,Trampolining,women,1,3,3
+2016,Triathlon,men,1,3,2
+2016,Triathlon,women,1,3,3
+2016,Volleyball,men,1,3,3
+2016,Volleyball,women,1,3,3
+2016,Water Polo,men,1,3,3
+2016,Water Polo,women,1,3,3
+2016,Weightlifting,men,8,24,14
+2016,Weightlifting,women,7,21,13
+2016,Wrestling,men,12,48,19
+2016,Wrestling,women,6,24,13
+2020,3x3 Basketball,men,1,3,3
+2020,3x3 Basketball,women,1,3,3
+2020,Archery,men,2,6,5
+2020,Archery,mixed,1,3,3
+2020,Archery,women,2,6,4
+2020,Artistic Gymnastics,men,8,24,13
+2020,Artistic Gymnastics,women,6,19,9
+2020,Artistic Swimming,women,2,6,3
+2020,Athletics,men,26,72,34
+2020,Athletics,mixed,2,3,3
+2020,Athletics,women,25,69,27
+2020,Badminton,men,2,6,5
+2020,Badminton,mixed,1,3,2
+2020,Badminton,women,2,6,5
+2020,Baseball/Softball,men,1,3,3
+2020,Baseball/Softball,women,1,3,3
+2020,Basketball,men,1,3,3
+2020,Basketball,women,1,3,3
+2020,Beach Volleyball,men,1,3,3
+2020,Beach Volleyball,women,1,3,3
+2020,Boxing,men,8,32,16
+2020,Boxing,women,5,20,16
+2020,Canoe Slalom,men,2,6,4
+2020,Canoe Slalom,women,2,6,4
+2020,Canoe Sprint,men,6,18,13
+2020,Canoe Sprint,women,6,18,10
+2020,Cycling BMX Freestyle,men,1,3,3
+2020,Cycling BMX Freestyle,women,1,3,3
+2020,Cycling BMX Racing,men,1,3,3
+2020,Cycling BMX Racing,women,1,3,3
+2020,Cycling Mountain Bike,men,1,3,3
+2020,Cycling Mountain Bike,women,1,3,1
+2020,Cycling Road,men,2,6,5
+2020,Cycling Road,women,2,6,4
+2020,Cycling Track,men,6,18,8
+2020,Cycling Track,women,7,18,12
+2020,Diving,men,4,12,5
+2020,Diving,women,4,12,6
+2020,Equestrian,men,6,9,7
+2020,Equestrian,women,6,9,4
+2020,Fencing,men,6,18,10
+2020,Fencing,women,6,18,8
+2020,Football,men,1,3,3
+2020,Football,women,1,3,3
+2020,Golf,men,1,3,3
+2020,Golf,women,1,3,3
+2020,Handball,men,1,3,3
+2020,Handball,women,1,3,3
+2020,Hockey,men,1,3,3
+2020,Hockey,women,1,3,3
+2020,Judo,men,7,28,16
+2020,Judo,mixed,1,4,4
+2020,Judo,women,7,28,16
+2020,Karate,men,4,16,13
+2020,Karate,women,4,16,14
+2020,Marathon Swimming,men,1,3,3
+2020,Marathon Swimming,women,1,3,3
+2020,Modern Pentathlon,men,1,3,3
+2020,Modern Pentathlon,women,1,3,3
+2020,Rhythmic Gymnastics,women,2,6,5
+2020,Rowing,men,7,21,14
+2020,Rowing,women,8,21,12
+2020,Rugby Sevens,men,1,3,3
+2020,Rugby Sevens,women,1,3,3
+2020,Sailing,men,5,15,12
+2020,Sailing,mixed,1,3,3
+2020,Sailing,women,4,12,9
+2020,Shooting,men,6,18,11
+2020,Shooting,mixed,3,9,6
+2020,Shooting,women,6,18,9
+2020,Skateboarding,men,2,6,4
+2020,Skateboarding,women,2,6,3
+2020,Sport Climbing,men,1,3,3
+2020,Sport Climbing,women,1,3,2
+2020,Surfing,men,1,3,3
+2020,Surfing,women,1,3,3
+2020,Swimming,men,17,51,16
+2020,Swimming,mixed,1,3,3
+2020,Swimming,women,17,51,11
+2020,Table Tennis,men,2,6,3
+2020,Table Tennis,mixed,1,3,3
+2020,Table Tennis,women,2,6,3
+2020,Taekwondo,men,4,16,13
+2020,Taekwondo,women,4,16,14
+2020,Tennis,men,2,6,5
+2020,Tennis,mixed,1,3,2
+2020,Tennis,women,2,6,4
+2020,Trampoline Gymnastics,men,1,3,3
+2020,Trampoline Gymnastics,women,1,3,2
+2020,Triathlon,men,1,3,3
+2020,Triathlon,mixed,1,3,3
+2020,Triathlon,women,1,3,3
+2020,Volleyball,men,1,3,3
+2020,Volleyball,women,1,3,3
+2020,Water Polo,men,1,3,3
+2020,Water Polo,women,1,3,3
+2020,Weightlifting,men,7,21,14
+2020,Weightlifting,women,7,21,15
+2020,Wrestling,men,12,48,23
+2020,Wrestling,women,6,24,12
+2024,3x3 Basketball,men,1,3,3
+2024,3x3 Basketball,women,1,3,3
+2024,"3x3 Basketball, Basketball",women,1,0,0
+2024,Archery,men,2,6,4
+2024,Archery,mixed,1,3,3
+2024,Archery,women,2,6,4
+2024,Artistic Gymnastics,men,9,25,13
+2024,Artistic Gymnastics,women,7,18,6
+2024,Artistic Swimming,women,2,6,5
+2024,Athletics,men,23,69,31
+2024,Athletics,mixed,2,6,6
+2024,Athletics,women,23,70,27
+2024,Badminton,men,2,6,5
+2024,Badminton,mixed,1,3,3
+2024,Badminton,women,2,6,4
+2024,Basketball,men,1,3,3
+2024,Basketball,women,1,3,3
+2024,Beach Volleyball,men,1,3,3
+2024,Beach Volleyball,women,1,3,3
+2024,Boxing,men,7,28,19
+2024,Boxing,women,6,24,15
+2024,Breaking,men,1,3,3
+2024,Breaking,women,1,3,3
+2024,Canoe Slalom,men,3,9,7
+2024,Canoe Slalom,women,3,9,6
+2024,Canoe Sprint,men,5,15,9
+2024,Canoe Sprint,women,5,16,9
+2024,Cycling BMX Freestyle,men,1,3,3
+2024,Cycling BMX Freestyle,women,1,3,3
+2024,Cycling BMX Racing,men,1,3,1
+2024,Cycling BMX Racing,women,1,3,3
+2024,Cycling Mountain Bike,men,1,2,2
+2024,Cycling Mountain Bike,women,1,3,3
+2024,Cycling Road,men,2,5,2
+2024,Cycling Road,women,2,3,3
+2024,"Cycling Road, Cycling Mountain Bike",men,2,0,0
+2024,"Cycling Road, Cycling Mountain Bike",women,2,0,0
+2024,"Cycling Road, Cycling Track",men,5,0,0
+2024,"Cycling Road, Cycling Track",women,7,0,0
+2024,"Cycling Road, Triathlon",women,2,0,0
+2024,Cycling Track,men,6,18,8
+2024,Cycling Track,women,6,18,7
+2024,Diving,men,4,12,5
+2024,Diving,women,4,12,5
+2024,Equestrian,men,6,10,8
+2024,Equestrian,women,6,8,3
+2024,Fencing,men,6,18,10
+2024,Fencing,women,6,18,10
+2024,Football,men,1,3,3
+2024,Football,women,1,3,3
+2024,Golf,men,1,3,3
+2024,Golf,women,1,3,3
+2024,Handball,men,1,3,3
+2024,Handball,women,1,3,3
+2024,Hockey,men,1,3,3
+2024,Hockey,women,1,3,3
+2024,Judo,men,7,28,13
+2024,Judo,mixed,1,4,4
+2024,Judo,women,7,28,19
+2024,Marathon Swimming,men,1,1,1
+2024,Marathon Swimming,women,1,1,1
+2024,"Marathon Swimming, Swimming",men,6,0,0
+2024,"Marathon Swimming, Swimming",women,4,0,0
+2024,Modern Pentathlon,men,1,3,3
+2024,Modern Pentathlon,women,1,3,3
+2024,Rhythmic Gymnastics,women,2,6,5
+2024,Rowing,men,7,21,13
+2024,Rowing,women,8,21,9
+2024,Rugby Sevens,men,1,3,3
+2024,Rugby Sevens,women,1,3,3
+2024,Sailing,men,4,12,11
+2024,Sailing,mixed,2,6,6
+2024,Sailing,women,4,12,8
+2024,Shooting,men,6,18,11
+2024,Shooting,mixed,3,9,8
+2024,Shooting,women,6,18,12
+2024,Skateboarding,men,2,6,4
+2024,Skateboarding,women,2,6,4
+2024,Sport Climbing,men,2,6,6
+2024,Sport Climbing,women,2,6,5
+2024,Surfing,men,1,3,3
+2024,Surfing,women,1,3,3
+2024,Swimming,men,18,47,15
+2024,Swimming,mixed,1,3,3
+2024,Swimming,women,18,50,11
+2024,Table Tennis,men,2,6,3
+2024,Table Tennis,mixed,1,3,3
+2024,Table Tennis,women,2,6,3
+2024,Taekwondo,men,4,16,14
+2024,Taekwondo,women,4,16,14
+2024,Tennis,men,2,6,5
+2024,Tennis,mixed,1,3,3
+2024,Tennis,women,2,6,6
+2024,Trampoline Gymnastics,men,1,3,2
+2024,Trampoline Gymnastics,women,1,3,3
+2024,Triathlon,men,1,3,3
+2024,Triathlon,mixed,1,0,0
+2024,Triathlon,women,1,3,3
+2024,Volleyball,men,1,3,3
+2024,Volleyball,women,1,3,3
+2024,Water Polo,men,1,3,3
+2024,Water Polo,women,1,3,3
+2024,Weightlifting,men,5,15,12
+2024,Weightlifting,women,5,15,12
+2024,Wrestling,men,12,48,22
+2024,Wrestling,women,6,24,12

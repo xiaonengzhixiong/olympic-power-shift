@@ -1,0 +1,667 @@
+﻿table_name,column_name,dtype,description
+clean_olympic_events,athlete_id,int64,
+clean_olympic_events,athlete_name,object,
+clean_olympic_events,sex,object,"Event sex category: men, women, mixed, or unknown."
+clean_olympic_events,age,float64,
+clean_olympic_events,height,float64,
+clean_olympic_events,weight,float64,
+clean_olympic_events,team,object,
+clean_olympic_events,noc,object,Olympic NOC code.
+clean_olympic_events,games,float64,
+clean_olympic_events,year,Int64,Olympic year.
+clean_olympic_events,season,object,Olympic season. P0 standard output uses Summer.
+clean_olympic_events,city,object,Host city name as recorded in Olympic event data.
+clean_olympic_events,sport,object,Olympic sport.
+clean_olympic_events,event,object,Olympic event.
+clean_olympic_events,medal,object,"Gold, Silver, Bronze, or No medal."
+clean_olympic_events,source,object,
+clean_olympic_events,country_from_noc,object,
+clean_olympic_events,country_name,object,Standardized country or team display name.
+clean_olympic_events,iso3,object,ISO3-like country code used for joining external economic and population data.
+clean_olympic_events,is_medal,int64,
+clean_olympic_events,is_gold,int64,
+clean_olympic_events,medal_score,int64,
+clean_athlete_events_summer,athlete_id,int64,
+clean_athlete_events_summer,athlete_name,object,
+clean_athlete_events_summer,sex,object,"Event sex category: men, women, mixed, or unknown."
+clean_athlete_events_summer,age,float64,
+clean_athlete_events_summer,height,float64,
+clean_athlete_events_summer,weight,float64,
+clean_athlete_events_summer,team,object,
+clean_athlete_events_summer,noc,object,Olympic NOC code.
+clean_athlete_events_summer,games,object,
+clean_athlete_events_summer,year,Int64,Olympic year.
+clean_athlete_events_summer,season,object,Olympic season. P0 standard output uses Summer.
+clean_athlete_events_summer,city,object,Host city name as recorded in Olympic event data.
+clean_athlete_events_summer,sport,object,Olympic sport.
+clean_athlete_events_summer,event,object,Olympic event.
+clean_athlete_events_summer,medal,object,"Gold, Silver, Bronze, or No medal."
+clean_athlete_events_summer,source,object,
+clean_athlete_events_summer,country_from_noc,object,
+clean_athlete_events_summer,country_name,object,Standardized country or team display name.
+clean_athlete_events_summer,iso3,object,ISO3-like country code used for joining external economic and population data.
+clean_athlete_events_summer,is_medal,int64,
+clean_athlete_events_summer,is_gold,int64,
+clean_athlete_events_summer,medal_score,int64,
+official_event_medals,athlete_id,int64,
+official_event_medals,athlete_name,object,
+official_event_medals,sex,object,"Event sex category: men, women, mixed, or unknown."
+official_event_medals,age,float64,
+official_event_medals,height,float64,
+official_event_medals,weight,float64,
+official_event_medals,team,object,
+official_event_medals,noc,object,Olympic NOC code.
+official_event_medals,games,float64,
+official_event_medals,year,Int64,Olympic year.
+official_event_medals,season,object,Olympic season. P0 standard output uses Summer.
+official_event_medals,city,object,Host city name as recorded in Olympic event data.
+official_event_medals,sport,object,Olympic sport.
+official_event_medals,event,object,Olympic event.
+official_event_medals,medal,object,"Gold, Silver, Bronze, or No medal."
+official_event_medals,source,object,
+official_event_medals,country_from_noc,object,
+official_event_medals,country_name,object,Standardized country or team display name.
+official_event_medals,iso3,object,ISO3-like country code used for joining external economic and population data.
+official_event_medals,is_medal,int64,
+official_event_medals,is_gold,int64,
+official_event_medals,medal_score,int64,
+medal_unique_event_country,athlete_id,int64,
+medal_unique_event_country,athlete_name,object,
+medal_unique_event_country,sex,object,"Event sex category: men, women, mixed, or unknown."
+medal_unique_event_country,age,float64,
+medal_unique_event_country,height,float64,
+medal_unique_event_country,weight,float64,
+medal_unique_event_country,team,object,
+medal_unique_event_country,noc,object,Olympic NOC code.
+medal_unique_event_country,games,float64,
+medal_unique_event_country,year,Int64,Olympic year.
+medal_unique_event_country,season,object,Olympic season. P0 standard output uses Summer.
+medal_unique_event_country,city,object,Host city name as recorded in Olympic event data.
+medal_unique_event_country,sport,object,Olympic sport.
+medal_unique_event_country,event,object,Olympic event.
+medal_unique_event_country,medal,object,"Gold, Silver, Bronze, or No medal."
+medal_unique_event_country,source,object,
+medal_unique_event_country,country_from_noc,object,
+medal_unique_event_country,country_name,object,Standardized country or team display name.
+medal_unique_event_country,iso3,object,ISO3-like country code used for joining external economic and population data.
+medal_unique_event_country,is_medal,int64,
+medal_unique_event_country,is_gold,int64,
+medal_unique_event_country,medal_score,int64,
+olympic_timeline,year,int64,Olympic year.
+olympic_timeline,season,object,Olympic season. P0 standard output uses Summer.
+country_year_medals,year,Int64,Olympic year.
+country_year_medals,season,object,Olympic season. P0 standard output uses Summer.
+country_year_medals,noc,object,Olympic NOC code.
+country_year_medals,iso3,object,ISO3-like country code used for joining external economic and population data.
+country_year_medals,country_name,object,Standardized country or team display name.
+country_year_medals,total_medals,int64,Gold + Silver + Bronze medal count after team-event deduplication where applicable.
+country_year_medals,gold_medals,int64,Gold medal count.
+country_year_medals,silver_medals,int64,Silver medal count.
+country_year_medals,bronze_medals,int64,Bronze medal count.
+country_year_medals,weighted_medal_score,int64,3 * gold + 2 * silver + bronze.
+country_year_medals,gold_share,float64,Gold medals divided by total medals.
+country_year_medals,rank_total_medals,float64,
+country_year_medals,rank_gold_medals,float64,
+country_year_medals,athlete_event_entries,int64,
+country_year_medals,unique_athletes,int64,
+country_year_medals,sports_entered,int64,Count of sports a country entered in that Olympic year.
+country_year_medals,events_entered,int64,
+country_year_medals,prev_total_medals,float64,
+country_year_medals,medal_growth_prev_games,float64,
+country_year_medals,medal_growth_rate_prev_games,float64,
+country_year_medals,rolling_3_games_medals,float64,
+country_year_medals,country_first_medal_year,Int64,
+country_year_medals,is_country_first_medal_year,int64,
+country_year_medals,country_sport_hhi,float64,HHI of a country's medals across sports in a year.
+country_year_medals,medal_sport_entropy,float64,
+country_year_medals,medal_sports,int64,
+country_year_medals,female_athletes,float64,
+country_year_medals,male_athletes,float64,
+country_year_medals,female_athlete_share,float64,Female athletes divided by female plus male athletes.
+country_sport_year_medals,year,Int64,Olympic year.
+country_sport_year_medals,season,object,Olympic season. P0 standard output uses Summer.
+country_sport_year_medals,noc,object,Olympic NOC code.
+country_sport_year_medals,iso3,object,ISO3-like country code used for joining external economic and population data.
+country_sport_year_medals,country_name,object,Standardized country or team display name.
+country_sport_year_medals,sport,object,Olympic sport.
+country_sport_year_medals,total_medals,int64,Gold + Silver + Bronze medal count after team-event deduplication where applicable.
+country_sport_year_medals,gold_medals,int64,Gold medal count.
+country_sport_year_medals,silver_medals,int64,Silver medal count.
+country_sport_year_medals,bronze_medals,int64,Bronze medal count.
+country_sport_year_medals,weighted_medal_score,int64,3 * gold + 2 * silver + bronze.
+country_sport_year_medals,events_with_medals,int64,
+country_sport_year_medals,gold_share,float64,Gold medals divided by total medals.
+country_sport_year_medals,country_year_total_medals,int64,
+country_sport_year_medals,sport_contribution_share,float64,
+sport_year_country_share,year,Int64,Olympic year.
+sport_year_country_share,season,object,Olympic season. P0 standard output uses Summer.
+sport_year_country_share,sport,object,Olympic sport.
+sport_year_country_share,noc,object,Olympic NOC code.
+sport_year_country_share,iso3,object,ISO3-like country code used for joining external economic and population data.
+sport_year_country_share,country_name,object,Standardized country or team display name.
+sport_year_country_share,total_medals,int64,Gold + Silver + Bronze medal count after team-event deduplication where applicable.
+sport_year_country_share,gold_medals,int64,Gold medal count.
+sport_year_country_share,silver_medals,int64,Silver medal count.
+sport_year_country_share,bronze_medals,int64,Bronze medal count.
+sport_year_country_share,sport_year_total_medals,int64,
+sport_year_country_share,sport_year_gold_medals,int64,
+sport_year_country_share,country_medal_share_in_sport,float64,
+sport_year_country_share,country_gold_share_in_sport,float64,
+sport_year_country_share,sport_country_rank,float64,
+sport_year_country_share,sport_country_hhi,float64,HHI of a sport's medals across countries in a year.
+sport_year_country_share,sport_medal_entropy,float64,
+athlete_demographics,year,Int64,Olympic year.
+athlete_demographics,season,object,Olympic season. P0 standard output uses Summer.
+athlete_demographics,noc,object,Olympic NOC code.
+athlete_demographics,iso3,object,ISO3-like country code used for joining external economic and population data.
+athlete_demographics,country_name,object,Standardized country or team display name.
+athlete_demographics,athletes,int64,
+athlete_demographics,female_athletes,int64,
+athlete_demographics,male_athletes,int64,
+athlete_demographics,female_athlete_share,float64,Female athletes divided by female plus male athletes.
+athlete_demographics,female_share,float64,Backward-compatible alias for female_athlete_share.
+athlete_demographics,avg_age,float64,
+athlete_demographics,median_age,float64,
+athlete_demographics,avg_height,float64,
+athlete_demographics,avg_weight,float64,
+athlete_demographics,athlete_event_entries,int64,
+athlete_demographics,sports_participated,int64,
+athlete_demographics,events_participated,int64,
+country_gdp_population_medal_efficiency,year,Int64,Olympic year.
+country_gdp_population_medal_efficiency,season,object,Olympic season. P0 standard output uses Summer.
+country_gdp_population_medal_efficiency,noc,object,Olympic NOC code.
+country_gdp_population_medal_efficiency,iso3,object,ISO3-like country code used for joining external economic and population data.
+country_gdp_population_medal_efficiency,country_name,object,Standardized country or team display name.
+country_gdp_population_medal_efficiency,total_medals,int64,Gold + Silver + Bronze medal count after team-event deduplication where applicable.
+country_gdp_population_medal_efficiency,gold_medals,int64,Gold medal count.
+country_gdp_population_medal_efficiency,silver_medals,int64,Silver medal count.
+country_gdp_population_medal_efficiency,bronze_medals,int64,Bronze medal count.
+country_gdp_population_medal_efficiency,rank_total_medals,float64,
+country_gdp_population_medal_efficiency,rank_gold_medals,float64,
+country_gdp_population_medal_efficiency,population,float64,Population joined by iso3 and year.
+country_gdp_population_medal_efficiency,gdp_total,float64,"Total GDP joined by iso3 and year, using the Penn World Table source where available."
+country_gdp_population_medal_efficiency,gdp_per_capita,float64,GDP per capita joined by iso3 and year.
+country_gdp_population_medal_efficiency,medals_per_million_people,float64,Total medals per one million people.
+country_gdp_population_medal_efficiency,gold_per_million_people,float64,Gold medals per one million people.
+country_gdp_population_medal_efficiency,medals_per_10b_gdp,float64,Total medals per 10 billion units of GDP.
+country_gdp_population_medal_efficiency,gold_per_10b_gdp,float64,Gold medals per 10 billion units of GDP.
+country_gdp_population_medal_efficiency,medals_per_100b_gdp,float64,Total medals per 100 billion units of GDP.
+country_gdp_population_medal_efficiency,gold_per_100b_gdp,float64,Gold medals per 100 billion units of GDP.
+country_gdp_population_medal_efficiency,medals_per_10k_gdp_per_capita,float64,"Total medals per 10,000 units of GDP per capita."
+country_gdp_population_medal_efficiency,gold_per_10k_gdp_per_capita,float64,"Gold medals per 10,000 units of GDP per capita."
+country_gdp_population_medal_efficiency,sports_entered,int64,Count of sports a country entered in that Olympic year.
+country_gdp_population_medal_efficiency,events_entered,int64,
+country_gdp_population_medal_efficiency,unique_athletes,int64,
+country_economic_efficiency,year,Int64,Olympic year.
+country_economic_efficiency,season,object,Olympic season. P0 standard output uses Summer.
+country_economic_efficiency,noc,object,Olympic NOC code.
+country_economic_efficiency,iso3,object,ISO3-like country code used for joining external economic and population data.
+country_economic_efficiency,country_name,object,Standardized country or team display name.
+country_economic_efficiency,total_medals,int64,Gold + Silver + Bronze medal count after team-event deduplication where applicable.
+country_economic_efficiency,gold_medals,int64,Gold medal count.
+country_economic_efficiency,silver_medals,int64,Silver medal count.
+country_economic_efficiency,bronze_medals,int64,Bronze medal count.
+country_economic_efficiency,population,float64,Population joined by iso3 and year.
+country_economic_efficiency,gdp_per_capita,float64,GDP per capita joined by iso3 and year.
+country_economic_efficiency,gdp_total,float64,"Total GDP joined by iso3 and year, using the Penn World Table source where available."
+country_economic_efficiency,medals_per_million_people,float64,Total medals per one million people.
+country_economic_efficiency,gold_per_million_people,float64,Gold medals per one million people.
+country_economic_efficiency,medals_per_10k_gdp_per_capita,float64,"Total medals per 10,000 units of GDP per capita."
+country_economic_efficiency,gold_per_10k_gdp_per_capita,float64,"Gold medals per 10,000 units of GDP per capita."
+country_economic_efficiency,medals_per_100b_gdp,float64,Total medals per 100 billion units of GDP.
+country_economic_efficiency,gold_per_100b_gdp,float64,Gold medals per 100 billion units of GDP.
+country_economic_efficiency,sports_entered,int64,Count of sports a country entered in that Olympic year.
+country_economic_efficiency,events_entered,int64,
+country_economic_efficiency,unique_athletes,int64,
+country_economic_efficiency,has_population_match,int64,
+country_economic_efficiency,has_gdp_per_capita_match,int64,
+country_economic_efficiency,has_gdp_total_match,int64,
+country_economic_efficiency,economic_data_complete,int64,
+country_expected_vs_actual_medals,year,Int64,Olympic year.
+country_expected_vs_actual_medals,noc,object,Olympic NOC code.
+country_expected_vs_actual_medals,iso3,object,ISO3-like country code used for joining external economic and population data.
+country_expected_vs_actual_medals,country_name,object,Standardized country or team display name.
+country_expected_vs_actual_medals,total_medals,int64,Gold + Silver + Bronze medal count after team-event deduplication where applicable.
+country_expected_vs_actual_medals,expected_medals,float64,Descriptive baseline medal count from a year-specific economic model.
+country_expected_vs_actual_medals,medal_overperformance,float64,Actual medals minus expected medals from the descriptive baseline.
+country_expected_vs_actual_medals,gold_medals,int64,Gold medal count.
+country_expected_vs_actual_medals,gdp_total,float64,"Total GDP joined by iso3 and year, using the Penn World Table source where available."
+country_expected_vs_actual_medals,population,float64,Population joined by iso3 and year.
+country_expected_vs_actual_medals,gdp_per_capita,float64,GDP per capita joined by iso3 and year.
+country_expected_vs_actual_medals,sports_entered,int64,Count of sports a country entered in that Olympic year.
+country_expected_vs_actual_medals,events_entered,int64,
+country_expected_vs_actual_medals,model_note,object,Text note describing which expected-medal baseline was used.
+country_multi_normalized_efficiency,year,Int64,Olympic year.
+country_multi_normalized_efficiency,season,object,Olympic season. P0 standard output uses Summer.
+country_multi_normalized_efficiency,noc,object,Olympic NOC code.
+country_multi_normalized_efficiency,iso3,object,ISO3-like country code used for joining external economic and population data.
+country_multi_normalized_efficiency,country_name,object,Standardized country or team display name.
+country_multi_normalized_efficiency,total_medals,int64,Gold + Silver + Bronze medal count after team-event deduplication where applicable.
+country_multi_normalized_efficiency,gold_medals,int64,Gold medal count.
+country_multi_normalized_efficiency,silver_medals,int64,Silver medal count.
+country_multi_normalized_efficiency,bronze_medals,int64,Bronze medal count.
+country_multi_normalized_efficiency,weighted_medal_score,int64,3 * gold + 2 * silver + bronze.
+country_multi_normalized_efficiency,population,float64,Population joined by iso3 and year.
+country_multi_normalized_efficiency,gdp_total,float64,"Total GDP joined by iso3 and year, using the Penn World Table source where available."
+country_multi_normalized_efficiency,gdp_per_capita,float64,GDP per capita joined by iso3 and year.
+country_multi_normalized_efficiency,unique_athletes,int64,
+country_multi_normalized_efficiency,sports_entered,int64,Count of sports a country entered in that Olympic year.
+country_multi_normalized_efficiency,events_entered,int64,
+country_multi_normalized_efficiency,medals_per_million_people,float64,Total medals per one million people.
+country_multi_normalized_efficiency,gold_per_million_people,float64,Gold medals per one million people.
+country_multi_normalized_efficiency,medals_per_100_athletes,float64,Total medals per 100 unique athletes.
+country_multi_normalized_efficiency,gold_per_100_athletes,float64,Gold medals per 100 unique athletes.
+country_multi_normalized_efficiency,medals_per_entered_sport,float64,Total medals divided by number of sports entered.
+country_multi_normalized_efficiency,medals_per_entered_event,float64,Total medals divided by number of events entered.
+country_multi_normalized_efficiency,weighted_score_per_athlete,float64,Weighted medal score divided by unique athletes.
+country_multi_normalized_efficiency,weighted_score_per_entered_sport,float64,Weighted medal score divided by number of sports entered.
+country_multi_normalized_efficiency,medals_per_100b_gdp,float64,Total medals per 100 billion units of GDP.
+country_multi_normalized_efficiency,gold_per_100b_gdp,float64,Gold medals per 100 billion units of GDP.
+country_multi_normalized_efficiency,rank_total_medals,float64,
+country_multi_normalized_efficiency,rank_medals_per_million_people,float64,Within-year rank by medals per million people.
+country_multi_normalized_efficiency,rank_medals_per_100_athletes,float64,Within-year rank by medals per 100 athletes.
+country_multi_normalized_efficiency,rank_medals_per_entered_sport,float64,Within-year rank by medals per entered sport.
+country_multi_normalized_efficiency,rank_weighted_score_per_athlete,float64,Within-year rank by weighted score per athlete.
+country_multi_normalized_efficiency,small_sample_flag,int64,1 if delegation/event sample is small enough for ratio metrics to be unstable.
+country_multi_normalized_efficiency,extreme_single_medal_flag,int64,1 if a one-medal country has very high population- or athlete-normalized ratios.
+country_multi_normalized_efficiency,efficiency_label,object,Business-readable country-year label comparing scale and efficiency.
+country_multi_normalized_efficiency,efficiency_interpretation_note,object,Caveat note for interpreting multi-normalized efficiency metrics.
+country_multi_normalized_efficiency,has_population_match,int64,
+country_multi_normalized_efficiency,has_gdp_total_match,int64,
+country_multi_normalized_efficiency,economic_data_complete,int64,
+host_years,year,int64,Olympic year.
+host_years,city,object,Host city name as recorded in Olympic event data.
+host_years,host_country,object,Standardized host country name compatible with country_name where possible.
+host_years,host_noc,object,Host country NOC code.
+host_years,host_noc_compatible,object,Historical NOC code used to match country_year_medals when it differs from host_noc.
+host_years,host_continent,object,Host continent from curated host mapping.
+host_years,is_home_games,int64,1 if the host NOC appears in country-year medal outputs for that year.
+host_years,source_note,object,Source or evidence note for manually curated or derived fields.
+host_years,needs_manual_review,int64,1 if a derived mechanism event row should be manually checked.
+host_effect_country_sport_panel,host_year,int64,Olympic year in which the country hosted the Summer Games.
+host_effect_country_sport_panel,host_country,object,Standardized host country name compatible with country_name where possible.
+host_effect_country_sport_panel,host_noc,object,Host country NOC code.
+host_effect_country_sport_panel,sport,object,Olympic sport.
+host_effect_country_sport_panel,pre_year,float64,Previous observed Summer Olympic year used as the pre-host comparison; blank when unavailable.
+host_effect_country_sport_panel,post_year,float64,Next observed Summer Olympic year used as the post-host comparison; blank when unavailable.
+host_effect_country_sport_panel,pre_host_medals,float64,Host country's medals in the sport in the previous observed Games.
+host_effect_country_sport_panel,host_year_medals,float64,Host country's medals in the sport in the host Games.
+host_effect_country_sport_panel,post_host_medals,float64,Host country's medals in the sport in the next observed Games.
+host_effect_country_sport_panel,pre_country_share_in_sport,float64,Host country's sport medal share in the previous observed Games.
+host_effect_country_sport_panel,host_country_share_in_sport,float64,Host country's sport medal share in the host Games.
+host_effect_country_sport_panel,post_country_share_in_sport,float64,Host country's sport medal share in the next observed Games.
+host_effect_country_sport_panel,host_lift_vs_pre,float64,Host-year sport medal lift relative to the previous Games.
+host_effect_country_sport_panel,host_lift_vs_post,float64,Host-year sport medal lift relative to the next Games.
+host_effect_country_sport_panel,host_lift_vs_baseline,float64,Host-year sport medal lift relative to the average of available pre and post values.
+host_effect_country_sport_panel,non_host_peer_change,float64,Average medal change from pre to host year among same-sport non-host medal-winning peers.
+host_effect_country_sport_panel,host_lift_vs_peers,float64,Host lift versus pre minus non-host peer change; candidate peer-adjusted host evidence.
+host_effect_country_sport_panel,host_effect_strength,object,"Descriptive strength tier for host-effect candidate evidence, not a causal estimate."
+host_effect_country_sport_panel,host_effect_interpretation,object,Human-readable before/during/after host-effect candidate interpretation.
+host_effect_summary,host_year,int64,Olympic year in which the country hosted the Summer Games.
+host_effect_summary,host_country,object,Standardized host country name compatible with country_name where possible.
+host_effect_summary,total_medals_pre,float64,Host country's total medals in the previous observed Games.
+host_effect_summary,total_medals_host,int64,Host country's total medals in the host Games.
+host_effect_summary,total_medals_post,float64,Host country's total medals in the next observed Games.
+host_effect_summary,host_total_lift_vs_pre,float64,Host country's total medal lift relative to the previous Games.
+host_effect_summary,host_total_lift_vs_baseline,float64,Host country's total medal lift relative to the average of available pre and post values.
+host_effect_summary,sports_with_positive_host_lift,int64,Number of host sports with positive lift versus the pre/post baseline.
+host_effect_summary,strongest_host_effect_sport,object,Sport with the largest positive host_lift_vs_baseline for the host year.
+host_effect_summary,host_effect_confidence,object,Host-year summary confidence tier for candidate host-effect evidence.
+host_effect_summary_modern,host_year,int64,Olympic year in which the country hosted the Summer Games.
+host_effect_summary_modern,host_country,object,Standardized host country name compatible with country_name where possible.
+host_effect_summary_modern,total_medals_pre,float64,Host country's total medals in the previous observed Games.
+host_effect_summary_modern,total_medals_host,int64,Host country's total medals in the host Games.
+host_effect_summary_modern,total_medals_post,float64,Host country's total medals in the next observed Games.
+host_effect_summary_modern,host_total_lift_vs_baseline,float64,Host country's total medal lift relative to the average of available pre and post values.
+host_effect_summary_modern,strongest_host_effect_sport,object,Sport with the largest positive host_lift_vs_baseline for the host year.
+host_effect_summary_modern,host_effect_confidence,object,Host-year summary confidence tier for candidate host-effect evidence.
+host_effect_summary_modern,reporting_note,object,Presentation-safe note explaining how to describe the row in a report or defense.
+event_added_removed,year,int64,Olympic year.
+event_added_removed,sport,object,Olympic sport.
+event_added_removed,event,object,Olympic event.
+event_added_removed,sex,object,"Event sex category: men, women, mixed, or unknown."
+event_added_removed,change_type,object,"Program change type: added, removed, or restored."
+event_added_removed,event_family,object,Cleaned event family after removing sport and sex labels where possible.
+event_added_removed,note,object,
+event_opportunity_refined,year,int64,Olympic year.
+event_opportunity_refined,sport,object,Olympic sport.
+event_opportunity_refined,event,object,Olympic event.
+event_opportunity_refined,sex,object,"Event sex category: men, women, mixed, or unknown."
+event_opportunity_refined,original_change_type,object,Raw adjacent-Games change type from event_added_removed.
+event_opportunity_refined,refined_change_type,object,"Refined opportunity change type: true_added, restored, removed, likely_renamed_or_reclassified, or uncertain."
+event_opportunity_refined,event_family,object,Cleaned event family after removing sport and sex labels where possible.
+event_opportunity_refined,standard_event_family,object,"Conservative normalized event-family string used to flag likely renames, reclassifications or splits."
+event_opportunity_refined,true_new_medal_opportunity_flag,int64,1 when the refined rules treat the event as a likely true new medal opportunity.
+event_opportunity_refined,restored_event_flag,int64,1 when the event is treated as restored rather than brand-new.
+event_opportunity_refined,rename_or_split_likely_flag,int64,"1 when same-transition event-family evidence suggests rename, reclassification or split risk."
+event_opportunity_refined,opportunity_delta_vs_prev_games,float64,"Refined opportunity delta versus previous Games: usually +1, 0, -1, or blank when uncertain."
+event_opportunity_refined,confidence_level,object,Analyst-facing confidence tier for the candidate mechanism interpretation.
+event_opportunity_refined,note,object,
+coach_events_template,country_name,object,Standardized country or team display name.
+coach_events_template,sport,object,Olympic sport.
+coach_events_template,start_year,object,Start year for a manually curated coach event.
+coach_events_template,end_year,object,End year for a manually curated coach event; blank if ongoing or unknown.
+coach_events_template,coach_name,object,Coach name for manual curation.
+coach_events_template,event_type,object,"Coach event type such as appointment, departure, program_change, or tenure."
+coach_events_template,evidence_level,object,"Evidence quality marker such as official_source, secondary_source, or unverified."
+coach_events_template,source_note,object,Source or evidence note for manually curated or derived fields.
+coach_events_template_examples,country_name,object,Standardized country or team display name.
+coach_events_template_examples,sport,object,Olympic sport.
+coach_events_template_examples,start_year,int64,Start year for a manually curated coach event.
+coach_events_template_examples,end_year,object,End year for a manually curated coach event; blank if ongoing or unknown.
+coach_events_template_examples,coach_name,object,Coach name for manual curation.
+coach_events_template_examples,event_type,object,"Coach event type such as appointment, departure, program_change, or tenure."
+coach_events_template_examples,evidence_level,object,"Evidence quality marker such as official_source, secondary_source, or unverified."
+coach_events_template_examples,source_note,object,Source or evidence note for manually curated or derived fields.
+gender_event_expansion_by_year,year,Int64,Olympic year.
+gender_event_expansion_by_year,sport,object,Olympic sport.
+gender_event_expansion_by_year,sex_category,object,"Event sex category: men, women, mixed, or open_unknown."
+gender_event_expansion_by_year,event_count,int64,Count of unique events in a year-sport-sex category.
+gender_event_expansion_by_year,medal_opportunities,int64,Count of deduplicated country-event-medal opportunities in a year-sport-sex category.
+gender_event_expansion_by_year,countries_winning_medals,int64,Number of countries winning medals in the category.
+country_gender_opportunity_capture,year,Int64,Olympic year.
+country_gender_opportunity_capture,noc,object,Olympic NOC code.
+country_gender_opportunity_capture,iso3,object,ISO3-like country code used for joining external economic and population data.
+country_gender_opportunity_capture,country_name,object,Standardized country or team display name.
+country_gender_opportunity_capture,total_medals,int64,Gold + Silver + Bronze medal count after team-event deduplication where applicable.
+country_gender_opportunity_capture,female_medals,int64,Medals won in women's events.
+country_gender_opportunity_capture,male_medals,int64,Medals won in men's events.
+country_gender_opportunity_capture,mixed_medals,int64,Medals won in mixed events.
+country_gender_opportunity_capture,open_unknown_medals,int64,Medals won in open or unclassified events.
+country_gender_opportunity_capture,female_medal_share,float64,Women's-event medals divided by total medals.
+country_gender_opportunity_capture,female_event_opportunity_share,float64,Women's events divided by all events in that Olympic year.
+country_gender_opportunity_capture,female_medal_opportunity_share,float64,Women's medal opportunities divided by all medal opportunities in that Olympic year.
+country_gender_opportunity_capture,female_athlete_share,float64,Female athletes divided by female plus male athletes.
+country_gender_opportunity_capture,female_capture_ratio,float64,female_medal_share divided by female_event_opportunity_share.
+country_gender_opportunity_capture,female_medal_share_minus_opportunity_share,float64,Difference between female medal share and female event opportunity share.
+country_gender_medal_structure,year,Int64,Olympic year.
+country_gender_medal_structure,noc,object,Olympic NOC code.
+country_gender_medal_structure,iso3,object,ISO3-like country code used for joining external economic and population data.
+country_gender_medal_structure,country_name,object,Standardized country or team display name.
+country_gender_medal_structure,total_medals,int64,Gold + Silver + Bronze medal count after team-event deduplication where applicable.
+country_gender_medal_structure,female_medals,int64,Medals won in women's events.
+country_gender_medal_structure,male_medals,int64,Medals won in men's events.
+country_gender_medal_structure,mixed_medals,int64,Medals won in mixed events.
+country_gender_medal_structure,female_medal_share,float64,Women's-event medals divided by total medals.
+country_gender_medal_structure,female_event_opportunity_share,float64,Women's events divided by all events in that Olympic year.
+country_gender_medal_structure,female_athlete_share,float64,Female athletes divided by female plus male athletes.
+country_gender_medal_structure,female_capture_ratio,float64,female_medal_share divided by female_event_opportunity_share.
+country_gender_medal_structure,female_medal_growth,float64,Change in women's-event medal count from the previous Games for the country.
+country_gender_medal_structure,female_opportunity_share_growth,float64,Change in women's-event opportunity share from the previous Games.
+country_gender_medal_structure,female_capture_ratio_growth,float64,Change in female_capture_ratio from the previous Games.
+country_gender_medal_structure,growth_interpretation,object,Descriptive label separating opportunity expansion from capture improvement.
+country_gender_growth_decomposition,country_name,object,Standardized country or team display name.
+country_gender_growth_decomposition,noc,object,Olympic NOC code.
+country_gender_growth_decomposition,period_start,int64,Start Olympic year for a period-level decomposition.
+country_gender_growth_decomposition,period_end,int64,End Olympic year for a period-level decomposition.
+country_gender_growth_decomposition,female_medals_start,float64,Women's-event medals at the start of the decomposition period.
+country_gender_growth_decomposition,female_medals_end,float64,Women's-event medals at the end of the decomposition period.
+country_gender_growth_decomposition,female_medal_growth_total,float64,End minus start women's-event medal count.
+country_gender_growth_decomposition,female_event_opportunity_start,float64,Women's event opportunity share at period start.
+country_gender_growth_decomposition,female_event_opportunity_end,float64,Women's event opportunity share at period end.
+country_gender_growth_decomposition,female_athlete_share_start,float64,Female athlete share at period start.
+country_gender_growth_decomposition,female_athlete_share_end,float64,Female athlete share at period end.
+country_gender_growth_decomposition,female_capture_ratio_start,float64,Female medal share divided by women's event opportunity share at period start.
+country_gender_growth_decomposition,female_capture_ratio_end,float64,Female medal share divided by women's event opportunity share at period end.
+country_gender_growth_decomposition,opportunity_expansion_component,float64,Descriptive female medal growth component associated with women's opportunity expansion.
+country_gender_growth_decomposition,participation_expansion_component,float64,Descriptive female medal growth component associated with female athlete share expansion.
+country_gender_growth_decomposition,conversion_improvement_component,float64,Descriptive female medal growth component associated with medal conversion improvement.
+country_gender_growth_decomposition,unexplained_component,float64,"Residual component including total medal scale change, interactions and data limitations."
+country_gender_growth_decomposition,dominant_growth_driver,object,"Largest positive decomposition component, or no-positive-growth label."
+country_gender_growth_decomposition,decomposition_confidence,object,Confidence tier for the descriptive decomposition based on endpoint data completeness and growth size.
+country_gender_growth_decomposition,interpretation_text,object,"Narrative interpretation separating leap description, candidate mechanism and caveats."
+country_profile_features,noc,object,Olympic NOC code.
+country_profile_features,iso3,object,ISO3-like country code used for joining external economic and population data.
+country_profile_features,country_name,object,Standardized country or team display name.
+country_profile_features,total_medals_mean,float64,Mean total medals across medal-winning Olympic years.
+country_profile_features,gold_share_mean,float64,Mean gold share across medal-winning Olympic years.
+country_profile_features,medal_volatility,float64,Standard deviation of total medals across medal-winning Olympic years.
+country_profile_features,sport_concentration_hhi,float64,Mean country sport concentration HHI.
+country_profile_features,medal_sports_count,float64,Mean number of medal-winning sports.
+country_profile_features,recent_growth_rate,float64,Mean medal growth rate in the most recent 12-year window.
+country_profile_features,female_athlete_share,float64,Female athletes divided by female plus male athletes.
+country_profile_features,medals_per_million_people,float64,Total medals per one million people.
+country_profile_features,medals_per_100b_gdp,float64,Total medals per 100 billion units of GDP.
+country_profile_features,medals_per_100_athletes,float64,Total medals per 100 unique athletes.
+country_profile_features,country_first_medal_year,Int64,
+country_profile_features,years_with_medals,int64,Number of Olympic years in which the country won medals.
+country_profile_features,recent_total_medals_mean,float64,Mean total medals in the most recent 12-year window.
+country_profile_features,economic_data_complete_rate,float64,Share of country-year rows with complete economic data.
+country_profile_features,athletes_mean,float64,Mean unique athletes across Olympic years.
+country_profile_features,profile_note,object,Notes on country profile feature construction.
+country_cluster_labels,noc,object,Olympic NOC code.
+country_cluster_labels,iso3,object,ISO3-like country code used for joining external economic and population data.
+country_cluster_labels,country_name,object,Standardized country or team display name.
+country_cluster_labels,cluster_id,int64,Numeric country typology cluster id.
+country_cluster_labels,cluster_name,object,Business-readable country typology label.
+country_cluster_labels,cluster_k,int64,Number of clusters used.
+country_cluster_labels,typical_countries,object,Representative countries in the same cluster.
+country_cluster_labels,total_medals_mean,float64,Mean total medals across medal-winning Olympic years.
+country_cluster_labels,gold_share_mean,float64,Mean gold share across medal-winning Olympic years.
+country_cluster_labels,medal_volatility,float64,Standard deviation of total medals across medal-winning Olympic years.
+country_cluster_labels,sport_concentration_hhi,float64,Mean country sport concentration HHI.
+country_cluster_labels,medal_sports_count,float64,Mean number of medal-winning sports.
+country_cluster_labels,recent_growth_rate,float64,Mean medal growth rate in the most recent 12-year window.
+country_cluster_labels,female_athlete_share,float64,Female athletes divided by female plus male athletes.
+country_cluster_labels,medals_per_million_people,float64,Total medals per one million people.
+country_cluster_labels,medals_per_100b_gdp,float64,Total medals per 100 billion units of GDP.
+country_cluster_labels,medals_per_100_athletes,float64,Total medals per 100 unique athletes.
+country_cluster_labels,country_first_medal_year,Int64,
+country_cluster_labels,clustering_method,object,Clustering method used to assign typology labels.
+country_cluster_labels,cluster_note,object,Caveat note for interpreting typology clusters.
+sport_entry_barrier_index,sport,object,Olympic sport.
+sport_entry_barrier_index,sport_country_hhi_mean,float64,Mean sport-level medal concentration HHI across Olympic years.
+sport_entry_barrier_index,countries_winning_medals_mean,float64,Mean number of medal-winning countries in the sport across Olympic years.
+sport_entry_barrier_index,top1_share_mean,float64,Mean medal share of the leading country in the sport-year.
+sport_entry_barrier_index,new_country_medal_count,int64,Number of countries whose first recorded sport medal appears in this sport.
+sport_entry_barrier_index,medal_opportunity_count,int64,Total medal opportunities observed for the sport across Olympic years.
+sport_entry_barrier_index,event_growth_rate,float64,Growth rate of event count from first observed year to latest observed year.
+sport_entry_barrier_index,female_event_growth_rate,float64,Growth rate of women's event count from first observed women's-event year to latest observed year.
+sport_entry_barrier_index,median_population_of_winners,float64,Median population of medal-winning countries in the sport-year rows with matched data.
+sport_entry_barrier_index,median_gdp_of_winners,float64,Median total GDP of medal-winning countries in the sport-year rows with matched data.
+sport_entry_barrier_index,median_medals_per_million_of_winners,float64,Median population-normalized medal efficiency among sport medal winners.
+sport_entry_barrier_index,median_medals_per_100b_gdp_of_winners,float64,Median GDP-normalized medal efficiency among sport medal winners.
+sport_entry_barrier_index,repeat_winner_rate,float64,Share of country-sport medal rows where the country had already won a medal in the sport before.
+sport_entry_barrier_index,latest_event_count,float64,Latest observed total event count for the sport.
+sport_entry_barrier_index,latest_women_event_count,float64,Latest observed women's event count for the sport.
+sport_entry_barrier_index,latest_total_medal_opportunities,int64,Latest observed medal opportunities for the sport.
+sport_entry_barrier_index,breakthrough_friendliness_index,float64,Composite descriptive index where higher means the sport appears more accessible for new or smaller medal-winning countries.
+sport_entry_barrier_index,entry_barrier_index,float64,Composite descriptive index where higher means the sport appears harder for new or smaller medal-winning countries.
+sport_entry_barrier_index,sport_type,object,Business-readable sport opportunity/barrier type.
+sport_entry_barrier_index,recommendation_note,object,Short advisory note for project selection interpretation.
+sport_entry_barrier_index,index_note,object,Caveat note for interpreting the composite sport barrier index.
+sport_entry_barrier_modern,sport,object,Olympic sport.
+sport_entry_barrier_modern,modern_year_min,Int64,First Olympic year observed for the sport in the modern analysis window.
+sport_entry_barrier_modern,modern_year_max,Int64,Last Olympic year observed for the sport in the modern analysis window.
+sport_entry_barrier_modern,active_modern_sport_flag,int64,1 if the sport appears in the latest observed Summer Games in the data.
+sport_entry_barrier_modern,countries_winning_medals_mean_modern,float64,Mean number of medal-winning countries per sport-year from 1992 onward.
+sport_entry_barrier_modern,sport_country_hhi_mean_modern,float64,Mean sport-level medal concentration HHI from 1992 onward.
+sport_entry_barrier_modern,top1_share_mean_modern,float64,Mean top-country medal share in the sport from 1992 onward.
+sport_entry_barrier_modern,new_country_medal_count_modern,int64,Number of country first-sport-medal cases whose first year is in the modern window.
+sport_entry_barrier_modern,female_event_growth_rate_modern,float64,Growth rate of women's event count within the modern window.
+sport_entry_barrier_modern,medal_opportunity_count_modern,int64,Total medal opportunities in the sport within the modern window.
+sport_entry_barrier_modern,repeat_winner_rate_modern,float64,Share of modern country-sport rows where the country had prior sport medals before that row.
+sport_entry_barrier_modern,breakthrough_friendliness_index_modern,float64,Modern composite index where higher means the sport appears more accessible for new medal-winning countries.
+sport_entry_barrier_modern,entry_barrier_index_modern,float64,Modern composite index where higher means the sport appears harder for new medal-winning countries.
+sport_entry_barrier_modern,modern_sport_type,object,Modern sport opportunity/barrier type for strategy discussion.
+sport_entry_barrier_modern,recommendation_note,object,Short advisory note for project selection interpretation.
+sport_entry_barrier_modern,index_note,object,Caveat note for interpreting the composite sport barrier index.
+sport_breakthrough_cases,year,Int64,Olympic year.
+sport_breakthrough_cases,sport,object,Olympic sport.
+sport_breakthrough_cases,noc,object,Olympic NOC code.
+sport_breakthrough_cases,iso3,object,ISO3-like country code used for joining external economic and population data.
+sport_breakthrough_cases,country_name,object,Standardized country or team display name.
+sport_breakthrough_cases,total_medals,int64,Gold + Silver + Bronze medal count after team-event deduplication where applicable.
+sport_breakthrough_cases,gold_medals,int64,Gold medal count.
+sport_breakthrough_cases,sport_year_total_medals,int64,
+sport_breakthrough_cases,country_medal_share_in_sport,float64,
+sport_breakthrough_cases,country_first_sport_medal_year,Int64,First Olympic year when the country won a recorded medal in this sport.
+sport_breakthrough_cases,previous_country_sport_medals,int64,Cumulative country medals in the sport before the current Olympic year.
+sport_breakthrough_cases,is_first_country_sport_medal,int64,1 if this is the country's first recorded medal year in the sport.
+sport_breakthrough_cases,population,float64,Population joined by iso3 and year.
+sport_breakthrough_cases,gdp_total,float64,"Total GDP joined by iso3 and year, using the Penn World Table source where available."
+sport_breakthrough_cases,medals_per_million_people,float64,Total medals per one million people.
+sport_breakthrough_cases,medals_per_100b_gdp,float64,Total medals per 100 billion units of GDP.
+sport_breakthrough_cases,breakthrough_friendliness_index,float64,Composite descriptive index where higher means the sport appears more accessible for new or smaller medal-winning countries.
+sport_breakthrough_cases,entry_barrier_index,float64,Composite descriptive index where higher means the sport appears harder for new or smaller medal-winning countries.
+sport_breakthrough_cases,sport_type,object,Business-readable sport opportunity/barrier type.
+sport_breakthrough_cases,case_type,object,Breakthrough case type such as first sport medal or early-stage repeat breakthrough.
+sport_breakthrough_cases,case_note,object,Short note describing why the row is treated as a breakthrough or established case.
+sport_breakthrough_cases,recommendation_note,object,Short advisory note for project selection interpretation.
+leap_mechanism_decomposition,year,Int64,Olympic year.
+leap_mechanism_decomposition,country_name,object,Standardized country or team display name.
+leap_mechanism_decomposition,noc,object,Olympic NOC code.
+leap_mechanism_decomposition,iso3,object,ISO3-like country code used for joining external economic and population data.
+leap_mechanism_decomposition,sport,object,Olympic sport.
+leap_mechanism_decomposition,total_medals,int64,Gold + Silver + Bronze medal count after team-event deduplication where applicable.
+leap_mechanism_decomposition,gold_medals,int64,Gold medal count.
+leap_mechanism_decomposition,medal_growth,float64,
+leap_mechanism_decomposition,gold_growth,float64,
+leap_mechanism_decomposition,olympic_leap_index,float64,Candidate anomaly score for country-sport performance jumps; not a causal estimate.
+leap_mechanism_decomposition,host_effect_score,float64,Candidate mechanism score for host-year overlap.
+leap_mechanism_decomposition,event_expansion_effect_score,float64,Candidate mechanism score for sport event additions or restorations in the same year.
+leap_mechanism_decomposition,female_expansion_effect_score,float64,Candidate mechanism score for women's event expansion in the sport.
+leap_mechanism_decomposition,coach_effect_score,float64,Candidate mechanism score from manually curated coach template rows; 0 when no evidence is entered.
+leap_mechanism_decomposition,economic_growth_effect_score,float64,Candidate mechanism score from improvement versus the descriptive economic baseline.
+leap_mechanism_decomposition,continuity_score,float64,1 if the country continued winning medals in the sport in the next observed Games.
+leap_mechanism_decomposition,one_off_spike_risk_score,float64,Risk score for a leap that may be a one-off spike rather than a sustained shift.
+leap_mechanism_decomposition,primary_mechanism_label,object,"Highest-scoring candidate mechanism label, or one_off_spike_risk when risk is high."
+leap_mechanism_decomposition,mechanism_explanation_text,object,Human-readable candidate explanation assembled from structured mechanism signals.
+leap_mechanism_decomposition,mechanism_evidence_level,object,Evidence level for the mechanism explanation.
+leap_mechanism_decomposition,coach_evidence_level,object,Evidence level from coach_events_template when available.
+leap_mechanism_decomposition,coach_source_note,object,Source note from coach_events_template when available.
+leap_mechanism_decomposition,added_or_restored_events,float64,Backward-compatible count now populated from refined true new medal opportunity events.
+leap_mechanism_decomposition,added_women_events,float64,Count of refined true new women's events in the sport-year.
+leap_mechanism_decomposition,restored_events,float64,Count of restored events in the sport-year from event_opportunity_refined.
+leap_mechanism_decomposition,uncertain_opportunity_events,float64,Count of uncertain opportunity-change rows in the sport-year from event_opportunity_refined.
+leap_mechanism_decomposition,women_event_growth,float64,Change in women's event count from previous Games for the sport.
+leap_mechanism_decomposition,medal_overperformance,float64,Actual medals minus expected medals from the descriptive baseline.
+leap_mechanism_decomposition,economic_overperformance_growth,float64,Change in medal_overperformance from previous Games for the country.
+leap_mechanism_enhanced,year,Int64,Olympic year.
+leap_mechanism_enhanced,country_name,object,Standardized country or team display name.
+leap_mechanism_enhanced,noc,object,Olympic NOC code.
+leap_mechanism_enhanced,sport,object,Olympic sport.
+leap_mechanism_enhanced,total_medals,int64,Gold + Silver + Bronze medal count after team-event deduplication where applicable.
+leap_mechanism_enhanced,gold_medals,int64,Gold medal count.
+leap_mechanism_enhanced,olympic_leap_index,float64,Candidate anomaly score for country-sport performance jumps; not a causal estimate.
+leap_mechanism_enhanced,candidate_primary_mechanism,object,Primary candidate mechanism after excluding continuity and one-off risk as main causes.
+leap_mechanism_enhanced,confidence_level,object,Analyst-facing confidence tier for the candidate mechanism interpretation.
+leap_mechanism_enhanced,evidence_level,object,"Evidence quality marker such as official_source, secondary_source, or unverified."
+leap_mechanism_enhanced,evidence_stack,object,"Concise stacked summary separating descriptive evidence, internal candidates, internal comparative support, external evidence and risk."
+leap_mechanism_enhanced,supporting_signals,object,Secondary supporting evidence such as continuity or positive overperformance; not a primary mechanism.
+leap_mechanism_enhanced,risk_flags,object,Interpretation risks and caveats such as one-off spike risk or incomplete economic data.
+leap_mechanism_enhanced,alternative_explanations,object,Plausible alternative non-causal explanations not ruled out by current tables.
+leap_mechanism_enhanced,host_evidence,object,Host-related evidence statement for the row.
+leap_mechanism_enhanced,event_expansion_evidence,object,Program expansion evidence statement for the row.
+leap_mechanism_enhanced,female_expansion_evidence,object,Women's opportunity expansion evidence statement for the row.
+leap_mechanism_enhanced,economic_evidence,object,Economic-baseline evidence statement with data-completeness caveats.
+leap_mechanism_enhanced,coach_evidence,object,Coach/program evidence statement; only non-none when external evidence is curated in the template.
+leap_mechanism_enhanced,continuity_signal,object,"Support-only continuity note, never a primary mechanism label."
+leap_mechanism_enhanced,one_off_spike_risk,object,Human-readable risk tier for a possibly unsustained leap.
+leap_mechanism_enhanced,interpretation_text,object,"Narrative interpretation separating leap description, candidate mechanism and caveats."
+leap_mechanism_enhanced,interpretation_scope_note,object,Explicit scope note stating that the row is not a causal claim.
+leap_case_library,case_id,object,Stable id for a leap case card.
+leap_case_library,case_priority,int64,Priority rank within the generated leap case library.
+leap_case_library,case_title,object,Human-readable leap case title.
+leap_case_library,year,Int64,Olympic year.
+leap_case_library,country_name,object,Standardized country or team display name.
+leap_case_library,noc,object,Olympic NOC code.
+leap_case_library,sport,object,Olympic sport.
+leap_case_library,total_medals,int64,Gold + Silver + Bronze medal count after team-event deduplication where applicable.
+leap_case_library,gold_medals,int64,Gold medal count.
+leap_case_library,medal_growth,float64,
+leap_case_library,gold_growth,float64,
+leap_case_library,olympic_leap_index,float64,Candidate anomaly score for country-sport performance jumps; not a causal estimate.
+leap_case_library,primary_mechanism_label,object,"Highest-scoring candidate mechanism label, or one_off_spike_risk when risk is high."
+leap_case_library,mechanism_explanation_text,object,Human-readable candidate explanation assembled from structured mechanism signals.
+leap_case_library,mechanism_evidence_level,object,Evidence level for the mechanism explanation.
+leap_case_library,host_effect_score,float64,Candidate mechanism score for host-year overlap.
+leap_case_library,event_expansion_effect_score,float64,Candidate mechanism score for sport event additions or restorations in the same year.
+leap_case_library,female_expansion_effect_score,float64,Candidate mechanism score for women's event expansion in the sport.
+leap_case_library,coach_effect_score,float64,Candidate mechanism score from manually curated coach template rows; 0 when no evidence is entered.
+leap_case_library,economic_growth_effect_score,float64,Candidate mechanism score from improvement versus the descriptive economic baseline.
+leap_case_library,continuity_score,float64,1 if the country continued winning medals in the sport in the next observed Games.
+leap_case_library,one_off_spike_risk_score,float64,Risk score for a leap that may be a one-off spike rather than a sustained shift.
+leap_case_library,case_card_prompt,object,Template prompt for analysts or AI assistants reviewing the case.
+leap_case_library,recommended_next_research,object,Recommended manual follow-up research for the case.
+mechanism_case_cards,case_id,object,Stable id for a leap case card.
+mechanism_case_cards,case_title,object,Human-readable leap case title.
+mechanism_case_cards,short_title,object,Compact front-end title for a mechanism case card.
+mechanism_case_cards,country_name,object,Standardized country or team display name.
+mechanism_case_cards,noc,object,Olympic NOC code.
+mechanism_case_cards,sport,object,Olympic sport.
+mechanism_case_cards,year_or_period,object,Year or period label used for front-end case-card display.
+mechanism_case_cards,ready_for_presentation,object,"Presentation readiness flag: yes, limited, or no."
+mechanism_case_cards,presentation_priority,int64,Analyst-facing priority rank for defense/reporting use; lower is higher priority.
+mechanism_case_cards,phenomenon_summary,object,Short summary of the descriptive performance phenomenon shown by the case.
+mechanism_case_cards,one_sentence_takeaway,object,One-sentence defense-friendly takeaway that stays within candidate-mechanism wording.
+mechanism_case_cards,safest_claim,object,Safest version of the claim suitable for reporting or defense.
+mechanism_case_cards,not_allowed_claim,object,Over-strong claim that should not be made from current project tables.
+mechanism_case_cards,key_metrics,object,Compact metric string for case-card display.
+mechanism_case_cards,evidence_summary_short,object,Short evidence summary optimized for front-end cards and oral defense.
+mechanism_case_cards,candidate_mechanism,object,Primary candidate mechanism phrased for the case card.
+mechanism_case_cards,evidence_stack,object,"Concise stacked summary separating descriptive evidence, internal candidates, internal comparative support, external evidence and risk."
+mechanism_case_cards,alternative_explanations,object,Plausible alternative non-causal explanations not ruled out by current tables.
+mechanism_case_cards,confidence_level,object,Analyst-facing confidence tier for the candidate mechanism interpretation.
+mechanism_case_cards,risk_note,object,Case-specific caveat explaining what can be misread or what evidence is missing.
+mechanism_case_cards,external_evidence_needed,object,Explicit note about the external evidence still needed before stronger claims.
+mechanism_case_cards,chart_recommendation,object,Suggested chart type or configuration for front-end display.
+mechanism_case_cards,frontend_card_text,object,Front-end ready summary text for the case card.
+mechanism_reporting_filter,record_type,object,"Source category for a reporting-risk row, such as economic interpretation, host panel, gender decomposition, low-confidence leap mechanism, or modern sport policy risk."
+mechanism_reporting_filter,entity_id,object,Stable composite identifier for the flagged record.
+mechanism_reporting_filter,recommended_for_presentation,object,"Presentation recommendation: direct_show, show_with_limitations, or not_recommended_for_direct_presentation."
+mechanism_reporting_filter,reporting_risk_level,object,"Reporting risk tier: low, medium, or high."
+mechanism_reporting_filter,reporting_risk_reason,object,Plain-language reason the record needs caveats or should not be presented directly.
+mechanism_reporting_filter,safer_interpretation,object,Suggested safer wording for reports or front-end notes.
+mechanism_reporting_filter,requires_external_validation,int64,1 if the record needs external evidence or manual validation before stronger claims.
+country_year_sport_concentration,year,Int64,Olympic year.
+country_year_sport_concentration,noc,object,Olympic NOC code.
+country_year_sport_concentration,country_name,object,Standardized country or team display name.
+country_year_sport_concentration,country_sport_hhi,float64,HHI of a country's medals across sports in a year.
+country_year_sport_concentration,medal_sport_entropy,float64,
+country_year_sport_concentration,medal_sports,int64,
+country_year_sport_concentration,top_sport_medal_share,float64,
+sport_globalization_metrics,year,Int64,Olympic year.
+sport_globalization_metrics,season,object,Olympic season. P0 standard output uses Summer.
+sport_globalization_metrics,sport,object,Olympic sport.
+sport_globalization_metrics,countries_winning_medals,int64,Number of countries winning medals in the category.
+sport_globalization_metrics,sport_country_hhi,float64,HHI of a sport's medals across countries in a year.
+sport_globalization_metrics,sport_medal_entropy,float64,
+sport_globalization_metrics,max_country_share,float64,
+sport_globalization_metrics,sport_year_total_medals,int64,
+sport_globalization_metrics,sport_globalization_index,float64,
+leap_index_country_sport,noc,object,Olympic NOC code.
+leap_index_country_sport,iso3,object,ISO3-like country code used for joining external economic and population data.
+leap_index_country_sport,country_name,object,Standardized country or team display name.
+leap_index_country_sport,sport,object,Olympic sport.
+leap_index_country_sport,year,Int64,Olympic year.
+leap_index_country_sport,total_medals,int64,Gold + Silver + Bronze medal count after team-event deduplication where applicable.
+leap_index_country_sport,gold_medals,int64,Gold medal count.
+leap_index_country_sport,prev_total_medals,float64,
+leap_index_country_sport,prev_gold_medals,float64,
+leap_index_country_sport,rolling3_prev_medals,float64,
+leap_index_country_sport,medal_growth,float64,
+leap_index_country_sport,gold_growth,float64,
+leap_index_country_sport,above_recent_baseline,float64,
+leap_index_country_sport,first_medal_bonus,int64,
+leap_index_country_sport,continuity_bonus,float64,
+leap_index_country_sport,sport_total_medals,int64,
+leap_index_country_sport,sport_total_growth,float64,
+leap_index_country_sport,sport_expansion_penalty,float64,
+leap_index_country_sport,olympic_leap_index,float64,Candidate anomaly score for country-sport performance jumps; not a causal estimate.
+data_quality_report,table_name,object,
+data_quality_report,rows,int64,
+data_quality_report,columns,int64,
+data_quality_report,year_min,float64,
+data_quality_report,year_max,float64,
+data_quality_report,missing_country_name_rate,float64,
+data_quality_report,missing_noc_rate,float64,
+data_quality_report,missing_sport_rate,float64,
+data_quality_report,missing_gdp_per_capita_rate,float64,
+data_quality_report,missing_population_rate,float64,
+table_manifest,table_name,object,
+table_manifest,file_name,object,
+table_manifest,rows,int64,
+table_manifest,columns,int64,
+table_manifest,grain,object,
+table_manifest,primary_keys_recommended,object,

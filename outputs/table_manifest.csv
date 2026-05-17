@@ -1,0 +1,40 @@
+﻿table_name,file_name,rows,columns,grain,primary_keys_recommended
+clean_olympic_events,clean_olympic_events.csv,252565,22,athlete-event record,
+clean_athlete_events_summer,clean_athlete_events_summer.csv,222552,22,"athlete-event record, 1896-2016 athlete source",
+official_event_medals,official_event_medals.csv,18159,22,country-event-medal record after team medal deduplication,
+medal_unique_event_country,medal_unique_event_country.csv,18159,22,country-event-medal record after team medal deduplication,
+olympic_timeline,olympic_timeline_1896_2024.csv,31,2,olympic year,year
+country_year_medals,country_year_medals.csv,1487,29,country-year,"year,noc"
+country_sport_year_medals,country_sport_year_medals.csv,6844,15,country-sport-year,"year,noc,sport"
+sport_year_country_share,sport_year_country_share.csv,6844,17,sport-year-country,"year,sport,noc"
+athlete_demographics,athlete_demographics.csv,2814,17,country-year,"year,noc"
+country_gdp_population_medal_efficiency,country_gdp_population_medal_efficiency.csv,1487,25,country-year,"year,noc"
+country_economic_efficiency,country_economic_efficiency.csv,1487,25,country-year,"year,noc"
+country_expected_vs_actual_medals,country_expected_vs_actual_medals.csv,1487,14,country-year,"year,noc"
+country_multi_normalized_efficiency,country_multi_normalized_efficiency.csv,1589,38,country-year multi-normalized efficiency profile,"year,noc"
+host_years,host_years.csv,31,9,host-year,"year,host_noc"
+host_effect_country_sport_panel,host_effect_country_sport_panel.csv,789,19,host-year-sport before/during/after panel,"host_year,host_noc,sport"
+host_effect_summary,host_effect_summary.csv,31,10,host-year summary of before/during/after candidate host effect,"host_year,host_country"
+host_effect_summary_modern,host_effect_summary_modern.csv,8,9,modern host-year summary with complete pre/post windows for reporting,"host_year,host_country"
+event_added_removed,event_added_removed.csv,2176,7,program-change event,"year,sport,event,sex,change_type"
+event_opportunity_refined,event_opportunity_refined.csv,2176,14,refined program-change event with opportunity classification,"year,sport,event,sex,refined_change_type"
+coach_events_template,coach_events_template.csv,0,8,manual coach-event template,
+coach_events_template_examples,coach_events_template_examples.csv,2,8,non-data examples for coach-event template,
+gender_event_expansion_by_year,gender_event_expansion_by_year.csv,1230,6,year-sport-sex program opportunity,"year,sport,sex_category"
+country_gender_opportunity_capture,country_gender_opportunity_capture.csv,1461,15,country-year gender medal capture,"year,noc"
+country_gender_medal_structure,country_gender_medal_structure.csv,1461,16,country-year gender medal structure and growth attribution,"year,noc"
+country_gender_growth_decomposition,country_gender_growth_decomposition.csv,248,20,country-period female medal growth shift-share decomposition,"country_name,noc,period_start,period_end"
+country_profile_features,country_profile_features.csv,157,19,country profile feature vector,noc
+country_cluster_labels,country_cluster_labels.csv,157,20,country typology cluster assignment,noc
+sport_entry_barrier_index,sport_entry_barrier_index.csv,71,21,sport-level barrier and breakthrough-friendliness profile,sport
+sport_entry_barrier_modern,sport_entry_barrier_modern.csv,45,16,modern active sport-level entry barrier and breakthrough-friendliness profile,sport
+sport_breakthrough_cases,sport_breakthrough_cases.csv,7462,22,country-sport-year breakthrough case with sport barrier context,"year,sport,noc"
+leap_mechanism_decomposition,leap_mechanism_decomposition.csv,6745,29,country-sport-year leap mechanism candidate decomposition,"year,noc,sport"
+leap_mechanism_enhanced,leap_mechanism_enhanced.csv,6745,23,country-sport-year evidence-tiered leap mechanism interpretation,"year,noc,sport"
+leap_case_library,leap_case_library.csv,40,24,curated candidate leap case library,case_id
+mechanism_case_cards,mechanism_case_cards.csv,10,23,curated front-end mechanism case card,case_id
+mechanism_reporting_filter,mechanism_reporting_filter.csv,1565,7,record-level reporting risk and presentation guidance,"record_type,entity_id"
+country_year_sport_concentration,country_year_sport_concentration.csv,1460,7,country-year,"year,noc"
+sport_globalization_metrics,sport_globalization_metrics.csv,763,9,sport-year,"year,sport"
+leap_index_country_sport,leap_index_country_sport.csv,6844,19,country-sport-year,"year,noc,sport"
+data_quality_report,data_quality_report.csv,38,10,table-level quality metrics,

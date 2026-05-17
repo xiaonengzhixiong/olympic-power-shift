@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+
+.env
+
+.idea/
+.vscode/
+*.swp
+*.swo
+
+.ipynb_checkpoints/
+
+Thumbs.db
+Desktop.ini

@@ -1,0 +1,32 @@
+﻿host_year,host_country,total_medals_pre,total_medals_host,total_medals_post,host_total_lift_vs_pre,host_total_lift_vs_baseline,sports_with_positive_host_lift,strongest_host_effect_sport,host_effect_confidence
+1896,Greece,,44,,,,9,Athletics,limited_missing_pre_or_post_games
+1900,France,11.0,102,2.0,91.0,95.5,18,Sailing,medium_high_candidate
+1904,United States,54.0,230,23.0,176.0,191.5,18,Athletics,medium_high_candidate
+1906,Greece,2.0,35,4.0,33.0,32.0,9,Shooting,medium_high_candidate
+1908,United Kingdom,25.0,143,41.0,118.0,110.0,21,Shooting,medium_high_candidate
+1912,Sweden,25.0,65,64.0,40.0,20.5,9,Shooting,medium_high_candidate
+1920,Belgium,6.0,42,13.0,36.0,32.5,12,Archery,medium_high_candidate
+1924,France,42.0,40,25.0,-2.0,6.5,8,Cycling,medium_high_candidate
+1928,Netherlands,11.0,23,8.0,12.0,13.5,9,Art Competitions,medium_high_candidate
+1932,United States,56.0,110,57.0,54.0,53.5,15,Gymnastics,medium_high_candidate
+1936,Germany,24.0,101,,77.0,77.0,19,Athletics,medium_high_candidate
+1948,United Kingdom,14.0,27,11.0,13.0,14.5,8,Art Competitions,medium_high_candidate
+1952,Finland,22.0,22,15.0,0.0,3.5,6,Boxing,medium_high_candidate
+1956,Australia,11.0,35,22.0,24.0,18.5,6,Athletics,medium_high_candidate
+1960,Italy,25.0,36,27.0,11.0,10.0,9,Boxing,medium_high_candidate
+1964,Japan,18.0,29,25.0,11.0,7.5,6,Judo,medium_high_candidate
+1968,Mexico,1.0,9,1.0,8.0,8.0,5,Boxing,medium_high_candidate
+1972,Germany,26.0,40,39.0,14.0,7.5,9,Canoeing,medium_high_candidate
+1976,Canada,5.0,11,,6.0,6.0,4,Swimming,medium_candidate
+1980,Soviet Union,125.0,195,,70.0,70.0,23,Athletics,medium_high_candidate
+1984,United States,,173,94.0,,79.0,21,Athletics,medium_high_candidate
+1988,South Korea,19.0,33,28.0,14.0,9.5,8,Wrestling,medium_high_candidate
+1992,Spain,4.0,22,17.0,18.0,11.5,11,Sailing,medium_high_candidate
+1996,United States,108.0,101,91.0,-7.0,1.5,13,Boxing,medium_candidate
+2000,Australia,41.0,58,50.0,17.0,12.5,13,Swimming,medium_high_candidate
+2004,Greece,13.0,16,4.0,3.0,7.5,9,Athletics,medium_candidate
+2008,China,63.0,100,88.0,37.0,24.5,18,Gymnastics,medium_high_candidate
+2012,United Kingdom,48.0,65,67.0,17.0,7.5,11,Rowing,medium_high_candidate
+2016,Brazil,17.0,19,21.0,2.0,0.0,5,Canoeing,medium_candidate
+2020,Japan,41.0,58,45.0,17.0,15.0,15,Boxing,medium_high_candidate
+2024,France,33.0,64,,31.0,31.0,19,Swimming,limited_missing_pre_or_post_games

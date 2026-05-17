@@ -1,0 +1,3163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Olympic Power Shift｜百年奥运竞争力跃迁与 AI 洞察</title>
+
+  <!-- 推荐用本地服务器打开：在 data_visualization 目录运行 python -m http.server 8000 -->
+  <!-- 然后浏览器访问 http://localhost:8000/olympic_power_shift_demo_v3.html -->
+
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+  <!--
+    注意：ECharts 5 的 npm 包里通常不再稳定提供 /map/js/world.js。
+    这里使用 ECharts 4.9 的 world.js 作为地图数据源，和 ECharts 5 的 registerMap 兼容。
+    同时准备多个 CDN 备用，避免某一个 CDN 被校园网或浏览器拦截。
+  -->
+  <script>
+    function loadScriptSequentially(urls, done) {
+      let i = 0;
+      function next() {
+        if (i >= urls.length) {
+          console.warn("世界地图脚本全部加载失败", urls);
+          if (done) done(false);
+          return;
+        }
+        const s = document.createElement("script");
+        s.src = urls[i++];
+        s.onload = function () { if (done) done(true); };
+        s.onerror = next;
+        document.head.appendChild(s);
+      }
+      next();
+    }
+
+    window.__worldMapReady = new Promise(resolve => {
+      loadScriptSequentially([
+        "https://cdn.jsdelivr.net/npm/echarts@4.9.0/map/js/world.js",
+        "https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/world.js",
+        "https://unpkg.com/echarts@4.9.0/map/js/world.js",
+        "https://cdn.staticfile.org/echarts/4.9.0/map/js/world.js"
+      ], resolve);
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+
+  <style>
+    .agent-tab {
+    border: 1px solid var(--line);
+    background: rgba(255,255,255,0.06);
+    color: var(--muted);
+    padding: 10px 20px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: 0.18s ease;
+    font-size: 14px;
+    }
+
+    .agent-tab.active,
+    .agent-tab:hover {
+        color: var(--text);
+        border-color: rgba(125,211,252,0.65);
+        background: rgba(125,211,252,0.12);
+    }
+
+    .streaming-text {
+    max-height: 420px;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    }
+
+    :root {
+      --bg: #070b18;
+      --panel: rgba(255,255,255,0.075);
+      --panel2: rgba(255,255,255,0.105);
+      --text: #eef3ff;
+      --muted: #a7b2ca;
+      --line: rgba(255,255,255,0.14);
+      --accent: #7dd3fc;
+      --accent2: #c084fc;
+      --gold: #fbbf24;
+      --danger: #fb7185;
+      --green: #34d399;
+      --shadow: 0 22px 70px rgba(0,0,0,0.35);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Inter", "Segoe UI", "Microsoft YaHei", Arial, sans-serif;
+      background:
+        radial-gradient(circle at 20% 0%, rgba(125,211,252,0.22), transparent 30%),
+        radial-gradient(circle at 80% 10%, rgba(192,132,252,0.18), transparent 28%),
+        linear-gradient(135deg, #070b18 0%, #0d1327 55%, #080c18 100%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(16px);
+      background: rgba(7,11,24,0.72);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .topbar {
+      max-width: 1480px;
+      margin: 0 auto;
+      padding: 18px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 280px;
+    }
+
+    .logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 0 32px rgba(125,211,252,0.35);
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      color: #07111f;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 18px;
+      letter-spacing: 0.2px;
+    }
+
+    .brand p {
+      margin: 2px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    nav button {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.06);
+      color: var(--muted);
+      padding: 9px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: 0.18s ease;
+      font-size: 13px;
+    }
+
+    nav button.active,
+    nav button:hover {
+      color: var(--text);
+      border-color: rgba(125,211,252,0.65);
+      background: rgba(125,211,252,0.12);
+    }
+
+    main {
+      max-width: 1480px;
+      margin: 0 auto;
+      padding: 24px 22px 52px;
+    }
+
+    section.page {
+      display: none;
+      animation: fadeIn 0.28s ease;
+    }
+
+    section.page.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero {
+      min-height: 430px;
+      border: 1px solid var(--line);
+      border-radius: 32px;
+      background:
+        linear-gradient(135deg, rgba(125,211,252,0.14), rgba(192,132,252,0.07)),
+        rgba(255,255,255,0.055);
+      box-shadow: var(--shadow);
+      padding: 38px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.055) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: radial-gradient(circle at center, black, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 850px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(125,211,252,0.12);
+      border: 1px solid rgba(125,211,252,0.28);
+      color: #c7ecff;
+      font-size: 13px;
+      margin-bottom: 20px;
+    }
+
+    .hero h2 {
+      margin: 0;
+      font-size: clamp(34px, 5vw, 66px);
+      line-height: 1.04;
+      letter-spacing: -1.8px;
+    }
+
+    .hero p {
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.75;
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .grid-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      padding: 18px;
+      overflow: hidden;
+    }
+
+    .card.soft {
+      background: linear-gradient(135deg, rgba(255,255,255,0.09), rgba(255,255,255,0.045));
+    }
+
+    .card-title {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .card-title h3 {
+      margin: 0;
+      font-size: 17px;
+      letter-spacing: 0.1px;
+    }
+
+    .card-title span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .kpi {
+      padding: 20px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid var(--line);
+    }
+
+    .kpi .label {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .kpi .value {
+      margin-top: 8px;
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: -0.6px;
+    }
+
+    .kpi .hint {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 16px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: rgba(255,255,255,0.05);
+    }
+
+    label {
+      color: var(--muted);
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    select, input[type="range"], input[type="text"], input[type="number"] {
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,0.24);
+      color: var(--text);
+      border-radius: 12px;
+      padding: 8px 10px;
+      outline: none;
+    }
+
+    select option { background: #111827; }
+
+    input[type="file"] {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .chart {
+      width: 100%;
+      height: 420px;
+    }
+
+    .chart.tall { height: 540px; }
+    .chart.small { height: 310px; }
+
+    /* 替换原有的 .insight 样式 */
+    .insight {
+      border-left: 4px solid var(--accent);
+      background: rgba(125,211,252,0.08);
+      padding: 14px 18px;
+      border-radius: 16px;
+      color: #e2f4ff;
+      line-height: 1.6;
+      font-size: 13px; /* 统一缩小字号，显得更精致 */
+      border-top: 1px solid rgba(255,255,255,0.05); /* 增加微弱的实线边框，提升玻璃质感 */
+      border-right: 1px solid rgba(255,255,255,0.05);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .formula {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(0,0,0,0.22);
+      border: 1px dashed rgba(125,211,252,0.32);
+      color: #c7ecff;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .ai-box {
+      background:
+        radial-gradient(circle at 20% 0%, rgba(125,211,252,0.18), transparent 28%),
+        radial-gradient(circle at 100% 0%, rgba(192,132,252,0.18), transparent 28%),
+        rgba(255,255,255,0.07);
+      border: 1px solid rgba(125,211,252,0.25);
+      border-radius: var(--radius);
+      padding: 18px;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .pill {
+      font-size: 12px;
+      color: #dbeafe;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(125,211,252,0.12);
+      border: 1px solid rgba(125,211,252,0.18);
+    }
+
+    .table-wrap {
+      overflow: auto;
+      max-height: 420px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    th, td {
+      padding: 10px 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      background: rgba(13,19,39,0.95);
+      color: #dbeafe;
+    }
+
+    td { color: var(--muted); }
+
+    .footer-note {
+      color: var(--muted);
+      font-size: 13px; /* 统一字号 */
+      line-height: 1.7;
+      margin-top: 16px;
+    }
+
+    .mini-kpi-grid {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .metric-box {
+      padding: 14px 16px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.05);
+    }
+
+    .metric-box .label {
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+
+    .metric-box .value {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.4;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .message-box {
+      padding: 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.15); /* 核心：把虚线(dashed)改为半透明实线(solid) */
+      background: rgba(255,255,255,0.04);
+      color: var(--muted);
+      line-height: 1.7;
+      min-height: 80px;
+      font-size: 13px; /* 统一字号 */
+    }
+
+    .case-grid {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .case-card {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.06);
+      padding: 16px;
+    }
+
+    .case-card h4 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      line-height: 1.4;
+    }
+
+    .case-card p {
+      margin: 8px 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .case-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 8px 0 12px;
+    }
+
+    .case-meta span {
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.05);
+      color: #dbeafe;
+    }
+
+    .init-status {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .spinner {
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(125,211,252,0.25);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    @media (max-width: 1100px) {
+      .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+      .mini-kpi-grid, .case-grid { grid-template-columns: 1fr; }
+      .topbar { align-items: flex-start; flex-direction: column; }
+      nav { justify-content: flex-start; }
+      .hero { padding: 26px; }
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="topbar">
+    <div class="brand">
+      <div class="logo">O</div>
+      <div>
+        <h1>Olympic Power Shift</h1>
+        <p>百年奥运竞争力跃迁与 AI 交互洞察</p>
+      </div>
+    </div>
+    <div class="init-status" id="initStatus">
+      <div class="spinner"></div>
+      <span>项目正在初始化，请稍候...</span>
+    </div>
+    <nav>
+      <button class="active" data-page="home">首页总览</button>
+      <button data-page="global">全球格局</button>
+      <button data-page="country">国家画像</button>
+      <button data-page="sport">项目迁移</button>
+      <button data-page="leap">跃迁探测</button>
+      <button data-page="mechanism">机制解释</button>
+      <button data-page="ai">AI 顾问</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- 页面 1：首页 / 项目总览 -->
+  <section id="home" class="page active">
+    <div class="hero">
+      <div class="hero-content">
+        <div class="eyebrow">1896–2024 Summer Olympics · Interactive Data Story</div>
+        <h2>从“谁赢了”到“为什么赢”：探索奥运强国的百年跃迁</h2>
+        <p>
+          本系统以夏季奥运奖牌、运动员结构、项目份额和跃迁指数为核心，
+          从全球格局、国家优势项目、项目霸权迁移、关键跃迁机制和 AI 策略顾问五个角度，
+          展示奥运竞争力如何随时间转移。
+        </p>
+
+        <div class="pill-row">
+          <span class="pill">世界地图时间轴</span>
+          <span class="pill">动态奖牌榜</span>
+          <span class="pill">Bump Chart 排名变化</span>
+          <span class="pill">项目迁移 Sankey</span>
+          <span class="pill">Olympic Leap Index</span>
+          <span class="pill">AI 自动洞察</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-5" style="margin-top:18px;">
+      <div class="kpi"><div class="label">数据时间范围</div><div class="value" id="kpiYears">1896–2024</div><div class="hint">夏季奥运主线</div></div>
+      <div class="kpi"><div class="label">国家 / 地区数量</div><div class="value" id="kpiCountries">--</div><div class="hint">按 NOC 统计</div></div>
+      <div class="kpi"><div class="label">项目大项数量</div><div class="value" id="kpiSports">--</div><div class="hint">Olympic Sports</div></div>
+      <div class="kpi"><div class="label">官方奖牌记录</div><div class="value" id="kpiMedals">--</div><div class="hint">团体项目已去重</div></div>
+      <div class="kpi"><div class="label">AI 连接状态</div><div class="value" id="kpiAIStatus">未检测</div><div class="hint">后端代理状态</div></div>
+    </div>
+
+    <div class="card soft" style="margin-top:18px;">
+      <div class="card-title">
+        <h3>数据加载</h3>
+        <span>支持自动读取 outputs 文件夹，也支持手动上传 CSV</span>
+      </div>
+      <div class="toolbar">
+        <button onclick="reloadFromOutputs()" style="border:0;border-radius:12px;padding:10px 14px;cursor:pointer;background:#7dd3fc;color:#07111f;font-weight:700;">读取 outputs 数据</button>
+        <label>手动上传 CSV：
+          <input type="file" id="fileInput" multiple accept=".csv" />
+        </label>
+      </div>
+      <div class="footer-note">
+        使用方式：安装依赖pandas numpy flask requests后，请先启动server.py文件（终端运行<code>python server.py</code>）再在浏览器打开<code>http://localhost:8000</code>以运行项目。
+        若直接双击打开，浏览器可能禁止读取本地 CSV，此时可用“手动上传 CSV”。
+      </div>
+    </div>
+  </section>
+
+  <!-- 页面 2：全球奥运格局演变 -->
+  <section id="global" class="page">
+    <div class="toolbar">
+      <label>年份 <input type="range" id="globalYear" min="1896" max="2024" step="4" value="2024"></label>
+      <strong id="globalYearLabel">2024</strong>
+      <label>指标
+        <select id="globalMetric">
+          <option value="total_medals">总奖牌</option>
+          <option value="gold_medals">金牌</option>
+        </select>
+      </label>
+      <label>Top N <input type="number" id="globalTopN" min="5" max="20" value="10"></label>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <div class="card-title"><h3>世界地图热力图</h3><span>各国奖牌空间分布</span></div>
+        <div id="worldMap" class="chart tall"></div>
+      </div>
+      <div class="card">
+        <div class="card-title"><h3>动态 Top 奖牌榜</h3><span>该届强国排名</span></div>
+        <div id="topBar" class="chart tall"></div>
+      </div>
+    </div>
+
+    <div class="grid grid-2" style="margin-top:18px;">
+      <div class="card">
+        <div class="card-title"><h3>Bump Chart 排名变化</h3><span>强国更替路径</span></div>
+        <div id="bumpChart" class="chart"></div>
+      </div>
+      <div class="card">
+        <div class="card-title"><h3>奖牌流图 / Streamgraph</h3><span>长期奖牌格局流动</span></div>
+        <div id="streamChart" class="chart"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 页面 3：国家画像分析 -->
+  <section id="country" class="page">
+    <div class="toolbar">
+      <label>国家 1
+        <select id="countrySelect1"></select>
+      </label>
+      <label>国家 2
+        <select id="countrySelect2"></select>
+      </label>
+      <label>国家 3
+        <select id="countrySelect3"></select>
+      </label>
+      <label>指标
+        <select id="countryMetric">
+          <option value="total_medals">总奖牌</option>
+          <option value="gold_medals">金牌</option>
+        </select>
+      </label>
+      <label>年份范围
+        <input type="range" id="countryStart" min="1896" max="2024" step="4" value="1984">
+        <span id="countryStartLabel">1984</span>
+      </label>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <div class="card-title"><h3>国家奖牌趋势线</h3><span>长期竞争力变化</span></div>
+        <div id="countryTrend" class="chart"></div>
+      </div>
+      <div class="card">
+        <div class="card-title"><h3>优势项目雷达图</h3><span>国家靠什么赢</span></div>
+        <div id="countryRadar" class="chart"></div>
+      </div>
+    </div>
+
+    <div class="grid grid-2" style="margin-top:18px;">
+      <div class="card">
+        <div class="card-title">
+          <h3>项目贡献堆叠面积图</h3>
+          <label style="font-size:12px;">查看国家
+            <select id="stackCountrySelect"></select>
+          </label>
+        </div>
+        <div id="sportStack" class="chart"></div>
+      </div>
+      <div class="ai-box">
+        <div class="card-title"><h3>AI快速解读</h3><span>由DeepSeek进行快速解读</span></div>
+        <button id="btnCountryAI" onclick="triggerMultiCountryInsight()"
+                style="border:0;border-radius:12px;padding:10px 14px;cursor:pointer;background:#7dd3fc;color:#07111f;font-weight:700;margin-bottom:12px;">
+          快速分析画像
+        </button>
+        <div id="countryInsight" class="insight">请选择国家后点击按钮生成分析。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 页面 4：项目霸权迁移 -->
+  <section id="sport" class="page">
+    <div class="toolbar">
+      <label>项目
+        <select id="sportSelect"></select>
+      </label>
+      <label>Top N 国家 <input type="number" id="sportTopN" min="3" max="12" value="6"></label>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <div class="card-title"><h3>阶段份额流图</h3><span>线越粗，代表该国在该阶段奖牌份额越高</span></div>
+        <div id="sankeyChart" class="chart tall"></div>
+        <div class="footer-note">
+          说明：这个图不是“奖牌从 A 国流到 B 国”，而是把一个项目拆成早期、中期、现代三个阶段，
+          用同一国家在相邻阶段之间的连线表示其份额延续或衰退。变化主要体现在连线粗细、节点排名和份额标签上。
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title"><h3>项目集中度曲线</h3><span>HHI 越高越集中</span></div>
+        <div id="sportHHI" class="chart tall"></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:18px;">
+      <div class="card-title"><h3>项目奖牌份额面积图</h3><span>各国在该项目中的份额变化</span></div>
+      <div id="sportShareArea" class="chart"></div>
+    </div>
+  </section>
+
+  <!-- 页面 5：跃迁机制探测器 -->
+  <section id="leap" class="page">
+    <div class="toolbar">
+      <label>国家
+        <select id="leapCountrySelect"></select>
+      </label>
+      <label>项目
+        <select id="leapSportSelect"></select>
+      </label>
+      <label>跃迁阈值
+        <input type="range" id="leapThreshold" min="0" max="8" step="0.5" value="2">
+        <span id="leapThresholdLabel">2</span>
+      </label>
+      <label><input type="checkbox" id="showEvents" checked> 显示事件标注</label>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <div class="card-title"><h3>奖牌时间序列 + 异常点</h3><span>识别国家-项目跃迁 (受下拉框联动)</span></div>
+        <div id="leapTimeline" class="chart"></div>
+      </div>
+      <div class="ai-box">
+        <div class="card-title"><h3>跃迁机制解释</h3><span>依据所选国家与项目自动生成</span></div>
+        <div id="leapInsight" class="insight"></div>
+        <div class="formula">
+          <strong>Olympic Leap Index 计算逻辑：</strong><br/>
+          跃迁指数 = 奖牌增长 + 1.5 × 金牌增长 + 超过近三届均值的部分 + 首次获奖加成 + 连续获奖加成 − 项目整体扩张修正。<br/>
+          它用于发现“某国某项目是否突然超出自身历史水平”，不是严格因果推断。
+        </div>
+        <div class="pill-row">
+          <span class="pill">主办国效应</span>
+          <span class="pill">伟大教练效应</span>
+          <span class="pill">项目新增效应</span>
+          <span class="pill">女性项目扩张</span>
+          <span class="pill">经济 / 人口基础</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-2" style="margin-top:18px;">
+      <div class="card">
+        <div class="card-title"><h3>宏观转化效率气泡图</h3><span>对数坐标轴，反映各国的经济与人口效率</span></div>
+        <div class="toolbar" style="padding: 12px 14px; margin-top: 10px;">
+          <label>X axis
+            <select id="efficiencyXAxis">
+              <option value="gdp_per_capita">GDP per capita</option>
+              <option value="gdp_total">Total GDP</option>
+              <option value="population">Population</option>
+            </select>
+          </label>
+          <label>Y axis
+            <select id="efficiencyMetric">
+              <option value="medals_per_million_people">Medals per million people</option>
+              <option value="medals_per_100b_gdp">Medals per 100B GDP</option>
+              <option value="medals_per_10k_gdp_per_capita">Medals per 10k GDP per capita</option>
+            </select>
+          </label>
+          <label>Sample
+            <select id="efficiencyCompleteness">
+              <option value="all">All usable points</option>
+              <option value="complete">Complete economic data only</option>
+            </select>
+          </label>
+        </div>
+        <div id="efficiencyBubble" class="chart"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><h3>跃迁指数 Top 排名</h3><span>全局项目跃迁排行 (仅受阈值影响)</span></div>
+        <div id="leapRanking" class="chart"></div>
+      </div>
+    </div>
+  </section>
+  <!-- 页面 6：AI 奥运策略顾问 -->
+  <!-- 机制解释实验室 -->
+  <section id="mechanism" class="page">
+    <div class="toolbar">
+      <span class="pill">候选机制，不是因果证明</span>
+      <span class="pill">区分描述现象、内部证据、准实证支持和外部证据需求</span>
+      <span class="pill">缺失 CSV 时会显示提示</span>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <div class="card-title"><h3>机制证据总览</h3><span>candidate_primary_mechanism 分布</span></div>
+        <div id="mechanismSummaryChart" class="chart"></div>
+      </div>
+      <div class="card">
+        <div class="card-title"><h3>证据置信度总览</h3><span>confidence_level 分布</span></div>
+        <div id="mechanismConfidenceChart" class="chart"></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:18px;">
+      <div class="card-title"><h3>跃迁案例证据卡</h3><span>从增强机制表读取候选机制与证据栈</span></div>
+      <div class="toolbar">
+        <label>国家
+          <select id="mechCountrySelect"></select>
+        </label>
+        <label>项目
+          <select id="mechSportSelect"></select>
+        </label>
+        <label>年份
+          <select id="mechYearSelect"></select>
+        </label>
+      </div>
+      <div class="mini-kpi-grid">
+        <div class="metric-box"><span>Olympic Leap Index</span><strong id="mechLeapIndexValue">NA</strong></div>
+        <div class="metric-box"><span>候选主机制</span><strong id="mechPrimaryValue">NA</strong></div>
+        <div class="metric-box"><span>置信度</span><strong id="mechConfidenceValue">NA</strong></div>
+      </div>
+      <div class="grid grid-2" style="margin-top:14px;">
+        <div class="message-box"><strong>证据栈</strong><div id="mechEvidenceStackBox">暂无数据</div></div>
+        <div class="message-box"><strong>替代解释</strong><div id="mechAlternativeBox">暂无数据</div></div>
+      </div>
+      <div class="message-box" style="margin-top:14px;"><strong>解释文本</strong><div id="mechInterpretationBox">暂无数据</div></div>
+    </div>
+
+    <div class="card" style="margin-top:18px;">
+      <div class="card-title"><h3>主办国效应对照图</h3><span>主办前一届、当届、后一届与同项目 peer 对照</span></div>
+      <div class="toolbar">
+        <label>host year
+          <select id="hostYearSelect"></select>
+        </label>
+        <label>host country
+          <select id="hostCountrySelect"></select>
+        </label>
+        <label>sport
+          <select id="hostSportSelect"></select>
+        </label>
+      </div>
+      <div id="hostEffectChart" class="chart"></div>
+      <div class="mini-kpi-grid">
+        <div class="metric-box"><span>host_lift_vs_pre</span><strong id="hostLiftPreValue">NA</strong></div>
+        <div class="metric-box"><span>host_lift_vs_peers</span><strong id="hostLiftPeersValue">NA</strong></div>
+        <div class="metric-box"><span>host_effect_strength</span><strong id="hostStrengthValue">NA</strong></div>
+      </div>
+      <div class="message-box" style="margin-top:14px;"><strong>解释</strong><div id="hostInterpretationBox">暂无数据</div></div>
+    </div>
+
+    <div class="card" style="margin-top:18px;">
+      <div class="card-title"><h3>女性扩张贡献分解</h3><span>机会、参赛结构、转化能力的描述性分解</span></div>
+      <div class="toolbar">
+        <label>国家
+          <select id="genderCountrySelect"></select>
+        </label>
+        <label>period
+          <select id="genderPeriodSelect"></select>
+        </label>
+      </div>
+      <div id="genderDecompositionChart" class="chart"></div>
+      <div class="mini-kpi-grid">
+        <div class="metric-box"><span>dominant_growth_driver</span><strong id="genderDriverValue">NA</strong></div>
+        <div class="metric-box"><span>decomposition_confidence</span><strong id="genderConfidenceValue">NA</strong></div>
+        <div class="metric-box"><span>female_medal_growth_total</span><strong id="genderGrowthValue">NA</strong></div>
+      </div>
+      <div class="message-box" style="margin-top:14px;"><strong>解释</strong><div id="genderInterpretationBox">暂无数据</div></div>
+    </div>
+
+    <div class="card" style="margin-top:18px;">
+      <div class="card-title"><h3>现代项目突破机会</h3><span>1992-2024 策略参考指数，不是获牌预测</span></div>
+      <div id="modernBarrierChart" class="chart"></div>
+    </div>
+
+    <div class="card" style="margin-top:18px;">
+      <div class="card-title"><h3>案例库</h3><span>数据内证据 + 外部证据需求</span></div>
+      <div id="mechanismCaseCards" class="case-grid"></div>
+    </div>
+  </section>
+
+<section id="ai" class="page">
+    <!-- 智能体选择栏 -->
+    <div class="toolbar" style="justify-content: center; gap: 12px;">
+        <button id="btnAgentStrategy" class="agent-tab active" onclick="switchAgent('strategy')">🎯 策略顾问</button>
+        <button id="btnAgentData" class="agent-tab" onclick="switchAgent('data')">📊 数据阐述</button>
+        <button id="btnAgentGeneral" class="agent-tab" onclick="switchAgent('general')">💬 一般问答</button>
+    </div>
+
+    <!-- 智能体面板容器 -->
+    <div id="agentPanel"></div>
+
+    <!-- 通用 AI 回答区 -->
+    <div class="card" style="margin-top:18px;">
+        <div class="card-title"><h3>AI 回答</h3></div>
+        <div id="agentAnswer" class="insight" style="min-height:150px;">请先选择智能体并提问。</div>
+    </div>
+
+    <!-- 雷达图卡片（仅策略顾问显示） -->
+    <div class="card" id="strategyRadarCard" style="margin-top:18px; display:none;">
+        <div class="card-title"><h3>推荐项目潜力雷达图</h3></div>
+        <div id="advisorRadar" class="chart small"></div>
+    </div>
+  </section>
+</main>
+
+<script>
+
+/* =========================================================
+   0. 全局视觉规范 (THEME & Tooltip)
+   ========================================================= */
+const THEME = {
+  gold: '#fbbf24',
+  silver: '#94a3b8',
+  bronze: '#b45309',
+  accent: '#7dd3fc',
+  muted: '#a7b2ca',
+  text: '#eef3ff',
+  line: 'rgba(255,255,255,0.1)'
+};
+
+// 全局通用的富文本 Tooltip 模板
+function createRichTooltip(params, metricName) {
+  const p = Array.isArray(params) ? params[0] : params;
+  if (!p) return "";
+  const title = p.name || p.axisValue || p.seriesName;
+  const marker = p.marker || `<span style="display:inline-block;margin-right:4px;border-radius:50%;width:10px;height:10px;background-color:${THEME.accent};"></span>`;
+  const val = typeof p.value === 'number' ? p.value.toLocaleString() : p.value;
+  
+  return `
+    <div style="padding: 4px; min-width: 140px;">
+      <div style="font-weight: bold; font-size: 14px; color: ${THEME.text}; margin-bottom: 8px; border-bottom: 1px solid ${THEME.line}; padding-bottom: 4px;">
+        ${title}
+      </div>
+      <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 13px;">
+        <span>${marker} <span style="color: ${THEME.muted};">${metricName || p.seriesName}</span></span>
+        <span style="font-weight: 800; color: ${THEME.text};">${val}</span>
+      </div>
+    </div>
+  `;
+}
+
+/* =========================================================
+   1. 全局数据容器
+   ========================================================= */
+const DATA = {
+  countryYear: [],
+  countrySportYear: [],
+  sportShare: [],
+  demographics: [],
+  efficiency: [],
+  economicEfficiency: [],
+  expectedMedals: [],
+  multiEfficiency: [],
+  concentration: [],
+  leap: [],
+  leapMechanism: [],
+  leapCaseLibrary: [],
+  sportEntryBarrier: [],
+  sportBreakthroughCases: [],
+  clusterLabels: [],
+  genderStructure: [],
+  officialMedals: [],
+  leapMechanismEnhanced: [],
+  hostEffectPanel: [],
+  hostEffectSummary: [],
+  genderGrowthDecomposition: [],
+  eventOpportunityRefined: [],
+  sportEntryBarrierModern: [],
+  mechanismCaseCards: []
+};
+
+const fileMap = {
+  "country_year_medals.csv": "countryYear",
+  "country_sport_year_medals.csv": "countrySportYear",
+  "sport_year_country_share.csv": "sportShare",
+  "athlete_demographics.csv": "demographics",
+  "country_gdp_population_medal_efficiency.csv": "efficiency",
+  "country_economic_efficiency.csv": "economicEfficiency",
+  "country_expected_vs_actual_medals.csv": "expectedMedals",
+  "country_multi_normalized_efficiency.csv": "multiEfficiency",
+  "country_year_sport_concentration.csv": "concentration",
+  "leap_index_country_sport.csv": "leap",
+  "leap_mechanism_decomposition.csv": "leapMechanism",
+  "leap_case_library.csv": "leapCaseLibrary",
+  "sport_entry_barrier_index.csv": "sportEntryBarrier",
+  "sport_breakthrough_cases.csv": "sportBreakthroughCases",
+  "country_cluster_labels.csv": "clusterLabels",
+  "country_gender_medal_structure.csv": "genderStructure",
+  "official_event_medals.csv": "officialMedals",
+  "leap_mechanism_enhanced.csv": "leapMechanismEnhanced",
+  "host_effect_country_sport_panel.csv": "hostEffectPanel",
+  "host_effect_summary.csv": "hostEffectSummary",
+  "country_gender_growth_decomposition.csv": "genderGrowthDecomposition",
+  "event_opportunity_refined.csv": "eventOpportunityRefined",
+  "sport_entry_barrier_modern.csv": "sportEntryBarrierModern",
+  "mechanism_case_cards.csv": "mechanismCaseCards"
+};
+
+const outputFiles = Object.keys(fileMap).map(name => `outputs/${name}`);
+
+const chartIds = [
+  "worldMap", "topBar", "bumpChart", "streamChart",
+  "countryTrend", "countryRadar", "sportStack",
+  "sankeyChart", "sportHHI", "sportShareArea",
+  "leapTimeline", "leapRanking", "efficiencyBubble",
+  "mechanismSummaryChart", "mechanismConfidenceChart",
+  "hostEffectChart", "genderDecompositionChart", "modernBarrierChart",
+  "advisorRadar"
+];
+
+const charts = {};
+chartIds.forEach(id => {
+  const el = document.getElementById(id);
+  if (el) charts[id] = echarts.init(el);
+});
+
+
+/* =========================================================
+   2. 工具函数
+   ========================================================= */
+function toNum(v, fallback = 0) {
+  if (v === null || v === undefined || v === "" || v === "NA") return fallback;
+  const n = Number(v);
+  return Number.isFinite(n) ? n : fallback;
+}
+
+function uniq(arr) {
+  return [...new Set(arr.filter(x => x !== undefined && x !== null && x !== ""))];
+}
+
+function groupSum(rows, keys, valueField) {
+  const map = new Map();
+  rows.forEach(r => {
+    const key = keys.map(k => r[k]).join("||");
+    map.set(key, (map.get(key) || 0) + toNum(r[valueField]));
+  });
+  return [...map.entries()].map(([key, value]) => {
+    const obj = {};
+    key.split("||").forEach((v, i) => obj[keys[i]] = v);
+    obj[valueField] = value;
+    return obj;
+  });
+}
+
+function topN(rows, metric, n) {
+  return [...rows].sort((a,b) => toNum(b[metric]) - toNum(a[metric])).slice(0, n);
+}
+
+/* ECharts 世界地图使用的部分国家名称和奥运数据国家名不完全一致。
+   这里做映射，否则地图数据能读到但无法在地图上着色。 */
+const MAP_NAME_ALIAS = {
+  // "United States": "United States of America",
+  // "USA": "United States of America",
+  "Great Britain": "United Kingdom",
+  "Britain": "United Kingdom",
+  "Russian Federation": "Russia",
+  "ROC": "Russia",
+  "Soviet Union": "Russia",
+  "South Korea": "Korea",
+  "Korea, South": "Korea",
+  "North Korea": "Dem. Rep. Korea",
+  "Czech Republic": "Czech Rep.",
+  "Czechia": "Czech Rep.",
+  "Dominican Republic": "Dominican Rep.",
+  "Central African Republic": "Central African Rep.",
+  "Democratic Republic of the Congo": "Dem. Rep. Congo",
+  "Republic of Congo": "Congo",
+  "Ivory Coast": "Côte d'Ivoire",
+  "Cote d'Ivoire": "Côte d'Ivoire",
+  "Bosnia and Herzegovina": "Bosnia and Herz.",
+  "Antigua and Barbuda": "Antigua and Barb.",
+  "Saint Kitts and Nevis": "St. Kitts and Nevis",
+  "Saint Vincent and the Grenadines": "St. Vin. and Gren.",
+  "Eswatini": "Swaziland",
+  "North Macedonia": "Macedonia",
+  "Palestine": "Palestine"
+};
+
+function mapCountryName(name) {
+  return MAP_NAME_ALIAS[name] || name;
+}
+
+function normalize01(value, minValue, maxValue) {
+  const v = toNum(value, 0);
+  if (!Number.isFinite(v)) return 0;
+  if (maxValue <= minValue) return 0;
+  return Math.max(0, Math.min(1, (v - minValue) / (maxValue - minValue)));
+}
+
+function formatMetricValue(value, compact = false) {
+  const n = Number(value);
+  if (!Number.isFinite(n)) return "NA";
+  if (compact && Math.abs(n) >= 1e12) return `${(n / 1e12).toFixed(2)}T`;
+  if (compact && Math.abs(n) >= 1e9) return `${(n / 1e9).toFixed(2)}B`;
+  if (compact && Math.abs(n) >= 1e6) return `${(n / 1e6).toFixed(2)}M`;
+  if (Math.abs(n) >= 1000) return n.toLocaleString(undefined, { maximumFractionDigits: 0 });
+  if (Math.abs(n) >= 10) return n.toLocaleString(undefined, { maximumFractionDigits: 2 });
+  return n.toLocaleString(undefined, { maximumFractionDigits: 4 });
+}
+
+function yearsFromData() {
+  const years = uniq(DATA.countryYear.map(d => +d.year)).sort((a,b) => a-b);
+  return years.length ? years : [1896, 1900, 1904, 1908, 1912, 1920, 1924, 1928, 1932, 1936, 1948, 1952, 1956, 1960, 1964, 1968, 1972, 1976, 1980, 1984, 1988, 1992, 1996, 2000, 2004, 2008, 2012, 2016, 2020, 2024];
+}
+
+function getCountries() {
+  return uniq(DATA.countryYear.map(d => d.country_name)).sort();
+}
+
+function getSports() {
+  return uniq(DATA.countrySportYear.map(d => d.sport)).sort();
+}
+
+function fillSelect(id, values, preferred) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.innerHTML = values.map(v => `<option value="${v}">${v}</option>`).join("");
+  if (preferred && values.includes(preferred)) el.value = preferred;
+}
+
+/* =========================================================
+   3. 数据加载
+   ========================================================= */
+function parseCSVText(text) {
+  return Papa.parse(text, {
+    header: true,
+    dynamicTyping: true,
+    skipEmptyLines: true
+  }).data;
+}
+
+const FIELD_ALIASES = {
+  year: ["year", "Year"],
+  season: ["season", "Season"],
+  noc: ["noc", "NOC"],
+  iso3: ["iso3", "country_key"],
+  country_name: ["country_name", "country", "noc_region"],
+  sport: ["sport", "Sport"],
+  event: ["event", "Event"],
+  medal: ["medal", "Medal"],
+  female_athlete_share: ["female_athlete_share", "female_share"],
+  country_sport_hhi: ["country_sport_hhi", "sport_concentration_hhi"],
+  sport_country_hhi: ["sport_country_hhi", "sport_medal_hhi"]
+};
+
+function pickAlias(row, aliases) {
+  for (const key of aliases) {
+    if (row[key] !== undefined && row[key] !== null && row[key] !== "") return row[key];
+  }
+  return row[aliases[0]];
+}
+
+function normalizeRowKeys(row) {
+  const out = { ...row };
+  Object.entries(FIELD_ALIASES).forEach(([target, aliases]) => {
+    const value = pickAlias(row, aliases);
+    if (value !== undefined) out[target] = value;
+  });
+  return out;
+}
+
+function normalizeDatasetRows(rows) {
+  return rows.map(normalizeRowKeys);
+}
+
+async function reloadFromOutputs() {
+  let loaded = 0;
+  for (const file of outputFiles) {
+    try {
+      const res = await fetch(file);
+      if (!res.ok) throw new Error(res.statusText);
+      const text = await res.text();
+      const key = fileMap[file.split("/").pop()];
+      DATA[key] = normalizeDatasetRows(parseCSVText(text));
+      loaded += 1;
+    } catch (e) {
+      console.warn("无法读取：", file, e.message);
+    }
+  }
+
+  if (loaded === 0) {
+    loadDemoData();
+    alert("未能读取 outputs 文件夹，已加载内置演示数据。建议用 python -m http.server 方式打开。");
+  }
+
+  afterDataLoaded();
+}
+
+document.getElementById("fileInput").addEventListener("change", async (e) => {
+  const files = [...e.target.files];
+  for (const file of files) {
+    const key = fileMap[file.name];
+    if (!key) continue;
+    const text = await file.text();
+    DATA[key] = normalizeDatasetRows(parseCSVText(text));
+  }
+  afterDataLoaded();
+});
+
+/* =========================================================
+   4. 演示数据：没有 CSV 时也能看到图表结构
+   ========================================================= */
+function loadDemoData() {
+  const countries = ["United States", "China", "Great Britain", "Japan", "Germany", "South Korea", "Australia"];
+  const nocs = ["USA", "CHN", "GBR", "JPN", "GER", "KOR", "AUS"];
+  const sports = ["Athletics", "Swimming", "Diving", "Table Tennis", "Cycling", "Gymnastics", "Archery"];
+  const years = [1984, 1988, 1992, 1996, 2000, 2004, 2008, 2012, 2016, 2020, 2024];
+
+  DATA.countryYear = [];
+  DATA.countrySportYear = [];
+  DATA.sportShare = [];
+  DATA.leap = [];
+  DATA.efficiency = [];
+  DATA.demographics = [];
+
+  years.forEach((year, yi) => {
+    countries.forEach((c, ci) => {
+      const base = Math.max(1, Math.round((countries.length - ci) * 6 + Math.sin(yi + ci) * 4));
+      const chinaBoost = c === "China" ? Math.max(0, yi - 1) * 3 : 0;
+      const ukBoost = c === "Great Britain" && year >= 2000 ? (yi - 3) * 2 : 0;
+      const japanBoost = c === "Japan" && year >= 2020 ? 10 : 0;
+      const total = Math.max(0, base + chinaBoost + ukBoost + japanBoost);
+      const gold = Math.round(total * (0.25 + (ci % 3) * 0.04));
+
+      DATA.countryYear.push({
+        year, noc: nocs[ci], country_name: c,
+        total_medals: total, gold_medals: gold,
+        silver_medals: Math.round(total * .35), bronze_medals: total - gold - Math.round(total * .35),
+        gold_share: total ? gold / total : 0,
+        rank_total_medals: ci + 1, rank_gold_medals: ci + 1,
+        sports_with_medals: Math.min(sports.length, 3 + ci % 4),
+        events_with_medals: total
+      });
+
+      sports.forEach((s, si) => {
+        let val = Math.max(0, Math.round(total / sports.length + Math.sin(si + yi + ci) * 2));
+        if (c === "China" && ["Diving", "Table Tennis"].includes(s)) val += yi >= 2 ? 5 : 1;
+        if (c === "Great Britain" && s === "Cycling" && year >= 2000) val += 6;
+        if (c === "South Korea" && s === "Archery") val += 5;
+        if (c === "United States" && ["Athletics", "Swimming"].includes(s)) val += 5;
+        if (val > 0) {
+          DATA.countrySportYear.push({
+            year, noc: nocs[ci], country_name: c, sport: s,
+            total_medals: val, gold_medals: Math.round(val * .35),
+            silver_medals: Math.round(val * .3), bronze_medals: Math.round(val * .35),
+            gold_share: .35, events_with_medals: val
+          });
+          DATA.leap.push({
+            year, noc: nocs[ci], country_name: c, sport: s,
+            total_medals: val, gold_medals: Math.round(val * .35),
+            medal_growth: Math.round(Math.sin(yi + si) * 3),
+            gold_growth: Math.round(Math.cos(yi + si) * 2),
+            above_recent_baseline: Math.max(0, Math.round(Math.sin(yi * .7 + si) * 4)),
+            first_medal_bonus: yi === 0 ? 1 : 0,
+            continuity_bonus: yi > 1 ? 0.5 : 0,
+            sport_expansion_penalty: 0.3,
+            olympic_leap_index: Math.max(0, Math.round(Math.sin(yi + si + ci) * 3 + val / 3))
+          });
+        }
+      });
+
+      DATA.efficiency.push({
+        year, noc: nocs[ci], country_name: c,
+        total_medals: total, gold_medals: gold,
+        population: 5e6 + ci * 3e7,
+        gdp_per_capita: 8000 + ci * 6500,
+        medals_per_million_people: total / (5 + ci * 30),
+        medals_per_10k_gdp_per_capita: total / ((8000 + ci * 6500) / 10000)
+      });
+
+      DATA.demographics.push({
+        year, noc: nocs[ci], country_name: c,
+        athletes: 80 + total * 4,
+        female_athletes: Math.round((80 + total * 4) * (0.25 + yi * 0.02)),
+        male_athletes: Math.round((80 + total * 4) * (0.75 - yi * 0.02)),
+        female_share: 0.25 + yi * 0.02,
+        avg_age: 24 + Math.sin(yi + ci),
+        sports_participated: 5 + ci
+      });
+    });
+
+    sports.forEach(s => {
+      const rows = DATA.countrySportYear.filter(d => d.year === year && d.sport === s);
+      const totalSport = rows.reduce((sum, d) => sum + toNum(d.total_medals), 0);
+      let hhi = 0;
+      rows.forEach(d => {
+        const share = totalSport ? d.total_medals / totalSport : 0;
+        hhi += share * share;
+        DATA.sportShare.push({
+          year, sport: s, noc: d.noc, country_name: d.country_name,
+          total_medals: d.total_medals,
+          sport_year_total_medals: totalSport,
+          country_medal_share_in_sport: share,
+          sport_country_hhi: hhi
+        });
+      });
+    });
+  });
+}
+
+/* =========================================================
+   5. 页面导航与初始化
+   ========================================================= */
+document.querySelectorAll("nav button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll("nav button").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    document.querySelectorAll("section.page").forEach(p => p.classList.remove("active"));
+    const targetPage = document.getElementById(btn.dataset.page);
+    targetPage.classList.add("active");
+    setTimeout(() => Object.values(charts).forEach(c => c.resize()), 60);
+
+    if (btn.dataset.page === "ai") {
+    switchAgent(currentAgent);
+    }
+  });
+});
+
+function afterDataLoaded() {
+  document.getElementById('initStatus').style.display = 'none';
+  const years = yearsFromData();
+  const countries = getCountries();
+  const sports = getSports();
+
+  document.getElementById("kpiYears").textContent = `${Math.min(...years)}–${Math.max(...years)}`;
+  document.getElementById("kpiCountries").textContent = countries.length || "--";
+  document.getElementById("kpiSports").textContent = sports.length || "--";
+  document.getElementById("kpiMedals").textContent = DATA.officialMedals.length || DATA.countryYear.reduce((s,d) => s + toNum(d.total_medals), 0);
+
+  ["countrySelect1", "countrySelect2", "countrySelect3"].forEach((id, idx) => {
+    // 第一个默认 China，其余默认不选
+    const preferred = idx === 0 ? (countries.includes("China") ? "China" : countries[0]) : "";
+    fillSelect(id, [""].concat(countries), preferred);
+  });
+
+  // 跃迁页仍用单选
+  fillSelect("leapCountrySelect", countries, countries.includes("China") ? "China" : countries[0]);
+    // 修改后
+  ["sportSelect", "leapSportSelect"].forEach(id =>
+    fillSelect(id, sports, sports.includes("Cycling") ? "Cycling" : sports[0])
+  );
+
+  const minY = Math.min(...years), maxY = Math.max(...years);
+  ["globalYear", "countryStart"].forEach(id => {
+    const el = document.getElementById(id);
+    el.min = minY; el.max = maxY;
+    el.value = id === "globalYear" ? maxY : Math.max(minY, 1984);
+  });
+  document.getElementById("globalYearLabel").textContent = maxY;
+  document.getElementById("countryStartLabel").textContent = document.getElementById("countryStart").value;
+
+  initMechanismControls();
+  bindControls();
+  renderAll();
+}
+
+function bindControls() {
+  [
+    "globalYear", "globalMetric", "globalTopN",
+    "countrySelect", "countryMetric", "countryStart",
+    "sportSelect", "sportTopN",
+    "countrySelect1", "countrySelect2", "countrySelect3", "stackCountrySelect",
+    "leapCountrySelect", "leapSportSelect", "leapThreshold", "showEvents",
+    "efficiencyXAxis", "efficiencyMetric", "efficiencyCompleteness",
+    "mechCountrySelect", "mechSportSelect", "mechYearSelect",
+    "hostYearSelect", "hostCountrySelect", "hostSportSelect",
+    "genderCountrySelect", "genderPeriodSelect"
+  ].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.oninput = renderAll;
+    el.onchange = renderAll;
+  });
+}
+
+function renderAll() {
+  document.getElementById("globalYearLabel").textContent = document.getElementById("globalYear").value;
+  document.getElementById("countryStartLabel").textContent = document.getElementById("countryStart").value;
+  document.getElementById("leapThresholdLabel").textContent = document.getElementById("leapThreshold").value;
+
+  renderGlobal();
+  renderCountry();
+  renderSport();
+  renderLeap();
+  renderMechanismLab();
+
+  Object.values(charts).forEach(c => c.resize());
+}
+
+
+/* =========================================================
+   全局反选状态
+   ========================================================= */
+let selectedGlobalCountry = null;
+let selectedSport = null;
+let selectedStackCountry = null;
+let currentMultiCountry = [];
+let currentMultiMetric = 'total_medals';
+let currentMultiStart = 1984;
+
+/* =========================================================
+   6. 页面 2：全球格局
+   ========================================================= */
+/* =========================================================
+   6. 页面 2：全球格局
+   ========================================================= */
+/* =========================================================
+   6. 页面 2：全球格局 (修复：重叠、苏联联动、东/西德重复)
+   ========================================================= */
+function renderGlobal() {
+
+  const year = +document.getElementById("globalYear").value;
+  const metric = document.getElementById("globalMetric").value;
+  const n = +document.getElementById("globalTopN").value;
+
+  // 1. 获取当年原始数据
+  const rawRows = DATA.countryYear
+    .filter(d => +d.year === year && toNum(d[metric]) > 0);
+
+  // 修复问题2：合并同年同名国家（如历史上的东德与西德）
+  const rowMap = new Map();
+  rawRows.forEach(d => {
+    if (rowMap.has(d.country_name)) {
+      let exist = rowMap.get(d.country_name);
+      exist[metric] = toNum(exist[metric]) + toNum(d[metric]);
+      // 排名取两人中最好的（数值最小的）
+      exist.rank_total_medals = Math.min(
+        toNum(exist.rank_total_medals) || 999, 
+        toNum(d.rank_total_medals) || 999
+      );
+    } else {
+      rowMap.set(d.country_name, { ...d });
+    }
+  });
+  
+  const rows = Array.from(rowMap.values());
+  const top = topN(rows, metric, n).reverse();
+  const focusCountries = top.map(d => d.country_name);
+  const years = [...new Set(DATA.countryYear.map(d => +d.year))].sort((a, b) => a - b);
+
+  // 修复问题1的联动：辅助函数，判断图表中的国家与地图选中的国家是否属于同一地理实体（如苏联与俄罗斯）
+  const isMatchSelected = (chartCountryName) => {
+    if (!selectedGlobalCountry) return false;
+    if (chartCountryName === selectedGlobalCountry) return true;
+    
+    const cMapName = typeof mapCountryName === 'function' ? mapCountryName(chartCountryName) : chartCountryName;
+    const sMapName = typeof mapCountryName === 'function' ? mapCountryName(selectedGlobalCountry) : selectedGlobalCountry;
+    
+    return cMapName === sMapName;
+  };
+
+
+  /* =========================
+     世界地图数据
+     ========================= */
+  const mapDataObj = {};
+  rows.forEach(d => {
+    const mapName = typeof mapCountryName === 'function' ? mapCountryName(d.country_name) : d.country_name;
+    mapDataObj[mapName] = (mapDataObj[mapName] || 0) + toNum(d[metric]);
+  });
+
+  const mapData = Object.entries(mapDataObj).map(([name, value]) => {
+    const originalCountryName =
+      Object.keys(MAP_NAME_ALIAS || {}).find(key => MAP_NAME_ALIAS[key] === name) || name;
+    
+    // 选中国家高亮判断
+    const isSelected = selectedGlobalCountry === originalCountryName;
+
+    return {
+      name,
+      value,
+      selected: isSelected
+    };
+  });
+
+
+  /* =====================================================
+     1. 世界地图
+     ===================================================== */
+  if (charts.worldMap) {
+    charts.worldMap.setOption({
+      tooltip: {
+        backgroundColor: 'rgba(255, 255, 255, 0.95)',
+        borderColor: '#cbd5e1',
+        padding: 10,
+        textStyle: { color: '#0f172a' },
+        formatter: p => {
+          const val = p.value ? p.value.toLocaleString() : 0;
+          return `
+            <div style="color:#0f172a;">
+              <b style="font-size:15px; border-bottom:1px solid #e2e8f0; padding-bottom:4px; margin-bottom:6px; display:block;">
+                ${p.name || '未知区域'}
+              </b>
+              <span style="color:#64748b;">${metric}: </span>
+              <b style="color:${THEME.accent};">${val}</b>
+            </div>
+          `;
+        }
+      },
+      visualMap: {
+        min: 0,
+        max: Math.max(...mapData.map(d => toNum(d.value)), 1),
+        text: ["High", "Low"],
+        left: 10,
+        bottom: 20,
+        calculable: true,
+        textStyle: { color: THEME.text }
+      },
+      series: [{
+        name: metric,
+        type: "map",
+        map: "world",
+        roam: true,
+        selectedMode: "single",
+        select: {
+          itemStyle: { areaColor: THEME.accent, borderColor: "#ffffff", borderWidth: 2 },
+          label: { show: true, color: "#ffffff" }
+        },
+        itemStyle: { borderColor: "rgba(255,255,255,.2)" },
+        emphasis: {
+          label: { show: true },
+          itemStyle: { areaColor: THEME.accent }
+        },
+        data: mapData
+      }]
+    }, true);
+
+    charts.worldMap.off('click');
+    charts.worldMap.on('click', function(params) {
+      const clickedName = params.name;
+      const originalCountryName =
+        Object.keys(MAP_NAME_ALIAS || {}).find(key => MAP_NAME_ALIAS[key] === clickedName) || clickedName;
+
+      if (selectedGlobalCountry === originalCountryName) {
+        selectedGlobalCountry = null;
+      } else {
+        selectedGlobalCountry = originalCountryName;
+      }
+      renderGlobal();
+    });
+  }
+
+
+  /* =====================================================
+     2. TopN 横向柱状图
+     ===================================================== */
+  const isGlobalSelectMode = !!selectedGlobalCountry;
+
+  charts.topBar.setOption({
+    tooltip: {
+      backgroundColor: 'rgba(13, 19, 39, 0.9)',
+      borderColor: THEME.line,
+      textStyle: { color: THEME.text },
+      formatter: p => createRichTooltip(p, metric)
+    },
+    grid: { left: 120, right: 30, top: 20, bottom: 30 },
+    xAxis: {
+      type: "value",
+      axisLabel: { color: THEME.muted },
+      splitLine: { lineStyle: { color: THEME.chartLine } }
+    },
+    yAxis: {
+      type: "category",
+      data: top.map(d => d.country_name),
+      axisLabel: { color: THEME.text }
+    },
+    series: [{
+      type: "bar",
+      data: top.map(d => {
+        const isSelected = isMatchSelected(d.country_name);
+        return {
+          value: toNum(d[metric]),
+          itemStyle: {
+            color: THEME.accent,
+            opacity: isGlobalSelectMode ? (isSelected ? 1 : 0.2) : 1,
+            borderRadius: [0, 4, 4, 0]
+          }
+        };
+      }),
+      label: { show: true, position: "right", color: THEME.text }
+    }]
+  });
+
+
+  /* =====================================================
+     3. Bump 排名图 (修复文字重叠与历史排名聚合)
+     ===================================================== */
+  charts.bumpChart.setOption({
+    tooltip: {
+      trigger: "axis",
+      backgroundColor: 'rgba(13, 19, 39, 0.9)',
+      borderColor: THEME.line,
+      textStyle: { color: THEME.text }
+    },
+    grid: { left: 45, right: 120, top: 35, bottom: 45 },
+    xAxis: {
+      type: "category",
+      data: years,
+      axisLabel: { color: THEME.muted }
+    },
+    yAxis: {
+      type: "value",
+      inverse: true,
+      min: 1,
+      max: 10,
+      axisLabel: { color: THEME.muted },
+      splitLine: { lineStyle: { color: THEME.chartLine } }
+    },
+    series: focusCountries.map(c => {
+      const isSelected = isMatchSelected(c);
+      
+      return {
+        name: c,
+        type: "line",
+        smooth: true,
+        symbolSize: 7,
+        lineStyle: {
+          width: isGlobalSelectMode ? (isSelected ? 5 : 1) : 2,
+          opacity: isGlobalSelectMode ? (isSelected ? 1 : 0.1) : 1
+        },
+        itemStyle: {
+          opacity: isGlobalSelectMode ? (isSelected ? 1 : 0.1) : 1
+        },
+        // 修复问题1的文字重合：利用 ECharts 原生引擎自动避让
+        labelLayout: {
+          moveOverlap: 'shiftY' 
+        },
+        data: years.map(y => {
+          // 处理历史上的分裂国家(东/西德)
+          const matches = DATA.countryYear.filter(d => d.country_name === c && +d.year === y);
+          if (!matches.length) return null;
+          const bestRank = Math.min(...matches.map(m => toNum(m.rank_total_medals) || 999));
+          return bestRank === 999 ? null : bestRank;
+        }),
+        endLabel: {
+          show: true,
+          formatter: '{a}', // 显示系列名
+          color: THEME.text
+        }
+      };
+    })
+  });
+
+
+  /* =====================================================
+     4. Stream 面积图 (修复历史数值聚合)
+     ===================================================== */
+  charts.streamChart.setOption({
+    tooltip: {
+      trigger: "axis",
+      backgroundColor: 'rgba(13, 19, 39, 0.9)',
+      borderColor: THEME.line,
+      textStyle: { color: THEME.text }
+    },
+    grid: { left: 45, right: 30, top: 35, bottom: 45 },
+    xAxis: {
+      type: "category",
+      data: years,
+      axisLabel: { color: THEME.muted }
+    },
+    yAxis: {
+      type: "value",
+      axisLabel: { color: THEME.muted },
+      splitLine: { lineStyle: { color: THEME.chartLine } }
+    },
+    series: focusCountries.map(c => {
+      const isSelected = isMatchSelected(c);
+
+      return {
+        name: c,
+        type: "line",
+        stack: "Total",
+        areaStyle: {
+          opacity: isGlobalSelectMode ? (isSelected ? 0.9 : 0.15) : 0.7
+        },
+        emphasis: { focus: "series" },
+        data: years.map(y => {
+          // 处理历史上的分裂国家(东/西德)，将同年的数值累加
+          const matches = DATA.countryYear.filter(d => d.country_name === c && +d.year === y);
+          return matches.reduce((sum, m) => sum + toNum(m[metric]), 0);
+        })
+      };
+    })
+  });
+
+}
+
+/* =========================================================
+   （关键修复）必须在函数外部声明状态变量，否则会导致函数运行中断报错
+   ========================================================= */
+
+/* =========================================================
+   页面 3：国家画像（带反选联动与自动洞察）
+   ========================================================= */
+function renderCountry() {
+  const c1 = document.getElementById("countrySelect1")?.value || "";
+  const c2 = document.getElementById("countrySelect2")?.value || "";
+  const c3 = document.getElementById("countrySelect3")?.value || "";
+  const selected = [c1, c2, c3].filter(Boolean);
+
+  // 先声明 metric 和 start
+  const metric = document.getElementById("countryMetric")?.value || "total_medals";
+  const start = +(document.getElementById("countryStart")?.value || 1984);
+
+  // 缓存当前选择，供 AI 按钮使用
+  currentMultiCountry = selected;
+  currentMultiMetric = metric;
+  currentMultiStart = start;
+
+  // 更新 AI 按钮文字和状态
+  const btnAI = document.getElementById('btnCountryAI');
+  if (btnAI) {
+    if (selected.length === 0) {
+      btnAI.disabled = true;
+      btnAI.textContent = '快速分析画像';
+    } else {
+      btnAI.disabled = false;
+      btnAI.textContent = `快速分析 ${selected.join('·')} 画像`;
+    }
+  }
+
+  if (selected.length === 0) {
+    charts.countryTrend.setOption({ title: { text: "请选择至少一个国家", left: "center", top: "center", textStyle: { color: "#dbeafe" } } });
+    charts.countryRadar.clear();
+    charts.sportStack.clear();
+    document.getElementById("countryInsight").innerHTML = "请选择国家后查看洞察。";
+    return;
+  }
+
+  // 为每个选中国家准备数据
+  const multiData = selected.map(country => {
+    const rows = DATA.countryYear
+      .filter(d => d.country_name === country && +d.year >= start)
+      .sort((a, b) => a.year - b.year);
+    const sportRows = DATA.countrySportYear
+      .filter(d => d.country_name === country && +d.year >= start);
+    return { country, rows, sportRows };
+  });
+
+  // ================= 趋势图：多国叠加，支持 selectedSport 切换 =================
+  const trendYearsSet = new Set();
+  const trendSeries = [];
+
+  multiData.forEach(({ country, rows, sportRows }) => {
+    let dataSource;
+    if (selectedSport) {
+      dataSource = sportRows.filter(d => d.sport === selectedSport);
+    } else {
+      dataSource = rows;
+    }
+    // 收集年份
+    dataSource.forEach(d => trendYearsSet.add(+d.year));
+
+    const yearMapTotal = new Map(dataSource.map(r => [r.year, toNum(r.total_medals)]));
+    const yearMapGold = new Map(dataSource.map(r => [r.year, toNum(r.gold_medals)]));
+
+    trendSeries.push({
+      label: `${country}${selectedSport ? ' ' + selectedSport : ''} 总奖牌`,
+      data: yearMapTotal, dashed: false
+    });
+    trendSeries.push({
+      label: `${country}${selectedSport ? ' ' + selectedSport : ''} 金牌`,
+      data: yearMapGold, dashed: true
+    });
+  });
+
+  const allYears = [...trendYearsSet].sort((a, b) => a - b);
+  const finalSeries = trendSeries.map(({ label, data, dashed }) => ({
+    name: label,
+    type: 'line',
+    smooth: true,
+    symbol: 'circle',
+    symbolSize: 4,
+    lineStyle: { width: 2, type: dashed ? 'dashed' : 'solid' },
+    data: allYears.map(y => data.get(y) ?? null)
+  }));
+
+  const trendTitle = selectedSport
+    ? `${selected.filter(Boolean).join('、')} · ${selectedSport} 奖牌趋势`
+    : `${selected.filter(Boolean).join('、')} 奖牌趋势`;
+
+  charts.countryTrend.setOption({
+    title: { text: trendTitle, left: 'center', top: 5, textStyle: { color: THEME.accent, fontSize: 13 } },
+    tooltip: { trigger: 'axis' },
+    legend: { textStyle: { color: '#dbeafe' }, top: 28 },
+    grid: { left: 60, right: 30, top: 65, bottom: 45 },
+    xAxis: { type: 'category', data: allYears, axisLabel: { color: '#a7b2ca' } },
+    yAxis: { type: 'value', axisLabel: { color: '#a7b2ca' }, splitLine: { lineStyle: { color: 'rgba(255,255,255,.08)' } } },
+    series: finalSeries
+  }, true);
+
+  // ================= 雷达图：多国公共项目 =================
+  const allSportRows = multiData.flatMap(d => d.sportRows);
+  const sportTotals = {};
+  allSportRows.forEach(r => {
+    sportTotals[r.sport] = (sportTotals[r.sport] || 0) + toNum(r[metric]);
+  });
+  const topRadarSports = Object.entries(sportTotals).sort((a, b) => b[1] - a[1]).slice(0, 6).map(d => d[0]);
+
+  if (topRadarSports.length > 0) {
+    const radarMax = Math.max(...topRadarSports.map(s => sportTotals[s]), 1);
+    charts.countryRadar.setOption({
+      tooltip: {},
+      radar: {
+        indicator: topRadarSports.map(s => ({ name: s, max: radarMax })),
+        axisName: { color: '#dbeafe' },
+        splitLine: { lineStyle: { color: 'rgba(255,255,255,.12)' } }
+      },
+      series: multiData.map(({ country, sportRows }) => ({
+        type: 'radar',
+        name: country,
+        data: [{
+          name: country,
+          value: topRadarSports.map(s => sportRows.filter(d => d.sport === s).reduce((sum, d) => sum + toNum(d[metric]), 0)),
+        }],
+        emphasis: { focus: 'series' }
+      }))
+    }, true);
+  } else {
+    charts.countryRadar.clear();
+  }
+
+  // ================= 堆叠面积图（单国视图 + 联动点击） =================
+  // 更新堆叠图国家选择器
+  const stackSelectEl = document.getElementById("stackCountrySelect");
+  if (stackSelectEl) {
+    const currentVal = stackSelectEl.value;
+    stackSelectEl.innerHTML = selected.map(c => `<option value="${c}" ${c === currentVal ? 'selected' : ''}>${c}</option>`).join("");
+    if (!selected.includes(currentVal)) stackSelectEl.value = selected[0];
+  }
+  const stackCountry = stackSelectEl?.value || selected[0];
+  const stackData = multiData.find(d => d.country === stackCountry)?.sportRows || [];
+  const stackYears = [...new Set(stackData.map(d => +d.year))].sort((a, b) => a - b);
+
+  // 计算该国的 top 6 项目
+  const stackSportTotals = {};
+  stackData.forEach(r => {
+    stackSportTotals[r.sport] = (stackSportTotals[r.sport] || 0) + toNum(r[metric]);
+  });
+  const stackTopSports = Object.entries(stackSportTotals).sort((a, b) => b[1] - a[1]).slice(0, 6).map(d => d[0]);
+
+  charts.sportStack.setOption({
+    tooltip: { trigger: 'axis' },
+    legend: { textStyle: { color: '#dbeafe' }, top: 0, type: 'scroll' },
+    grid: { left: 45, right: 25, top: 45, bottom: 45 },
+    xAxis: { type: 'category', data: stackYears, axisLabel: { color: '#a7b2ca' } },
+    yAxis: { type: 'value', axisLabel: { color: '#a7b2ca' }, splitLine: { lineStyle: { color: 'rgba(255,255,255,.08)' } } },
+    series: stackTopSports.map(s => {
+      const isSelected = selectedSport === s;
+      return {
+        name: s,
+        type: 'line',
+        stack: 'sport',
+        areaStyle: { opacity: selectedSport ? (isSelected ? 0.85 : 0.1) : 0.65 },
+        triggerLineEvent: true,
+        symbol: 'circle',
+        symbolSize: 6,
+        lineStyle: { width: isSelected ? 4 : 2, opacity: selectedSport ? (isSelected ? 1 : 0.15) : 1 },
+        itemStyle: { opacity: selectedSport ? (isSelected ? 1 : 0.15) : 1 },
+        emphasis: { focus: 'series' },
+        data: stackYears.map(y => {
+          const r = stackData.find(d => d.sport === s && +d.year === y);
+          return r ? toNum(r[metric]) : 0;
+        })
+      };
+    })
+  }, true);
+
+  // 重新绑定堆叠图点击事件，实现联动
+  charts.sportStack.off('click');
+  charts.sportStack.on('click', function (params) {
+    if (params.componentType !== 'series') return;
+    const clickedSport = params.seriesName;
+    if (selectedSport === clickedSport) {
+      selectedSport = null;   // 取消选中
+    } else {
+      selectedSport = clickedSport;
+    }
+    // 重新渲染整个国家画像（趋势图、雷达图、堆叠图都会更新）
+    renderCountry();
+  });
+
+  // ================= AI 洞察 =================
+  const insightEl = document.getElementById("countryInsight");
+  if (insightEl) {
+    if (selected.length === 0) {
+      insightEl.innerHTML = "请选择国家后查看洞察。";
+    } else {
+      insightEl.innerHTML = "点击上方按钮生成 AI 分析。";
+    }
+  }
+}
+
+async function renderMultiCountryInsight(countries, metric, start) {
+  const container = document.getElementById("countryInsight");
+  const sys = '你是一位奥运体育数据分析专家，请用中文回答问题。要求:精简凝练，抓住重点，【以纯文本形式输出，不要输出markdown，小标题用“【】”框框住】。';
+  const parts = countries.map(c => {
+    const yearly = DATA.countryYear.filter(d => d.country_name === c && +d.year >= start).sort((a,b) => a.year-b.year);
+    const sportRows = DATA.countrySportYear.filter(d => d.country_name === c && +d.year >= start);
+    return { country: c, yearly, sportRows };
+  });
+
+  // 构建 prompt
+  let prompt = `请对比以下 ${countries.length} 个国家从 ${start} 年至今的奥运表现，指标：${metric === 'gold_medals' ? '金牌' : '总奖牌'}。\n`;
+  parts.forEach(({ country, yearly, sportRows }) => {
+    const topSports = groupSum(sportRows, ['sport'], metric).sort((a,b) => b[metric] - a[metric]).slice(0,5).map(d => `${d.sport}: ${d[metric]}`).join('，');
+    prompt += `\n【${country}】\n奖牌趋势（最近10届）：${JSON.stringify(yearly.slice(-10).map(d=>({y:d.year,t:d.total_medals,g:d.gold_medals,rank:d.rank_total_medals})))}\n优势项目 Top5：${topSports}\n`;
+  });
+  prompt += `\n请分析这些国家的竞争力差异，指出各自优势项目的变化、特征等，还可以提出建议。`;
+
+  let fullText = '';
+  await callDeepSeekStream(sys, prompt, (chunk) => {
+    fullText += chunk.replace(/\n/g, '<br>');
+    container.innerHTML = fullText;
+    container.scrollTop = container.scrollHeight;
+  });
+}
+
+function triggerMultiCountryInsight() {
+  const selected = currentMultiCountry;
+  if (selected.length === 0) {
+    document.getElementById("countryInsight").innerHTML = "请先选择至少一个国家。";
+    return;
+  }
+  const container = document.getElementById("countryInsight");
+  container.innerHTML = "<span class='streaming-text'>⏳ 正在生成多国对比洞察...</span>";
+  renderMultiCountryInsight(selected, currentMultiMetric, currentMultiStart);
+}
+
+/* =========================================================
+   补充缺失的 AI 国家洞察生成函数
+   ========================================================= */
+function generateCountryInsight(country, rows, sportRows, metric) {
+  if (!rows || rows.length === 0) {
+    return `暂无 <strong>${country}</strong> 的相关数据，无法生成洞察。`;
+  }
+
+  const metricName = metric === 'gold_medals' ? '金牌' : '奖牌';
+  const total = rows.reduce((sum, r) => sum + toNum(r[metric]), 0);
+  
+  // 找出历史最好成绩的年份
+  const bestYearRow = [...rows].sort((a, b) => toNum(b[metric]) - toNum(a[metric]))[0];
+
+  // 统计各项目累计奖牌
+  const sportCounts = {};
+  sportRows.forEach(d => {
+    sportCounts[d.sport] = (sportCounts[d.sport] || 0) + toNum(d[metric]);
+  });
+  const topSports = Object.entries(sportCounts).sort((a, b) => b[1] - a[1]);
+  const topSport = topSports.length > 0 ? topSports[0] : null;
+
+  // 拼接洞察文本
+  let insightHtml = `<strong>${country}</strong> 在所选年份区间内，累计获得了 <strong>${total}</strong> 枚${metricName}。<br/><br/>`;
+
+  if (bestYearRow) {
+    insightHtml += `🏆 <strong>历史巅峰：</strong>出现在 <strong>${bestYearRow.year}</strong> 年，单届斩获 <strong>${toNum(bestYearRow[metric])}</strong> 枚${metricName}。<br/>`;
+  }
+
+  if (topSport) {
+    const share = total > 0 ? ((topSport[1] / total) * 100).toFixed(1) : 0;
+    insightHtml += `🎯 <strong>核心底盘：</strong><strong>${topSport[0]}</strong> 是其最具统治力的项目，累计贡献了 ${topSport[1]} 枚${metricName}（占比 ${share}%）。<br/>`;
+  }
+  return insightHtml;
+}
+/* =========================================================
+   8. 页面 4：项目霸权迁移 (修复无数据重叠与动态区间划分)
+   ========================================================= */
+/* =========================================================
+   8. 页面 4：项目霸权迁移 (修复网球断层消失与文字重叠问题)
+   ========================================================= */
+/* =========================================================
+   8. 页面 4：项目霸权迁移 (包含断层修复与悬浮高亮交互)
+   ========================================================= */
+function renderSport() {
+  const sport = document.getElementById("sportSelect").value;
+  const n = +document.getElementById("sportTopN").value;
+  
+  const rows = DATA.sportShare.filter(d => d.sport === sport);
+
+  // === 核心修复 1：拦截空数据 ===
+  if (rows.length === 0) {
+    const emptyOption = {
+      title: {
+        text: `项目 "${sport}" 暂无阶段份额分布数据`,
+        left: 'center', top: 'center',
+        textStyle: { color: '#a7b2ca', fontSize: 14, fontWeight: 'normal' }
+      },
+      series: []
+    };
+    charts.sportShareArea.setOption(emptyOption, true);
+    charts.sportHHI.setOption(emptyOption, true);
+    charts.sankeyChart.setOption(emptyOption, true);
+    return;
+  }
+
+  const years = uniq(rows.map(d => +d.year)).sort((a, b) => a - b);
+  const topCountries = topN(groupSum(rows, ["country_name"], "total_medals"), "total_medals", n).map(d => d.country_name);
+  
+  // --- 全局色彩字典 ---
+  const predefinedColors = {
+    "China": "#ef4444", "United States": "#3b82f6", "Great Britain": "#1d4ed8", 
+    "United Kingdom": "#1d4ed8", "Japan": "#8b5cf6", "Germany": "#f59e0b", 
+    "South Korea": "#ec4899", "Russia": "#dc2626", "Soviet Union": "#b91c1c", 
+    "Australia": "#22c55e", "France": "#0ea5e9", "Italy": "#14b8a6",
+    "Hungary": "#10b981", "Sweden": "#eab308", "Netherlands": "#f97316",
+    "Cuba": "#06b6d4", "Canada": "#f43f5e", "Romania": "#d946ef"
+  };
+  
+  const fallbackPalette = [
+    "#34d399", "#fbbf24", "#a78bfa", "#38bdf8", "#fb7185", 
+    "#a3e635", "#fb923c", "#818cf8", "#f472b6", "#2dd4bf"
+  ];
+  
+  const dynamicColorMap = {};
+  let colorIdx = 0;
+
+  const getCountryColor = (countryName) => {
+    if (predefinedColors[countryName]) return predefinedColors[countryName];
+    if (dynamicColorMap[countryName]) return dynamicColorMap[countryName];
+    const c = fallbackPalette[colorIdx % fallbackPalette.length];
+    dynamicColorMap[countryName] = c;
+    colorIdx++;
+    return c;
+  };
+
+  // ==========================================================
+  // 1. 初始化底部面积图
+  // ==========================================================
+  charts.sportShareArea.setOption({
+    tooltip: { 
+      trigger: "axis", axisPointer: { type: "cross", crossStyle: { color: "#7dd3fc" } },
+      backgroundColor: 'rgba(13, 19, 39, 0.95)', borderColor: 'rgba(255,255,255,0.15)', textStyle: { color: '#eef3ff' },
+      formatter: function(params) {
+        let html = `<div style="font-weight:bold;margin-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:4px;">${params[0].axisValue} 年</div>`;
+        let sorted = [...params].sort((a, b) => b.data.value - a.data.value);
+        sorted.forEach(p => {
+          if (p.data.value === 0) return;
+          let share = (p.data.value * 100).toFixed(1) + '%';
+          html += `<div style="display:flex;justify-content:space-between;gap:24px;margin-top:4px;">
+                     <span>${p.marker} ${p.seriesName}</span>
+                     <span style="font-weight:bold;">${share} <span style="color:#a7b2ca;font-size:12px;font-weight:normal;">(${p.data.medals} 牌)</span></span>
+                   </div>`;
+        });
+        return html;
+      }
+    },
+    legend: { textStyle: { color: "#dbeafe" }, top: 0 },
+    grid: { left: 45, right: 25, top: 45, bottom: 60 },
+    xAxis: { type: "category", data: years, axisLabel: { color: "#a7b2ca" } },
+    yAxis: { type: "value", max: 1, axisLabel: { color: "#a7b2ca", formatter: v => `${Math.round(v*100)}%` }, splitLine: { lineStyle: { color: "rgba(255,255,255,.08)" } } },
+    dataZoom: [{ type: "slider", show: true, bottom: 8, height: 20, borderColor: "rgba(255,255,255,0.05)", textStyle: { color: "#a7b2ca" } }, { type: "inside" }]
+  }, true);
+
+  // ==========================================================
+  // 2. 初始化 HHI 图
+  // ==========================================================
+  const hhiRows = groupSum(rows, ["year"], "sport_country_hhi").map(d => {
+    const same = rows.filter(r => +r.year === +d.year);
+    return { year: +d.year, hhi: same.length ? Math.max(...same.map(r => toNum(r.sport_country_hhi))) : 0 };
+  });
+
+  charts.sportHHI.setOption({
+    tooltip: { trigger: "axis", axisPointer: { type: "cross", crossStyle: { color: "#c084fc" } } },
+    grid: { left: 45, right: 35, top: 35, bottom: 45 },
+    xAxis: { type: "category", data: years, axisLabel: { color: "#a7b2ca" } },
+    yAxis: { type: "value", min: 0, max: 1, axisLabel: { color: "#a7b2ca" }, splitLine: { lineStyle: { color: "rgba(255,255,255,.08)" } } },
+    dataZoom: [{ type: "inside", xAxisIndex: 0 }],
+    series: [{ 
+      name: "HHI", type: "line", smooth: true, areaStyle: { color: "rgba(192,132,252,0.2)" }, 
+      lineStyle: { color: "#c084fc", width: 3 }, itemStyle: { color: "#c084fc" },
+      markLine: {
+        symbol: 'none', data: [{ yAxis: 0.25, name: '高集中度' }],
+        label: { position: 'insideStartTop', formatter: '寡头垄断 (0.25)', color: '#fb7185', fontSize: 11 },
+        lineStyle: { type: 'dashed', color: '#fb7185', width: 1.5 }
+      },
+      data: years.map(y => { const r = hhiRows.find(d => d.year === y); return r ? r.hhi : 0; }) 
+    }]
+  }, true);
+
+  echarts.connect([charts.sportShareArea, charts.sportHHI]);
+
+  // ==========================================================
+  // 3. 准备高级 Sankey 图节点数据
+  // ==========================================================
+  // === 核心修复 2：按“举办届数”进行切分，完美兼容 Tennis 等中断百年的项目 ===
+  const len = years.length;
+  let intervals;
+  if (len < 3) {
+    // 只有 1-2 届的项目（如某些表演赛），强行画流图没意义
+    intervals = [{ label: "全阶段", years: years }];
+  } else {
+    // 均分为三等分，用 slice 切割真实届数，杜绝阶段内无数据的情况
+    const chunk = Math.ceil(len / 3);
+    intervals = [
+      { label: "早期", years: years.slice(0, chunk) },
+      { label: "中期", years: years.slice(chunk, chunk * 2) },
+      { label: "现代", years: years.slice(chunk * 2) }
+    ].filter(stage => stage.years.length > 0);
+  }
+
+  const stageStats = {};
+  intervals.forEach(stage => {
+    const stageTotal = rows.filter(r => stage.years.includes(+r.year)).reduce((s, d) => s + toNum(d.total_medals), 0);
+    topCountries.forEach(c => {
+      const medals = rows.filter(r => stage.years.includes(+r.year) && r.country_name === c).reduce((s, d) => s + toNum(d.total_medals), 0);
+      stageStats[`${stage.label}||${c}`] = { medals, share: stageTotal ? medals / stageTotal : 0 };
+    });
+  });
+
+  function nodeName(stageLabel, country) {
+    const ranked = topCountries.map(c => ({ country: c, ...stageStats[`${stageLabel}||${c}`] })).sort((a, b) => b.share - a.share);
+    const d = ranked[ranked.findIndex(d => d.country === country)] || { share: 0 };
+    return `${stageLabel} #${ranked.findIndex(d => d.country === country) + 1} ${country} ${(d.share * 100).toFixed(1)}%`;
+  }
+
+  const nodes = [];
+  intervals.forEach((stage, stageIndex) => {
+    const ranked = topCountries.map(c => ({ country: c, ...stageStats[`${stage.label}||${c}`] })).sort((a, b) => b.share - a.share);
+    ranked.forEach((d, idx) => {
+      if (d.share > 0) {
+        nodes.push({ 
+          name: `${stage.label} #${idx + 1} ${d.country} ${(d.share * 100).toFixed(1)}%`, 
+          _countryName: d.country,
+          depth: stageIndex // 强制指定列数
+        });
+      }
+    });
+  });
+
+  const nodeSet = new Set(nodes.map(d => d.name));
+  const links = [];
+  for (let i = 0; i < intervals.length - 1; i++) {
+    topCountries.forEach(c => {
+      const a = stageStats[`${intervals[i].label}||${c}`] || { share: 0 };
+      const b = stageStats[`${intervals[i + 1].label}||${c}`] || { share: 0 };
+      const avgShare = (toNum(a.share) + toNum(b.share)) / 2;
+      const source = nodeName(intervals[i].label, c);
+      const target = nodeName(intervals[i + 1].label, c);
+      // 只有来源节点和目标节点都存在，且份额大于0时，才建立连线
+      if (avgShare > 0 && nodeSet.has(source) && nodeSet.has(target)) {
+        links.push({ source, target, value: Math.max(avgShare * 100, 0.2) });
+      }
+    });
+  }
+
+  // ==========================================================
+  // 4. 核心调度：一键更新面积图和Sankey的 [高亮/暗淡] 状态
+  // ==========================================================
+  const renderAllWithHighlight = (highlightCountry) => {
+    
+    // ------ 刷新面积图 ------
+    charts.sportShareArea.setOption({
+      series: topCountries.map(c => {
+        const isMatch = (!highlightCountry || c === highlightCountry);
+        return {
+          name: c,
+          type: "line", stack: "share", triggerLineEvent: true, symbolSize: isMatch ? 6 : 0,
+          areaStyle: { color: getCountryColor(c), opacity: isMatch ? 0.65 : 0.05 },
+          itemStyle: { color: getCountryColor(c), opacity: isMatch ? 1 : 0.1 },
+          lineStyle: { width: isMatch ? 2 : 1, opacity: isMatch ? 1 : 0.1 },
+          data: years.map(y => {
+            const r = rows.find(d => d.country_name === c && +d.year === y);
+            return { value: r ? toNum(r.country_medal_share_in_sport) : 0, medals: r ? toNum(r.total_medals) : 0 };
+          })
+        };
+      })
+    }, false);
+
+    // ------ 刷新 Sankey ------
+    // === 核心修复 3：兜底拦截，防止零连线引发 ECharts 节点原点重叠报错 ===
+    if (nodes.length === 0 || links.length === 0) {
+      charts.sankeyChart.setOption({
+        title: {
+          text: `项目 "${sport}" 的阶段间无足够连贯的实力延续数据，无法绘制流图`,
+          left: 'center', top: 'center',
+          textStyle: { color: '#a7b2ca', fontSize: 14, fontWeight: 'normal' }
+        },
+        series: [] // 清空 series，防止渲染重叠文字
+      }, true);
+    } else {
+      charts.sankeyChart.setOption({
+        title: { show: false }, 
+        tooltip: { trigger: "item", formatter: p => p.dataType === "edge" ? `阶段延续强度：${toNum(p.value).toFixed(2)}` : p.name },
+        series: [{
+          type: "sankey", layoutIterations: 64, nodeAlign: "justify", nodeGap: 24,
+          nodeWidth: 20, minNodeHeight: 10,
+          
+          // =======================================================
+          // 新增：开启桑基图专属的“悬浮高亮”与“关联聚焦”
+          // =======================================================
+          emphasis: {
+            focus: 'adjacency', 
+            itemStyle: { 
+              borderWidth: 2, 
+              borderColor: '#fff',
+              shadowBlur: 20
+            },
+            lineStyle: { 
+              opacity: 0.85 
+            }
+          },
+          // =======================================================
+
+          data: nodes.map(n => ({
+            name: n.name,
+            depth: n.depth, 
+            itemStyle: { 
+              color: getCountryColor(n._countryName), 
+              opacity: (!highlightCountry || n._countryName === highlightCountry) ? 1 : 0.15,
+              borderColor: '#fff', borderWidth: (!highlightCountry || n._countryName === highlightCountry) ? 1 : 0,
+              shadowBlur: (!highlightCountry || n._countryName === highlightCountry) ? 10 : 0,
+              shadowColor: getCountryColor(n._countryName)
+            }
+          })),
+          links: links.map(l => {
+            const srcCountry = nodes.find(n => n.name === l.source)?._countryName;
+            const tgtCountry = nodes.find(n => n.name === l.target)?._countryName;
+            const isMatch = (!highlightCountry || (srcCountry === highlightCountry && tgtCountry === highlightCountry));
+            return {
+              ...l,
+              lineStyle: { 
+                color: isMatch ? 'gradient' : getCountryColor(srcCountry),
+                opacity: isMatch ? 0.55 : 0.03,
+                curveness: 0.5
+              }
+            };
+          }),
+          label: { color: "#dbeafe", fontSize: 12, fontWeight: 'bold' }
+        }]
+      }, false); 
+    }
+  };
+
+  // 初始加载：没有任何国家被高亮
+  renderAllWithHighlight(null);
+
+  // ==========================================================
+  // 5. 点击事件绑定 (面积图接管全局状态)
+  // ==========================================================
+  let currentHighlight = null; 
+  
+  charts.sportShareArea.off('click');
+  charts.sportShareArea.on('click', function(params) {
+    if (params.componentType !== 'series') return; 
+    if (currentHighlight === params.seriesName) {
+      currentHighlight = null; 
+    } else {
+      currentHighlight = params.seriesName; 
+    }
+    renderAllWithHighlight(currentHighlight);
+  });
+}
+
+
+/* =========================================================
+   9. 页面 5：跃迁机制探测器
+   ========================================================= */
+function renderLeap() {
+  const country = document.getElementById("leapCountrySelect").value;
+  const sport = document.getElementById("leapSportSelect").value;
+  const threshold = +document.getElementById("leapThreshold").value;
+  
+  // =========================================================
+  // 1. 上半部分：渲染受国家与项目联动的时间线
+  // =========================================================
+  const rows = DATA.leap.filter(d => d.country_name === country && d.sport === sport).sort((a,b) => a.year-b.year);
+
+  if (rows.length === 0) {
+    const totalRows = DATA.countryYear.filter(d => d.country_name === country).sort((a,b) => a.year-b.year);
+    charts.leapTimeline.setOption({
+      title: { 
+        text: `⚠️ ${country} 在 [${sport}] 项目中暂无数据。现展示该国历届【总奖牌】走势。`, 
+        left: "center", top: 10, 
+        textStyle: { color: THEME.gold, fontSize: 13, fontWeight: 'normal' } 
+      },
+      tooltip: { trigger: "axis" },
+      grid: { left: 45, right: 25, top: 45, bottom: 45 },
+      xAxis: { type: "category", data: totalRows.map(d => d.year), axisLabel: { color: "#a7b2ca" } },
+      yAxis: { type: "value", axisLabel: { color: "#a7b2ca" }, splitLine: { lineStyle: { color: "rgba(255,255,255,.08)" } } },
+      series: [
+        { name: "全项目总奖牌", type: "line", smooth: true, symbolSize: 8, itemStyle: { color: THEME.gold }, lineStyle: { width: 3 }, data: totalRows.map(d => toNum(d.total_medals)) },
+        { name: "跃迁节点", type: "scatter", data: [] },
+        { name: "跃迁指数", type: "bar", data: [] }
+      ]
+    }, true);
+  } else {
+    charts.leapTimeline.setOption({
+      title: { show: false }, 
+      tooltip: { trigger: "axis" }, 
+      grid: { left: 45, right: 25, top: 35, bottom: 45 },
+      xAxis: { type: "category", data: rows.map(d => d.year), axisLabel: { color: "#a7b2ca" } },
+      yAxis: { type: "value", axisLabel: { color: "#a7b2ca" }, splitLine: { lineStyle: { color: "rgba(255,255,255,.08)" } } },
+      series: [
+        {
+          name: "奖牌数",
+          type: "line",
+          smooth: true,
+          lineStyle: { width: 3, color: THEME.accent },
+          itemStyle: { color: THEME.accent },
+          data: rows.map(d => toNum(d.total_medals))
+        },
+        {
+          name: "跃迁节点",
+          type: "scatter",
+          symbol: "pin", 
+          symbolSize: 48, 
+          tooltip: { show: false }, 
+          itemStyle: { color: THEME.accent }, 
+          label: { show: true, formatter: p => p.data[2], color: '#07111f', fontSize: 11, fontWeight: 'bold' },
+          emphasis: { scale: true, itemStyle: { shadowBlur: 15, shadowColor: THEME.accent } },
+          data: rows.filter(d => toNum(d.olympic_leap_index) >= threshold).map(d => [String(d.year), toNum(d.total_medals), toNum(d.olympic_leap_index).toFixed(2)]) 
+        },
+        {
+          name: "跃迁指数",
+          type: "bar",
+          yAxisIndex: 0,
+          itemStyle: { color: 'rgba(125,211,252,0.4)', borderRadius: [4, 4, 0, 0] },
+          emphasis: { itemStyle: { color: THEME.accent, opacity: 1, shadowBlur: 10, shadowColor: 'rgba(125,211,252,0.5)' } },
+          data: rows.map(d => toNum(d.olympic_leap_index).toFixed(2))
+        }
+      ]
+    }, true);
+  }
+
+  document.getElementById("leapInsight").innerHTML = generateLeapInsight(country, sport, rows, threshold);
+
+  // =========================================================
+  // 2. 下半部分右侧：排行榜
+  // =========================================================
+  let leapRankData = DATA.leap.filter(d => d.sport === sport && toNum(d.olympic_leap_index) >= threshold);
+  let rankTitle = `全球 [${sport}] 跃迁 Top 排行`;
+  if (leapRankData.length < 3) {
+      leapRankData = DATA.leap.filter(d => toNum(d.olympic_leap_index) >= threshold);
+      rankTitle = `全球全项目跃迁 Top 排行 (当前项目达标过少)`;
+  }
+  const topLeap = topN(leapRankData, "olympic_leap_index", 12).reverse();
+
+  charts.leapRanking.setOption({
+    title: { text: rankTitle, left: 'center', top: 5, textStyle: { color: THEME.accent, fontSize: 14, fontWeight: 'bold' } },
+    tooltip: { formatter: p => `${p.name}<br/>跃迁指数: ${toNum(p.value).toFixed(2)}` },
+    grid: { left: 210, right: 40, top: 40, bottom: 30 }, 
+    xAxis: { type: "value", axisLabel: { color: "#a7b2ca" }, splitLine: { lineStyle: { color: "rgba(255,255,255,.08)" } } },
+    yAxis: { type: "category", data: topLeap.map(d => `${d.country_name}-${d.sport}-${d.year}`), axisLabel: { color: "#dbeafe", width: 190, overflow: 'truncate' } },
+    series: [{ 
+      type: "bar", 
+      data: topLeap.map(d => ({ value: toNum(d.olympic_leap_index), itemStyle: { color: d.country_name === country ? THEME.accent : 'rgba(100, 150, 255, 0.6)' } })), 
+      label: { show: true, position: "right", color: "#dbeafe", formatter: p => toNum(p.value).toFixed(2) } 
+    }]
+  }, true);
+
+  // =========================================================
+  // 3. 下半部分左侧：气泡图配置 (横纵双向独立滑块)
+  // =========================================================
+  const xField = document.getElementById("efficiencyXAxis")?.value || "gdp_per_capita";
+  const yField = document.getElementById("efficiencyMetric")?.value || "medals_per_million_people";
+  const completeness = document.getElementById("efficiencyCompleteness")?.value || "all";
+  
+  const xLabelMap = { gdp_per_capita: "GDP per capita", gdp_total: "Total GDP", population: "Population" };
+  const yLabelMap = { medals_per_million_people: "Medals per million people", medals_per_100b_gdp: "Medals per 100B GDP", medals_per_10k_gdp_per_capita: "Medals per 10k GDP per capita" };
+
+  const economicSource = (DATA.economicEfficiency && DATA.economicEfficiency.length) ? DATA.economicEfficiency : DATA.efficiency;
+
+  const effRowsRaw = economicSource.filter(d => {
+    if (toNum(d.total_medals) <= 0) return false;
+    if (completeness === "complete" && toNum(d.economic_data_complete, 0) !== 1) return false;
+    return Number.isFinite(Number(d[xField])) && Number.isFinite(Number(d[yField]));
+  });
+
+  const effRows = effRowsRaw.slice(-500).map(d => ({
+    ...d,
+    _x_raw: toNum(d[xField], NaN),
+    _eff_raw: toNum(d[yField], NaN)
+  })).filter(d => Number.isFinite(d._x_raw) && d._x_raw > 0 && Number.isFinite(d._eff_raw) && d._eff_raw > 0);
+
+  const continentMap = {
+    "China": "Asia", "Japan": "Asia", "South Korea": "Asia", "India": "Asia", "Iran": "Asia",
+    "United States": "North America", "Canada": "North America", "Mexico": "North America", "Cuba": "North America", "Jamaica": "North America",
+    "Great Britain": "Europe", "Germany": "Europe", "France": "Europe", "Italy": "Europe", "Russia": "Europe", "Soviet Union": "Europe", "Netherlands": "Europe", "Hungary": "Europe", "Sweden": "Europe", "Spain": "Europe", "Ukraine": "Europe", "Poland": "Europe",
+    "Australia": "Oceania", "New Zealand": "Oceania",
+    "Brazil": "South America", "Argentina": "South America", "Colombia": "South America",
+    "Kenya": "Africa", "Ethiopia": "Africa", "South Africa": "Africa", "Egypt": "Africa"
+  };
+  const continentColors = { "Asia": "#f59e0b", "North America": "#3b82f6", "Europe": "#10b981", "Oceania": "#8b5cf6", "South America": "#ec4899", "Africa": "#ef4444" };
+  const fallbackColors = ["#34d399", "#fbbf24", "#a78bfa", "#38bdf8", "#fb7185", "#2dd4bf"];
+  
+  const getColor = (countryName) => {
+    const cont = continentMap[countryName];
+    if (cont) return continentColors[cont];
+    let hash = 0;
+    for (let i = 0; i < countryName.length; i++) hash = countryName.charCodeAt(i) + ((hash << 5) - hash);
+    return fallbackColors[Math.abs(hash) % fallbackColors.length];
+  };
+
+  const bubbleData = effRows.map(d => {
+    const cName = d.country_name;
+    const isSelected = (!country || cName === country);
+    return {
+      value: [
+        toNum(d._x_raw),
+        toNum(d._eff_raw), 
+        toNum(d.total_medals),
+        toNum(d._eff_raw), 
+        cName,
+        d.year,
+        toNum(d.gold_medals),
+        toNum(d.population, NaN),
+        toNum(d.gdp_per_capita, NaN),
+        toNum(d.gdp_total, NaN),
+        toNum(d.economic_data_complete, 0)
+      ],
+      itemStyle: {
+        color: getColor(cName),
+        opacity: isSelected ? 0.9 : 0.25,
+        borderColor: isSelected ? '#fff' : 'transparent',
+        borderWidth: isSelected ? 2 : 0
+      }
+    };
+  });
+
+  charts.efficiencyBubble.setOption({
+    // 保留右上角工具箱（提供一键还原功能）
+    toolbox: {
+      show: true, itemSize: 18, right: 45, top: 0,
+      feature: { dataZoom: { title: { zoom: '框选放大', back: '撤销上一步' } }, restore: { title: '重置全图' } },
+      iconStyle: { borderColor: '#a7b2ca', borderWidth: 1.5 }, emphasis: { iconStyle: { borderColor: '#7dd3fc' } }
+    },
+    tooltip: {
+      backgroundColor: 'rgba(13, 19, 39, 0.95)', borderColor: THEME.line, textStyle: { color: THEME.text },
+      formatter: p => {
+        const d = p.value;
+        const color = getColor(d[4]);
+        return `
+          <div style="padding: 6px; min-width: 220px;">
+            <div style="font-weight: 800; font-size: 15px; margin-bottom: 8px; border-bottom: 1px solid ${THEME.line}; padding-bottom: 6px; color:${THEME.text};">
+              ${d[4]} <span style="font-size: 12px; font-weight: normal; color: ${THEME.muted};">(${d[5]})</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size:13px;">
+              <span style="color: ${THEME.muted};">总奖牌数:</span>
+              <span style="color: ${THEME.text}; font-weight: bold;">${formatMetricValue(d[2])}</span>
+            </div>
+            <div style="font-size: 12px; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 8px; color: ${THEME.muted}; border: 1px solid rgba(255,255,255,0.05);">
+              <div style="margin-bottom: 4px;">${xLabelMap[xField]}: <b style="color:${color}">${formatMetricValue(d[0], true)}</b></div>
+              <div>${yLabelMap[yField]}: <b style="color:${color}">${formatMetricValue(d[1])}</b></div>
+            </div>
+          </div>
+        `;
+      }
+    },
+    // 右侧和底部留出充裕的空间给滑块
+    grid: { left: 65, right: 45, top: 35, bottom: 65 },
+    
+    dataZoom: [
+      { 
+        type: 'slider', // X 轴底部滑块
+        xAxisIndex: 0, 
+        bottom: 10, 
+        height: 18, 
+        filterMode: 'none', // 绝对关键：无论怎么拉，气泡都不会诡异消失
+        borderColor: "rgba(255,255,255,0.05)", 
+        textStyle: { color: "#a7b2ca" } 
+      },
+      { 
+        type: 'slider', // Y 轴右侧滑块
+        yAxisIndex: 0, 
+        right: 15, 
+        width: 18, 
+        filterMode: 'none', // 绝对关键
+        borderColor: "rgba(255,255,255,0.05)", 
+        textStyle: { color: "#a7b2ca" } 
+      },
+      { type: 'inside', xAxisIndex: 0, filterMode: 'none' },
+      { type: 'inside', yAxisIndex: 0, filterMode: 'none' }
+    ],
+    xAxis: {
+      name: xLabelMap[xField], nameLocation: "middle", nameGap: 25,
+      type: "log", scale: true, 
+      axisLabel: { color: "#a7b2ca", formatter: v => formatMetricValue(v, true) },
+      splitLine: { lineStyle: { color: "rgba(255,255,255,.05)" } }
+    },
+    yAxis: {
+      name: yLabelMap[yField], 
+      type: "log", scale: true, 
+      axisLabel: { color: "#a7b2ca", formatter: v => formatMetricValue(v) },
+      splitLine: { lineStyle: { color: "rgba(255,255,255,.05)" } }
+    },
+    series: [{
+      type: "scatter",
+      symbolSize: d => Math.max(8, Math.sqrt(toNum(d[2])) * 4.5), 
+      emphasis: {
+        focus: 'series', scale: true, 
+        itemStyle: { opacity: 1, borderColor: '#fff', borderWidth: 3, shadowBlur: 15, shadowColor: 'rgba(255, 255, 255, 0.6)' },
+        label: { show: true, formatter: '{@[4]}', position: 'top', color: '#fff', fontSize: 13, fontWeight: 'bold', backgroundColor: 'rgba(0,0,0,0.6)', padding: [4, 6], borderRadius: 4 }
+      },
+      data: bubbleData
+    }]
+  }, true);
+
+  // 4. 气泡图点击事件
+  charts.efficiencyBubble.off('click');
+  charts.efficiencyBubble.on('click', function (params) {
+    const clickedCountry = params.value[4]; 
+    if (clickedCountry) {
+      const countrySelect = document.getElementById("leapCountrySelect");
+      if (countrySelect) {
+        countrySelect.value = clickedCountry;
+        renderLeap(); 
+        document.getElementById("leapTimeline").scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+  });
+}
+
+function generateLeapInsight(country, sport, rows, threshold) {
+  if (!rows.length) return "该国家-项目组合暂无可用跃迁数据。";
+  const leaps = rows.filter(d => toNum(d.olympic_leap_index) >= threshold);
+  if (!leaps.length) {
+    return `<strong>${country} - ${sport}</strong> 在当前阈值下没有明显异常跃迁。可以降低阈值，或与主办年份、教练事件、项目新增年份进行对照。`;
+  }
+  const best = [...leaps].sort((a,b) => toNum(b.olympic_leap_index)-toNum(a.olympic_leap_index))[0];
+  return `
+    <strong>${country} - ${sport}</strong> 在 <strong>${best.year}</strong> 出现最明显跃迁，
+    跃迁指数为 <strong>${toNum(best.olympic_leap_index).toFixed(2)}</strong>。
+    该指数由奖牌增长、金牌增长、相对近三届基线的超额表现、首次获奖和连续性共同构成，并扣除了项目整体扩张造成的共同增长。
+    因此它更适合用来定位“值得解释的异常点”，再结合主办国、教练、项目新增和政策投入等事件做机制分析。
+  `;
+}
+
+/* =========================================================
+   10. 页面 6：AI 顾问
+   ========================================================= */
+function countBy(rows, field) {
+  const counts = {};
+  (rows || []).forEach(r => {
+    const key = r[field] || "NA";
+    counts[key] = (counts[key] || 0) + 1;
+  });
+  return Object.entries(counts).map(([name, value]) => ({ name, value })).sort((a, b) => b.value - a.value);
+}
+
+function setText(id, value) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = value === undefined || value === null || value === "" ? "NA" : String(value);
+}
+
+function setHtml(id, value) {
+  const el = document.getElementById(id);
+  if (el) el.innerHTML = escapeHtml(value || "暂无数据").replace(/\n/g, "<br/>");
+}
+
+function missingCsvMessage(fileName) {
+  return `未加载 outputs/${fileName}。请用 python -m http.server 在项目目录启动本地服务后访问页面，或重新运行 pipeline 生成该表。`;
+}
+
+function initMechanismControls() {
+  const leapRows = DATA.leapMechanismEnhanced || [];
+  fillSelect("mechCountrySelect", uniq(leapRows.map(r => r.country_name)).sort(), "China");
+  fillSelect("mechSportSelect", uniq(leapRows.map(r => r.sport)).sort(), "Gymnastics");
+  fillSelect("mechYearSelect", uniq(leapRows.map(r => +r.year)).sort((a, b) => a - b), 2008);
+
+  const hostRows = DATA.hostEffectPanel || [];
+  fillSelect("hostYearSelect", uniq(hostRows.map(r => +r.host_year)).sort((a, b) => a - b), 2008);
+  fillSelect("hostCountrySelect", uniq(hostRows.map(r => r.host_country)).sort(), "China");
+  fillSelect("hostSportSelect", uniq(hostRows.map(r => r.sport)).sort(), "Gymnastics");
+
+  const genderRows = DATA.genderGrowthDecomposition || [];
+  fillSelect("genderCountrySelect", uniq(genderRows.map(r => r.country_name)).sort(), "China");
+  fillSelect("genderPeriodSelect", uniq(genderRows.map(r => `${r.period_start}-${r.period_end}`)).sort(), "2008-2020");
+}
+
+function renderMechanismLab() {
+  renderMechanismOverview();
+  renderMechanismCaseSelector();
+  renderHostEffectLab();
+  renderGenderDecompositionLab();
+  renderModernSportOpportunity();
+  renderMechanismCaseCards();
+}
+
+function renderMechanismOverview() {
+  const rows = DATA.leapMechanismEnhanced || [];
+  if (!rows.length) {
+    const emptyOption = { title: { text: missingCsvMessage("leap_mechanism_enhanced.csv"), left: "center", top: "center", textStyle: { color: "#dbeafe", fontSize: 13 } } };
+    charts.mechanismSummaryChart?.setOption(emptyOption);
+    charts.mechanismConfidenceChart?.setOption(emptyOption);
+    return;
+  }
+
+  const mechanismCounts = countBy(rows, "candidate_primary_mechanism").reverse();
+  charts.mechanismSummaryChart?.setOption({
+    tooltip: { trigger: "axis" },
+    grid: { left: 180, right: 24, top: 28, bottom: 28 },
+    xAxis: { type: "value", axisLabel: { color: "#9fb0d0" } },
+    yAxis: { type: "category", data: mechanismCounts.map(d => d.name), axisLabel: { color: "#dbeafe" } },
+    series: [{ type: "bar", data: mechanismCounts.map(d => d.value), itemStyle: { color: "#38bdf8" }, label: { show: true, position: "right", color: "#dbeafe" } }]
+  });
+
+  const confidenceCounts = countBy(rows, "confidence_level").reverse();
+  charts.mechanismConfidenceChart?.setOption({
+    tooltip: { trigger: "axis" },
+    grid: { left: 90, right: 24, top: 28, bottom: 28 },
+    xAxis: { type: "value", axisLabel: { color: "#9fb0d0" } },
+    yAxis: { type: "category", data: confidenceCounts.map(d => d.name), axisLabel: { color: "#dbeafe" } },
+    series: [{ type: "bar", data: confidenceCounts.map(d => d.value), itemStyle: { color: "#a78bfa" }, label: { show: true, position: "right", color: "#dbeafe" } }]
+  });
+}
+
+function renderMechanismCaseSelector() {
+  const rows = DATA.leapMechanismEnhanced || [];
+  if (!rows.length) {
+    setText("mechLeapIndexValue", "NA");
+    setText("mechPrimaryValue", "未加载");
+    setText("mechConfidenceValue", "NA");
+    setHtml("mechEvidenceStackBox", missingCsvMessage("leap_mechanism_enhanced.csv"));
+    setHtml("mechAlternativeBox", "暂无数据");
+    setHtml("mechInterpretationBox", "暂无数据");
+    return;
+  }
+
+  const country = document.getElementById("mechCountrySelect")?.value;
+  const sport = document.getElementById("mechSportSelect")?.value;
+  const year = +document.getElementById("mechYearSelect")?.value;
+  let matches = rows.filter(r => (!country || r.country_name === country) && (!sport || r.sport === sport) && (!year || +r.year === year));
+  if (!matches.length) matches = rows.filter(r => (!country || r.country_name === country) && (!sport || r.sport === sport));
+  const best = [...matches].sort((a, b) => toNum(b.olympic_leap_index) - toNum(a.olympic_leap_index))[0] || rows[0];
+
+  setText("mechLeapIndexValue", formatMetricValue(best.olympic_leap_index));
+  setText("mechPrimaryValue", best.candidate_primary_mechanism || "NA");
+  setText("mechConfidenceValue", best.confidence_level || "NA");
+  setHtml("mechEvidenceStackBox", best.evidence_stack || best.supporting_signals || "暂无证据栈");
+  setHtml("mechAlternativeBox", best.alternative_explanations || "暂无替代解释");
+  setHtml("mechInterpretationBox", `${best.interpretation_text || "暂无解释文本"}\n\n${best.interpretation_scope_note || "解释范围：候选机制与证据支持，不构成因果证明。"}`);
+}
+
+function renderHostEffectLab() {
+  const rows = DATA.hostEffectPanel || [];
+  if (!rows.length) {
+    charts.hostEffectChart?.setOption({ title: { text: missingCsvMessage("host_effect_country_sport_panel.csv"), left: "center", top: "center", textStyle: { color: "#dbeafe", fontSize: 13 } } });
+    setText("hostLiftPreValue", "NA");
+    setText("hostLiftPeersValue", "NA");
+    setText("hostStrengthValue", "未加载");
+    setHtml("hostInterpretationBox", "暂无数据");
+    return;
+  }
+
+  const year = +document.getElementById("hostYearSelect")?.value;
+  const country = document.getElementById("hostCountrySelect")?.value;
+  const sport = document.getElementById("hostSportSelect")?.value;
+  let matches = rows.filter(r => (!year || +r.host_year === year) && (!country || r.host_country === country) && (!sport || r.sport === sport));
+  if (!matches.length) matches = rows.filter(r => (!year || +r.host_year === year) && (!country || r.host_country === country));
+  const row = [...matches].sort((a, b) => toNum(b.host_lift_vs_baseline) - toNum(a.host_lift_vs_baseline))[0] || rows[0];
+
+  const labels = [`pre ${row.pre_year || ""}`, `host ${row.host_year || ""}`, `post ${row.post_year || ""}`];
+  const medals = [row.pre_host_medals, row.host_year_medals, row.post_host_medals].map(v => v === "" || v === null || v === undefined ? null : toNum(v));
+  const shares = [row.pre_country_share_in_sport, row.host_country_share_in_sport, row.post_country_share_in_sport].map(v => v === "" || v === null || v === undefined ? null : toNum(v));
+
+  charts.hostEffectChart?.setOption({
+    tooltip: { trigger: "axis" },
+    legend: { top: 0, textStyle: { color: "#dbeafe" } },
+    grid: { left: 54, right: 54, top: 42, bottom: 36 },
+    xAxis: { type: "category", data: labels, axisLabel: { color: "#dbeafe" } },
+    yAxis: [
+      { type: "value", name: "medals", axisLabel: { color: "#9fb0d0" } },
+      { type: "value", name: "share", axisLabel: { color: "#9fb0d0" } }
+    ],
+    series: [
+      { name: "host medals", type: "bar", data: medals, itemStyle: { color: "#22c55e" } },
+      { name: "country share in sport", type: "line", yAxisIndex: 1, data: shares, smooth: true, itemStyle: { color: "#f59e0b" } }
+    ]
+  });
+
+  setText("hostLiftPreValue", formatMetricValue(row.host_lift_vs_pre));
+  setText("hostLiftPeersValue", formatMetricValue(row.host_lift_vs_peers));
+  setText("hostStrengthValue", row.host_effect_strength || "NA");
+  setHtml("hostInterpretationBox", row.host_effect_interpretation || "主办国效应候选证据；该图不表示严格因果识别。");
+}
+
+function renderGenderDecompositionLab() {
+  const rows = DATA.genderGrowthDecomposition || [];
+  if (!rows.length) {
+    charts.genderDecompositionChart?.setOption({ title: { text: missingCsvMessage("country_gender_growth_decomposition.csv"), left: "center", top: "center", textStyle: { color: "#dbeafe", fontSize: 13 } } });
+    setText("genderDriverValue", "未加载");
+    setText("genderConfidenceValue", "NA");
+    setText("genderGrowthValue", "NA");
+    setHtml("genderInterpretationBox", "暂无数据");
+    return;
+  }
+
+  const country = document.getElementById("genderCountrySelect")?.value;
+  const period = document.getElementById("genderPeriodSelect")?.value;
+  const [start, end] = String(period || "").split("-").map(Number);
+  let matches = rows.filter(r => (!country || r.country_name === country) && (!start || +r.period_start === start) && (!end || +r.period_end === end));
+  if (!matches.length) matches = rows.filter(r => !country || r.country_name === country);
+  const row = [...matches].sort((a, b) => Math.abs(toNum(b.female_medal_growth_total)) - Math.abs(toNum(a.female_medal_growth_total)))[0] || rows[0];
+
+  const fields = ["opportunity_expansion_component", "participation_expansion_component", "conversion_improvement_component", "unexplained_component"];
+  const labels = ["机会增加", "参赛结构", "转化改善", "未解释"];
+  charts.genderDecompositionChart?.setOption({
+    tooltip: { trigger: "axis" },
+    grid: { left: 58, right: 24, top: 28, bottom: 42 },
+    xAxis: { type: "category", data: labels, axisLabel: { color: "#dbeafe" } },
+    yAxis: { type: "value", axisLabel: { color: "#9fb0d0" } },
+    series: [{ type: "bar", data: fields.map(f => toNum(row[f])), itemStyle: { color: p => ["#38bdf8", "#22c55e", "#f59e0b", "#94a3b8"][p.dataIndex] }, label: { show: true, position: "top", color: "#dbeafe" } }]
+  });
+
+  setText("genderDriverValue", row.dominant_growth_driver || "NA");
+  setText("genderConfidenceValue", row.decomposition_confidence || "NA");
+  setText("genderGrowthValue", formatMetricValue(row.female_medal_growth_total));
+  setHtml("genderInterpretationBox", row.interpretation_text || "这是描述性 shift-share 分解，不是因果识别。");
+}
+
+function renderModernSportOpportunity() {
+  const rows = DATA.sportEntryBarrierModern || [];
+  if (!rows.length) {
+    charts.modernBarrierChart?.setOption({ title: { text: missingCsvMessage("sport_entry_barrier_modern.csv"), left: "center", top: "center", textStyle: { color: "#dbeafe", fontSize: 13 } } });
+    return;
+  }
+
+  const top = [...rows].sort((a, b) => toNum(b.breakthrough_friendliness_index_modern) - toNum(a.breakthrough_friendliness_index_modern)).slice(0, 15).reverse();
+  charts.modernBarrierChart?.setOption({
+    tooltip: {
+      trigger: "axis",
+      formatter: params => {
+        const p = params[0];
+        const row = top[p.dataIndex];
+        return `${escapeHtml(row.sport)}<br/>friendliness: ${formatMetricValue(row.breakthrough_friendliness_index_modern)}<br/>type: ${escapeHtml(row.modern_sport_type || "NA")}<br/>${escapeHtml(row.recommendation_note || "")}`;
+      }
+    },
+    grid: { left: 160, right: 34, top: 24, bottom: 30 },
+    xAxis: { type: "value", axisLabel: { color: "#9fb0d0" } },
+    yAxis: { type: "category", data: top.map(r => r.sport), axisLabel: { color: "#dbeafe" } },
+    series: [{ type: "bar", data: top.map(r => toNum(r.breakthrough_friendliness_index_modern)), itemStyle: { color: "#14b8a6" }, label: { show: true, position: "right", color: "#dbeafe" } }]
+  });
+}
+
+function renderMechanismCaseCards() {
+  const rows = DATA.mechanismCaseCards || [];
+  const box = document.getElementById("mechanismCaseCards");
+  if (!box) return;
+  if (!rows.length) {
+    box.innerHTML = `<div class="message-box">${escapeHtml(missingCsvMessage("mechanism_case_cards.csv"))}</div>`;
+    return;
+  }
+
+  box.innerHTML = rows.map(r => `
+    <div class="case-card">
+      <div class="case-meta">${escapeHtml(r.year_or_period || "")} · ${escapeHtml(r.country_name || "")} · ${escapeHtml(r.sport || "multi-sport")}</div>
+      <h3>${escapeHtml(r.case_title || r.case_id || "案例")}</h3>
+      <p>${escapeHtml(r.phenomenon_summary || "")}</p>
+      <p><strong>候选机制：</strong>${escapeHtml(r.candidate_mechanism || "NA")}</p>
+      <p><strong>置信度：</strong>${escapeHtml(r.confidence_level || "NA")}</p>
+      <p><strong>证据栈：</strong>${escapeHtml(r.evidence_stack || "暂无")}</p>
+      <p><strong>需要外部补充：</strong>${escapeHtml(r.external_evidence_needed || "需要外部补充")}</p>
+    </div>
+  `).join("");
+}
+
+function escapeHtml(value) {
+  return String(value ?? "").replace(/[&<>"']/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
+}
+
+// ========== DeepSeek 流式代理（通过本地后端） ==========
+async function callDeepSeekStream(systemPrompt, userPrompt, onChunk, onDone) {
+    const response = await fetch('/api/deepseek/stream', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            model: 'deepseek-chat',
+            messages: [
+                { role: 'system', content: systemPrompt },
+                { role: 'user', content: userPrompt }
+            ],
+            temperature: 0.7,
+            max_tokens: 2000
+        })
+    });
+
+    if (!response.ok) {
+        const err = await response.json().catch(() => ({}));
+        onChunk(`❌ 请求失败：${err.error || response.statusText}`);
+        if (onDone) onDone();
+        return;
+    }
+
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = '';
+
+    while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n');
+        buffer = lines.pop() || '';
+        for (const line of lines) {
+            if (!line.startsWith('data: ')) continue;
+            const content = line.slice(6).trim();
+            if (content === '[DONE]') {
+                if (onDone) onDone();
+                return;
+            }
+            try {
+                const json = JSON.parse(content);
+                const delta = json.choices?.[0]?.delta?.content;
+                if (delta) onChunk(delta);
+            } catch (e) { /* 忽略解析错误 */ }
+        }
+    }
+    if (onDone) onDone();
+}
+
+// ========== AI 国家洞察（流式） ==========
+async function renderAICountryInsight() {
+    const country = document.getElementById('countrySelect').value;
+    const metric = document.getElementById('countryMetric').value;
+    const start   = document.getElementById('countryStart').value;
+    const container = document.getElementById('countryInsight');
+    container.innerHTML = '<span class="streaming-text">⏳ 正在分析...</span>';
+
+    const sys = '你是一位奥运体育数据分析专家，请用中文回答问题。要求:精简凝练，抓住重点，【以纯文本形式输出，不要输出markdown，小标题用“【】”框框住】。';
+    const user = `请根据下方的奥运数据，对 ${country} 从 ${start} 年至今的奥运竞争力进行全面分析，查看指标为 ${metric === 'gold_medals' ? '金牌' : '总奖牌'}。分析包括奖牌趋势、优势项目、跃迁事件、效率评价和未来建议。\n${buildCountryDataPrompt(country, metric)}`;
+
+    let fullText = '';
+    await callDeepSeekStream(sys, user, (chunk) => {
+        fullText += chunk.replace(/\n/g, '<br>');
+        container.innerHTML = fullText;
+        container.scrollTop = container.scrollHeight;
+    });
+}
+
+// ========== AI 顾问自定义提问 ==========
+async function askCustomAiQuestion() {
+    const question = document.getElementById('customAiQuestion').value.trim();
+    if (!question) return;
+    const container = document.getElementById('qaAnswer');
+    container.innerHTML = '<span class="streaming-text">⏳ 思考中...</span>';
+
+    const sys = '你是一位奥运体育数据分析专家，请用中文回答。回答可以长但是请不要废话。【以纯文本形式输出，不要输出markdown】';
+    const user = `${question}\n请基于下方提供的奥运数据快照回答。\n${buildFullDataSnapshot()}`;
+
+    let fullText = '';
+    await callDeepSeekStream(sys, user, (chunk) => {
+        fullText += chunk.replace(/\n/g, '<br>');
+        container.innerHTML = fullText;
+        container.scrollTop = container.scrollHeight;
+    });
+}
+
+// ========== 构建上下文的辅助函数 ==========
+function buildCountryDataPrompt(country, metric) {
+    const rows = DATA.countryYear.filter(d => d.country_name === country).sort((a,b) => a.year-b.year);
+    const sportRows = DATA.countrySportYear.filter(d => d.country_name === country);
+    // 返回精简后的 JSON 字符串，避免超长
+    return JSON.stringify({
+        yearly: rows.map(d => ({ year: d.year, total: d.total_medals, gold: d.gold_medals, rank: d.rank_total_medals })),
+        top_sports: groupSum(sportRows, ['sport'], metric).sort((a,b) => b[metric]-a[metric]).slice(0,10)
+    });
+}
+
+function buildLeapDataPrompt(country, sport) {
+    const leaps = DATA.leap.filter(d => d.country_name === country && d.sport === sport).sort((a,b) => a.year-b.year);
+    return JSON.stringify(leaps.map(d => ({
+        year: d.year,
+        medals: d.total_medals,
+        gold: d.gold_medals,
+        leap_index: d.olympic_leap_index,
+        host_effect: d.host_effect_score,
+        event_expansion: d.event_expansion_effect_score
+    })));
+}
+
+function buildFullDataSnapshot() {
+    // 返回所有表格的简要摘要（复用原来的 buildFullDataSnapshot 或重写一个）
+    // 这里简单给出几个关键表的前几条
+    return JSON.stringify({
+        recent_top_countries: groupSum(DATA.countryYear.filter(d => +d.year===2024), ['country_name'], 'total_medals').sort((a,b)=>b.total_medals-a.total_medals).slice(0,10),
+        top_leaps: topN(DATA.leap, 'olympic_leap_index', 5),
+        small_country_eff: (DATA.multiEfficiency||[]).filter(d=>toNum(d.population)<1e7 && toNum(d.medals_per_million_people)>0).sort((a,b)=>b.medals_per_million_people-a.medals_per_million_people).slice(0,5)
+    });
+}
+
+fetch('/api/health')
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === 'ok') {
+            document.getElementById('kpiAIStatus').textContent = '已连接';
+            document.getElementById('kpiAIStatus').style.color = '#34d399';
+        } else {
+            document.getElementById('kpiAIStatus').textContent = '异常';
+            document.getElementById('kpiAIStatus').style.color = '#fb7185';
+        }
+    })
+    .catch(() => {
+        document.getElementById('kpiAIStatus').textContent = '未连接';
+        document.getElementById('kpiAIStatus').style.color = '#fb7185';
+    });
+
+// ---------- 智能体管理 ----------
+let currentAgent = 'strategy'; // 默认
+
+function switchAgent(agent) {
+    currentAgent = agent;
+    // 更新标签样式
+    document.querySelectorAll('.agent-tab').forEach(btn => btn.classList.remove('active'));
+    document.getElementById(`btnAgent${agent.charAt(0).toUpperCase() + agent.slice(1)}`).classList.add('active');
+
+    // 清空回答区
+    document.getElementById('agentAnswer').innerHTML = '';
+
+    // 渲染不同面板
+    const panel = document.getElementById('agentPanel');
+    const radarCard = document.getElementById('strategyRadarCard');
+
+    if (agent === 'strategy') {
+        panel.innerHTML = `
+            <div class="grid grid-2" style="margin-top:18px;">
+                <div class="card">
+                    <div class="card-title"><h3>策略顾问</h3><span>选择合适的国家与目标</span></div>
+                    <div class="toolbar">
+                        <label>国家 <select id="strategyCountry"><option value="China">China</option></select></label>
+                        <label>目标 <select id="strategyGoal">
+                            <option value="gold">提高金牌</option>
+                            <option value="total">提高总奖牌</option>
+                            <option value="breakthrough">小国突破</option>
+                            <option value="female">女性项目机会</option>
+                        </select></label>
+                        <label>资源投入 <select id="strategyResource">
+                            <option value="low">低</option>
+                            <option value="mid" selected>中</option>
+                            <option value="high">高</option>
+                        </select></label>
+                        <button onclick="renderStrategyAdvice()" style="border:0;border-radius:12px;padding:10px 14px;cursor:pointer;background:#7dd3fc;color:#07111f;font-weight:700;">发送</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title"><h3>快速推荐</h3><span>基于规则计算</span></div>
+                    <div id="quickRecText" class="insight">选择参数后点击获取策略</div>
+                    <div class="pill-row" id="quickRecPills"></div>
+                </div>
+            </div>
+        `;
+        radarCard.style.display = 'block';
+        // 初始化下拉选项
+        fillSelect('strategyCountry', getCountries(), 'China');
+    } else if (agent === 'data') {
+        panel.innerHTML = `
+            <div class="card" style="margin-top:18px;">
+                <div class="card-title"><h3>数据阐述</h3><span>直接回答具体数据</span></div>
+                <div class="toolbar">
+                    <label>国家 <select id="dataCountry"><option value="">不限</option></select></label>
+                    <label>项目 <select id="dataSport"><option value="">不限</option></select></label>
+                </div>
+                <textarea id="dataQuestion" rows="2" style="width:100%; margin-top:8px; border-radius:12px; padding:10px; background:rgba(0,0,0,0.3); color:var(--text); border:1px solid var(--line);" placeholder="例如：列出2008-2020年中国体操的金牌变化"></textarea>
+                <button onclick="renderDataExplanation()" style="border:0;border-radius:12px;padding:10px 14px;cursor:pointer;background:#7dd3fc;color:#07111f;font-weight:700;">发送</button>
+            </div>
+        `;
+        radarCard.style.display = 'none';
+        fillSelect('dataCountry', [''].concat(getCountries()), '');
+        fillSelect('dataSport', [''].concat(getSports()), '');
+    } else if (agent === 'general') {
+        panel.innerHTML = `
+            <div class="card" style="margin-top:18px;">
+                <div class="card-title"><h3>一般问答</h3><span>快问快答，精简回答</span></div>
+                <textarea id="generalQuestion" rows="2" style="width:100%; border-radius:12px; padding:10px; background:rgba(0,0,0,0.3); color:var(--text); border:1px solid var(--line);" placeholder="输入任何有关奥运数据的问题"></textarea>
+                <button onclick="askGeneralQuestion()" style="border:0;border-radius:12px;padding:10px 14px;cursor:pointer;background:#7dd3fc;color:#07111f;font-weight:700;">发送</button>
+            </div>
+        `;
+        radarCard.style.display = 'none';
+    }
+}
+
+// 页面加载后默认显示策略顾问
+document.addEventListener('DOMContentLoaded', () => {
+    switchAgent('strategy');
+});
+
+// 策略顾问 - 调用 DeepSeek 给出定制策略
+async function renderStrategyAdvice() {
+    const country = document.getElementById('strategyCountry').value;
+    const goal = document.getElementById('strategyGoal').value;
+    const resource = document.getElementById('strategyResource').value;
+    const container = document.getElementById('agentAnswer');
+    container.innerHTML = '⏳ 正在生成策略...';
+
+    const goalMap = {
+        gold: '最大化金牌数量',
+        total: '最大化总奖牌数',
+        breakthrough: '实现奖牌零的突破或历史最佳',
+        female: '重点发展女子项目'
+    };
+    const resourceMap = {
+        low: '资源非常有限（预算少、体育人口小）',
+        mid: '资源中等（有一定投入）',
+        high: '资源充足（体育大国）'
+    };
+
+    const sys = '你是一位国家奥委会策略顾问，擅长基于历史数据提出体育投资策略。请用中文分点回答，【以纯文本形式输出，不要输出markdown】，小标题用【】括起来，避免空泛。';
+    const user = `国家：${country}\n目标：${goalMap[goal]}\n资源水平：${resourceMap[resource]}\n请根据以下该国的奥运历史数据，提出具体的项目投资建议、可行性分析和风险提示。\n${buildCountryDataPrompt(country, 'total_medals')}`;
+
+    let fullText = '';
+    await callDeepSeekStream(sys, user, (chunk) => {
+        fullText += chunk.replace(/\n/g, '<br>');
+        container.innerHTML = fullText;
+        container.scrollTop = container.scrollHeight;
+    });
+
+    // 同时更新快速推荐（沿用旧版算法）
+    updateQuickRecommendation(country, goal, resource);
+}
+
+// 数据阐述 - 精确查询
+async function renderDataExplanation() {
+    const country = document.getElementById('dataCountry').value;
+    const sport = document.getElementById('dataSport').value;
+    const question = document.getElementById('dataQuestion').value.trim();
+    const container = document.getElementById('agentAnswer');
+    if (!question && !country && !sport) {
+        container.innerHTML = '请至少选择国家/项目或输入问题。';
+        return;
+    }
+    container.innerHTML = '⏳ 正在查询数据...';
+
+    // 构建数据上下文
+    let dataSnapshot = '';
+    if (country) {
+        dataSnapshot += `国家“${country}”的奖牌趋势（最近10届）：\n${JSON.stringify(DATA.countryYear.filter(d=>d.country_name===country).slice(-10).map(d=>({year:d.year,total:d.total_medals,gold:d.gold_medals})))}\n\n`;
+    }
+    if (sport) {
+        const rows = DATA.sportShare.filter(d => d.sport === sport && (!country || d.country_name===country));
+        dataSnapshot += `项目“${sport}”的奖牌分布：\n${JSON.stringify(rows.slice(0,20).map(d=>({year:d.year,country:d.country_name,share:d.country_medal_share_in_sport})))}\n\n`;
+    }
+    if (!dataSnapshot) dataSnapshot = buildFullDataSnapshot(); // fallback
+
+    const sys = '你是一个奥运数据查询专家，回答基于提供的数据（若数据明显缺失，可以进行搜索，但必须确保准确），直接给出具体数字和事实。【以纯文本形式输出，不要输出markdown】。';
+    const user = `${question || '请总结该数据'}\n数据：\n${dataSnapshot}`;
+
+    let fullText = '';
+    await callDeepSeekStream(sys, user, (chunk) => {
+        fullText += chunk.replace(/\n/g, '<br>');
+        container.innerHTML = fullText;
+        container.scrollTop = container.scrollHeight;
+    });
+}
+
+// 一般问答 - 精简回复
+async function askGeneralQuestion() {
+    const question = document.getElementById('generalQuestion').value.trim();
+    if (!question) return;
+    const container = document.getElementById('agentAnswer');
+    container.innerHTML = '⏳ 思考中...';
+
+    const sys = '你是一位友好的奥运知识助手，请用中文精简回答，必要时可以进行搜索。【以纯文本形式输出，不要输出markdown】，如果问题超出奥运数据范围，可以礼貌说明。';
+    const user = `${question}\n（可参考以下数据：${buildFullDataSnapshot()}）`;
+
+    let fullText = '';
+    await callDeepSeekStream(sys, user, (chunk) => {
+        fullText += chunk.replace(/\n/g, '<br>');
+        container.innerHTML = fullText;
+        container.scrollTop = container.scrollHeight;
+    });
+}
+
+// 快速推荐更新（复用原有算法，但不再调用 renderAIAdvisor）
+function updateQuickRecommendation(country, goal, resource) {
+    const rows = DATA.countrySportYear.filter(d => d.country_name === country);
+    const leapRows = DATA.leap.filter(d => d.country_name === country);
+    const sportScore = new Map();
+    rows.forEach(r => {
+        const s = r.sport;
+        sportScore.set(s, (sportScore.get(s) || 0) + toNum(r.total_medals) + 1.8 * toNum(r.gold_medals));
+    });
+    leapRows.forEach(r => {
+        const s = r.sport;
+        sportScore.set(s, (sportScore.get(s) || 0) + 1.5 * toNum(r.olympic_leap_index));
+    });
+    let rec = [...sportScore.entries()].sort((a,b) => b[1]-a[1]).slice(0,5).map(d => d[0]);
+    if (!rec.length) rec = ['Athletics', 'Swimming'];
+
+    document.getElementById('quickRecText').innerHTML = `基于规则综合评分，推荐优先关注：<strong>${rec.join('、')}</strong>。`;
+    document.getElementById('quickRecPills').innerHTML = rec.map(s => `<span class="pill">${s}</span>`).join('');
+
+    // 更新雷达图
+    const radarChart = charts.advisorRadar;
+    if (radarChart) {
+        radarChart.setOption({
+            radar: {
+                indicator: [
+                    { name: '历史基础', max: 100 },
+                    { name: '跃迁潜力', max: 100 },
+                    { name: '竞争门槛', max: 100 },
+                    { name: '项目机会', max: 100 },
+                    { name: '资源匹配', max: 100 }
+                ],
+                axisName: { color: "#dbeafe" }
+            },
+            series: [{
+                type: 'radar',
+                data: rec.slice(0,3).map((s, i) => ({
+                    name: s,
+                    value: [
+                        Math.min(100, 40 + (sportScore.get(s) || 20) % 60),
+                        80 - i * 10,
+                        55 + i * 8,
+                        70 - i * 6,
+                        resource === 'high' ? 85 : resource === 'mid' ? 70 : 55
+                    ],
+                    areaStyle: {}
+                }))
+            }]
+        });
+    }
+}
+function renderAIAdvisor() {}
+
+window.addEventListener("resize", () => Object.values(charts).forEach(c => c.resize()));
+// 等待世界地图脚本尝试加载完成后，再读取数据和渲染；避免地图脚本还没加载完就判定失败。
+Promise.resolve(window.__worldMapReady).then(() => reloadFromOutputs());
+</script>
+</body>
+</html>
