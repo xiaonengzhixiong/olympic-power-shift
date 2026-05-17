@@ -2,6 +2,9 @@ import os
 import json
 import requests
 from flask import Flask, request, Response, stream_with_context
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__, static_folder='.', static_url_path='')
 DEEPSEEK_API_KEY = os.environ.get('DEEPSEEK_API_KEY')
